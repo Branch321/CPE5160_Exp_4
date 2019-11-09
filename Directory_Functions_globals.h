@@ -2,11 +2,11 @@
 #define _Directory_Func_H
 
 #include "Main.H"
-#include "Directory_Functions_struct.h"
+//#include "Directory_Functions_struct.h"
 
 //------- Public Constants  -----------------------------------------
-/*
-#define FAT32 (4)
+
+/*#define FAT32 (4)
 #define FAT16 (2)
 #define FAT32_shift (2)
 #define FAT16_shift (1)

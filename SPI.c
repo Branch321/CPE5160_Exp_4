@@ -63,7 +63,7 @@ CAUTION: Waits for the SPI transfer to be complete
 
 uint8_t SPI_Transfer(uint8_t data_input, uint8_t * data_output_p)
 {
-   uint8_t test, timeout;
+   uint16_t test, timeout;
    timeout=0;
    SPDAT=data_input;
    do

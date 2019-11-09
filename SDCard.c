@@ -98,14 +98,16 @@ CAUTION: Used to capture SD card response
 ************************************************************************/
 uint8_t response(uint8_t num_bytes, uint8_t * valout_p)
 {
-   uint8_t index,return_val,error_flag, SPI_return;
+   uint8_t return_val,error_flag, SPI_return;
+   uint16_t index = 0;
 
    return_val=no_errors;
    do
    {
       error_flag=SPI_Transfer(0xFF,&SPI_return);
+	  //printf("%X\r\n",SPI_return);
       index++;
-   }while(((SPI_return&0x80)==0x80)&&(index!=0)&&(error_flag==no_errors));
+   }while((SPI_return==0xFF)&&(index!=0)&&(error_flag==no_errors));
    if(error_flag!=no_errors)
    {
       return_val=SPI_error;

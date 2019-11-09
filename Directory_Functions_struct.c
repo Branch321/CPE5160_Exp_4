@@ -9,7 +9,7 @@
 #include "print_bytes.h"
 #include "Directory_Functions_struct.h"
 #include "Read_Sector.h"
-#include "Directory_Functions_globals.h"
+//#include "Directory_Functions_globals.h"
 
 
 FS_values_t idata Drive_values;

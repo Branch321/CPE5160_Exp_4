@@ -1,4 +1,4 @@
-C51 COMPILER V6.02  DIRECTORY_FUNCTIONS_GLOBALS                                            11/09/2019 12:06:27 PAGE 1   
+C51 COMPILER V6.02  DIRECTORY_FUNCTIONS_GLOBALS                                            11/09/2019 12:40:46 PAGE 1   
 
 
 C51 COMPILER V6.02, COMPILATION OF MODULE DIRECTORY_FUNCTIONS_GLOBALS
@@ -62,7 +62,7 @@ stmt level    source
   53   2         }
   54   1         Sector=Sector_num;
   55   1         error_flag=Read_Sector(Sector, BytesPerSec_g, values);
-C51 COMPILER V6.02  DIRECTORY_FUNCTIONS_GLOBALS                                            11/09/2019 12:06:27 PAGE 2   
+C51 COMPILER V6.02  DIRECTORY_FUNCTIONS_GLOBALS                                            11/09/2019 12:40:46 PAGE 2   
 
   56   1         if(error_flag==no_errors)
   57   1         {
@@ -126,7 +126,7 @@ stmt level    source
  115   5      			  entries=entries|more_entries;  // set msb to indicate more entries in another cluster
  116   5      			  temp8=0;                       // forces a function exit
  117   5      		  }
-C51 COMPILER V6.02  DIRECTORY_FUNCTIONS_GLOBALS                                            11/09/2019 12:06:27 PAGE 3   
+C51 COMPILER V6.02  DIRECTORY_FUNCTIONS_GLOBALS                                            11/09/2019 12:40:46 PAGE 3   
 
  118   4      		}
  119   3             
@@ -190,7 +190,7 @@ stmt level    source
  177   7      				   return_clus&=0x0F;            // makes sure upper four bits are clear
  178   7      				   return_clus=return_clus<<8;
  179   7                         return_clus|=read8(20+i,values);
-C51 COMPILER V6.02  DIRECTORY_FUNCTIONS_GLOBALS                                            11/09/2019 12:06:27 PAGE 4   
+C51 COMPILER V6.02  DIRECTORY_FUNCTIONS_GLOBALS                                            11/09/2019 12:40:46 PAGE 4   
 
  180   7                         return_clus=return_clus<<8;
  181   7                      }

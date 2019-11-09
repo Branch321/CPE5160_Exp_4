@@ -12,7 +12,7 @@
 #include "Timer0_hardware_delay_1ms.h"
 #include "Outputs.h"
 #include "LED_Control.h"
-#include "Directory_Functions_globals.h"
+//#include "Directory_Functions_globals.h"
 
 
 uint8_t code SD_start[]="SD Card Init...";
@@ -69,7 +69,8 @@ main()
       while(1);
    }
    LEDS_OFF(Amber_LED);
-   error_flag=SPI_Master_Init(20000000UL);
+   error_flag=SPI_Master_Init(400000UL);
+   printf("Am I making it here?");
    if(error_flag!=no_errors)
    {
       LEDS_ON(Red_LED);  // An error causes the program to stop

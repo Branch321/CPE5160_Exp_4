@@ -1,4 +1,4 @@
-C51 COMPILER V6.02  SPI                                                                    11/09/2019 12:06:30 PAGE 1   
+C51 COMPILER V6.02  SPI                                                                    11/09/2019 16:56:58 PAGE 1   
 
 
 C51 COMPILER V6.02, COMPILATION OF MODULE SPI
@@ -62,7 +62,7 @@ stmt level    source
   53   1      }
   54          
   55          /***********************************************************************
-C51 COMPILER V6.02  SPI                                                                    11/09/2019 12:06:30 PAGE 2   
+C51 COMPILER V6.02  SPI                                                                    11/09/2019 16:56:58 PAGE 2   
 
   56          DESC:    Sends one byte using the SPI port and returns the received byte
   57                    
@@ -74,7 +74,7 @@ stmt level    source
   63          
   64          uint8_t SPI_Transfer(uint8_t data_input, uint8_t * data_output_p)
   65          {
-  66   1         uint8_t test, timeout;
+  66   1         uint16_t test, timeout;
   67   1         timeout=0;
   68   1         SPDAT=data_input;
   69   1         do
@@ -125,13 +125,13 @@ stmt level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    200    ----
-C51 COMPILER V6.02  SPI                                                                    11/09/2019 12:06:30 PAGE 3   
+   CODE SIZE        =    218    ----
+C51 COMPILER V6.02  SPI                                                                    11/09/2019 16:56:58 PAGE 3   
 
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =   ----       1
+   DATA SIZE        =   ----       3
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.
