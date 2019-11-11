@@ -35,6 +35,42 @@ CAUTION: Supports FAT16, SD_shift must be set before using this function
 ************************************************************************/
 
 
+uint8_t read8(uint16_t offset, uint8_t * array_name);
+{
+	uint8_t return_value;
+	return_value = array_name[offset];
+	return return_value;
+
+}
+
+uint16_t read16(uint16_t offset, uint8_t * array_name);
+{
+	uint8_t temp_array[2];
+	uint16_t return_value;
+	uint8_t size = sizeof(uint16_t);
+
+	for(int i = 0; i < size; i++)
+	{
+		temp_array[size-1-i] = array_name[i + offset];
+	}
+	memcpy( temp_array, return_value, sizeof(uint16_t));
+	return return_value;
+}
+
+uint32_t read32(uint16_t offset, uint8_t * array_name);
+{
+	uint8_t temp_array[4];
+	uint32_t return_value;
+	uint8_t size = sizeof(uint32_t);
+
+	for(int i = 0; i < size; i++)
+	{
+		temp_array[size-1-i] = array_name[i + offset];
+	}
+	memcpy( temp_array, return_value, sizeof(uint16_t));
+	return return_value;
+}
+
 
 uint16_t  Print_Directory(uint32_t Sector_num, uint8_t xdata * array_in)
 { 
