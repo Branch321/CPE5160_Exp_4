@@ -13,7 +13,8 @@
 #include "Outputs.h"
 #include "LED_Control.h"
 #include "Directory_Functions_struct.h"
-
+#include "Read_Sector.h"
+#include <stdio.h>
 
 uint8_t code SD_start[]="SD Card Init...";
 uint8_t code SDSC[]="Std. Capacity";
@@ -98,22 +99,25 @@ main()
       block_num=long_serial_input();
       LBA=block_num<<SD_stat;
 	  LEDS_ON(Green_LED);
-	  SPI_Select_Clear(SD_Card_Select);
-      error_flag=SEND_COMMAND(CMD17,LBA);
+	  //SPI_Select_Clear(SD_Card_Select);
+      //error_flag=SEND_COMMAND(CMD17,LBA);
       if(error_flag!=no_errors)
       {
          LEDS_ON(Red_LED);  // An error causes the program to stop
          while(1);
       }
-      error_flag=read_block(512,buf1);
+      //error_flag=read_block(512,buf1);
+	  //error_flag = Read_Sector(0,512,buf1);
+	  error_flag = Mount_Drive(buf1);
 	  LEDS_OFF(Green_LED);
-	  SPI_Select_Set(SD_Card_Select);
+	  //SPI_Select_Set(SD_Card_Select);
       if(error_flag!=no_errors)
       {
          LEDS_ON(Red_LED);  // An error causes the program to stop
          while(1);
       }
       print_memory(buf1,512);
+	  //Mount_Drive(buf1);
    }
 } 
 
