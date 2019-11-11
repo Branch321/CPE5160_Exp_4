@@ -9,7 +9,7 @@
 uint8_t Read_Sector(uint32_t sector_number,uint16_t sector_size, uint8_t * array_for_data)
 {
 	uint8_t SDtype,error_flag=No_Disk_Error;
-	printf("Am I reaching here");
+
 	SDtype=Return_SD_Card_Type(); // HC=0, no change to sector number
 // SC=9, multiplies sector number by 512 to convert to byte addr.
 	SPI_Select_Clear(SD_Card_Select);

@@ -1,4 +1,4 @@
-C51 COMPILER V6.02  SD_CARD_TEST                                                           11/11/2019 16:09:11 PAGE 1   
+C51 COMPILER V6.02  SD_CARD_TEST                                                           11/11/2019 16:48:53 PAGE 1   
 
 
 C51 COMPILER V6.02, COMPILATION OF MODULE SD_CARD_TEST
@@ -62,7 +62,7 @@ stmt level    source
   53   1      
   54   1         printf("SD Card Test Program\n\r\n\n");
   55   1         LCD_Print(line1,0,SD_start);   
-C51 COMPILER V6.02  SD_CARD_TEST                                                           11/11/2019 16:09:11 PAGE 2   
+C51 COMPILER V6.02  SD_CARD_TEST                                                           11/11/2019 16:48:53 PAGE 2   
 
   56   1         error_flag=SPI_Master_Init(400000UL);
   57   1         if(error_flag!=no_errors)
@@ -118,27 +118,28 @@ stmt level    source
  107   3               while(1);
  108   3            }
  109   2            //error_flag=read_block(512,buf1);
- 110   2      	  error_flag = Read_Sector(0,512,buf1);
- 111   2      	  LEDS_OFF(Green_LED);
- 112   2      	  //SPI_Select_Set(SD_Card_Select);
- 113   2            if(error_flag!=no_errors)
- 114   2            {
- 115   3               LEDS_ON(Red_LED);  // An error causes the program to stop
- 116   3               while(1);
- 117   3            }
-C51 COMPILER V6.02  SD_CARD_TEST                                                           11/11/2019 16:09:11 PAGE 3   
+ 110   2      	  //error_flag = Read_Sector(0,512,buf1);
+ 111   2      	  error_flag = Mount_Drive(buf1);
+ 112   2      	  LEDS_OFF(Green_LED);
+ 113   2      	  //SPI_Select_Set(SD_Card_Select);
+ 114   2            if(error_flag!=no_errors)
+ 115   2            {
+ 116   3               LEDS_ON(Red_LED);  // An error causes the program to stop
+ 117   3               while(1);
+C51 COMPILER V6.02  SD_CARD_TEST                                                           11/11/2019 16:48:53 PAGE 3   
 
- 118   2            print_memory(buf1,512);
- 119   2      	  //Mount_Drive(buf1);
- 120   2         }
- 121   1      } 
- 122          
+ 118   3            }
+ 119   2            print_memory(buf1,512);
+ 120   2      	  //Mount_Drive(buf1);
+ 121   2         }
+ 122   1      } 
  123          
  124          
+ 125          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    359    ----
+   CODE SIZE        =    340    ----
    CONSTANT SIZE    =     84    ----
    XDATA SIZE       =    512    ----
    PDATA SIZE       =   ----    ----

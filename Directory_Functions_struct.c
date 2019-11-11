@@ -9,7 +9,7 @@
 #include "print_bytes.h"
 #include "Directory_Functions_struct.h"
 #include "Read_Sector.h"
-
+#include <string.h>
 
 FS_values_t idata Drive_values;
 
@@ -35,7 +35,7 @@ CAUTION: Supports FAT16, SD_shift must be set before using this function
 ************************************************************************/
 
 
-uint8_t read8(uint16_t offset, uint8_t * array_name);
+uint8_t read8(uint16_t offset, uint8_t * array_name)
 {
 	uint8_t return_value;
 	return_value = array_name[offset];
@@ -43,31 +43,33 @@ uint8_t read8(uint16_t offset, uint8_t * array_name);
 
 }
 
-uint16_t read16(uint16_t offset, uint8_t * array_name);
+uint16_t read16(uint16_t offset, uint8_t * array_name)
 {
 	uint8_t temp_array[2];
 	uint16_t return_value;
 	uint8_t size = sizeof(uint16_t);
+	uint8_t i;
 
-	for(int i = 0; i < size; i++)
+	for(i = 0; i < size; i++)
 	{
 		temp_array[size-1-i] = array_name[i + offset];
 	}
-	memcpy( temp_array, return_value, sizeof(uint16_t));
+	memcpy( &temp_array, &return_value, sizeof(uint16_t));
 	return return_value;
 }
 
-uint32_t read32(uint16_t offset, uint8_t * array_name);
+uint32_t read32(uint16_t offset, uint8_t * array_name)
 {
 	uint8_t temp_array[4];
 	uint32_t return_value;
 	uint8_t size = sizeof(uint32_t);
+	uint8_t i;
 
-	for(int i = 0; i < size; i++)
+	for(i = 0; i < size; i++)
 	{
 		temp_array[size-1-i] = array_name[i + offset];
 	}
-	memcpy( temp_array, return_value, sizeof(uint16_t));
+	memcpy( &temp_array, &return_value, sizeof(uint16_t));
 	return return_value;
 }
 
@@ -258,10 +260,25 @@ uint32_t Read_Dir_Entry(uint32_t Sector_num, uint16_t Entry, uint8_t xdata * arr
 uint8_t Mount_Drive(uint8_t xdata * array_name)
 {
 	uint8_t i;
+	uint8_t temp;
 	uint8_t error_flag;
-
-	error_flag = Read_Sector(0, 512, array_name);
 	
+	// Read in BPB or MBR
+	error_flag = Read_Sector(0, 512, array_name);
+	// Check for BPB or MBR
+	temp = read8(0,array_name);	
+	printf("Debug:: Offset 0 of Sector 0 is %x\r\n",temp);
+	if(temp!=0xEB||temp!=0xE9)
+	{
+		temp = read32(0x01C4,array_name);
+		printf("Debug:: Offset 0x01c6 of Sector 0 is %x\r\n",temp);
+		error_flag = Read_Sector(temp,512,array_name);
+		temp = read8(0,array_name);
+		printf("Debug:: Offset 0 of Relative Sectors is %x\r\n",temp);
+		if(temp!=0xEB||temp!=0xE9)
+			printf("Error BPB not Found!");
+	}
+
 	return error_flag;
 }
 

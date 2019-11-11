@@ -1,4 +1,4 @@
-C51 COMPILER V6.02  READ_SECTOR                                                            11/11/2019 16:09:14 PAGE 1   
+C51 COMPILER V6.02  READ_SECTOR                                                            11/11/2019 16:48:56 PAGE 1   
 
 
 C51 COMPILER V6.02, COMPILATION OF MODULE READ_SECTOR
@@ -18,7 +18,7 @@ stmt level    source
    9          uint8_t Read_Sector(uint32_t sector_number,uint16_t sector_size, uint8_t * array_for_data)
   10          {
   11   1      	uint8_t SDtype,error_flag=No_Disk_Error;
-  12   1      	printf("Am I reaching here");
+  12   1      
   13   1      	SDtype=Return_SD_Card_Type(); // HC=0, no change to sector number
   14   1      // SC=9, multiplies sector number by 512 to convert to byte addr.
   15   1      	SPI_Select_Clear(SD_Card_Select);
@@ -38,8 +38,8 @@ stmt level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     94    ----
-   CONSTANT SIZE    =     19    ----
+   CODE SIZE        =     85    ----
+   CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----      11
