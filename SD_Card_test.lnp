@@ -8,6 +8,8 @@
 "LCD_hardware_functions.obj",
 "Timer0_hardware_delay_1ms.obj",
 "Outputs.obj",
-"LED_Control.obj" 
+"LED_Control.obj",
+"Read_Sector.obj",
+"Directory_Functions_struct.obj" 
 TO "SD_Card_test" 
 RAMSIZE(256) 
