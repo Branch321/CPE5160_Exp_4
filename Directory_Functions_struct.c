@@ -45,29 +45,31 @@ uint8_t read8(uint16_t offset, uint8_t * array_name);
 
 uint16_t read16(uint16_t offset, uint8_t * array_name);
 {
-	uint8_t temp_array[2];
-	uint16_t return_value;
-	uint8_t size = sizeof(uint16_t);
+	uint32_t return_value;
+	uint8_t temp, index;
+	return_value=0;
 
-	for(int i = 0; i < size; i++)
+	for(index=0;index<2;index++)
 	{
-		temp_array[size-1-i] = array_name[i + offset];
+		temp=*(array_name+offset+(1-index));
+		return_value=return_value<<8;
+		return_value|=temp;
 	}
-	memcpy( temp_array, return_value, sizeof(uint16_t));
 	return return_value;
 }
 
 uint32_t read32(uint16_t offset, uint8_t * array_name);
 {
-	uint8_t temp_array[4];
 	uint32_t return_value;
-	uint8_t size = sizeof(uint32_t);
+	uint8_t temp, index;
+	return_value=0;
 
-	for(int i = 0; i < size; i++)
+	for(index=0;index<4;index++)
 	{
-		temp_array[size-1-i] = array_name[i + offset];
+		temp=*(array_name+offset+(3-index));
+		return_value=return_value<<8;
+		return_value|=temp;
 	}
-	memcpy( temp_array, return_value, sizeof(uint16_t));
 	return return_value;
 }
 
