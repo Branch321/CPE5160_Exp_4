@@ -17,7 +17,6 @@ File 1,1,<.\Timer0_hardware_delay_1ms.c><Timer0_hardware_delay_1ms.c>
 File 1,1,<.\Outputs.c><Outputs.c>
 File 1,1,<.\LED_Control.c><LED_Control.c>
 File 1,5,<.\AT89C51RC2.h><AT89C51RC2.h>
-File 1,5,<.\Directory_Functions_globals.h><Directory_Functions_globals.h>
 File 1,5,<.\Directory_Functions_struct.h><Directory_Functions_struct.h>
 File 1,5,<.\File_System.h><File_System.h>
 File 1,5,<.\LCD_hardware_functions.h><LCD_hardware_functions.h>
@@ -33,6 +32,8 @@ File 1,5,<.\SDCard.h><SDCard.h>
 File 1,5,<.\SPI.h><SPI.h>
 File 1,5,<.\Timer0_hardware_delay_1ms.h><Timer0_hardware_delay_1ms.h>
 File 1,5,<.\UART.h><UART.h>
+File 1,1,<.\Read_Sector.c><Read_Sector.c>
+File 1,1,<.\Directory_Functions_struct.c><Directory_Functions_struct.c>
 
 
 Options 1,0,0  // Target 'Target 1'

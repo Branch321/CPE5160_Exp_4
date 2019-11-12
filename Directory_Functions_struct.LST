@@ -1,4 +1,4 @@
-C51 COMPILER V6.02  DIRECTORY_FUNCTIONS_STRUCT                                             11/11/2019 16:48:57 PAGE 1   
+C51 COMPILER V6.02  DIRECTORY_FUNCTIONS_STRUCT                                             11/11/2019 17:52:21 PAGE 1   
 
 
 C51 COMPILER V6.02, COMPILATION OF MODULE DIRECTORY_FUNCTIONS_STRUCT
@@ -54,33 +54,33 @@ stmt level    source
   45          
   46          uint16_t read16(uint16_t offset, uint8_t * array_name)
   47          {
-  48   1      	uint8_t temp_array[2];
-  49   1      	uint16_t return_value;
-  50   1      	uint8_t size = sizeof(uint16_t);
-  51   1      	uint8_t i;
-  52   1      
-  53   1      	for(i = 0; i < size; i++)
-  54   1      	{
-  55   2      		temp_array[size-1-i] = array_name[i + offset];
-C51 COMPILER V6.02  DIRECTORY_FUNCTIONS_STRUCT                                             11/11/2019 16:48:57 PAGE 2   
+  48   1      	uint32_t return_value;
+  49   1      	uint8_t temp, index;
+  50   1      	return_value=0;
+  51   1      
+  52   1      	for(index=0;index<2;index++)
+  53   1      	{
+  54   2      		temp=*(array_name+offset+(1-index));
+  55   2      		return_value=return_value<<8;
+C51 COMPILER V6.02  DIRECTORY_FUNCTIONS_STRUCT                                             11/11/2019 17:52:21 PAGE 2   
 
-  56   2      	}
-  57   1      	memcpy( &temp_array, &return_value, sizeof(uint16_t));
+  56   2      		return_value|=temp;
+  57   2      	}
   58   1      	return return_value;
   59   1      }
   60          
   61          uint32_t read32(uint16_t offset, uint8_t * array_name)
   62          {
-  63   1      	uint8_t temp_array[4];
-  64   1      	uint32_t return_value;
-  65   1      	uint8_t size = sizeof(uint32_t);
-  66   1      	uint8_t i;
-  67   1      
-  68   1      	for(i = 0; i < size; i++)
-  69   1      	{
-  70   2      		temp_array[size-1-i] = array_name[i + offset];
-  71   2      	}
-  72   1      	memcpy( &temp_array, &return_value, sizeof(uint16_t));
+  63   1      	uint32_t return_value;
+  64   1      	uint8_t temp, index;
+  65   1      	return_value=0;
+  66   1      
+  67   1      	for(index=0;index<4;index++)
+  68   1      	{
+  69   2      		temp=*(array_name+offset+(3-index));
+  70   2      		return_value=return_value<<8;
+  71   2      		return_value|=temp;
+  72   2      	}
   73   1      	return return_value;
   74   1      }
   75          
@@ -126,7 +126,7 @@ stmt level    source
  115                        if((attr&0x10)==0x10)  // indicates directory
  116          			  {
  117          			     for(j=8;j<11;j++)
-C51 COMPILER V6.02  DIRECTORY_FUNCTIONS_STRUCT                                             11/11/2019 16:48:57 PAGE 3   
+C51 COMPILER V6.02  DIRECTORY_FUNCTIONS_STRUCT                                             11/11/2019 17:52:21 PAGE 3   
 
  118          			     {
  119          			        out_val=read8(i+j,values);
@@ -190,7 +190,7 @@ stmt level    source
  177          /*
  178          uint32_t Read_Dir_Entry(uint32_t Sector_num, uint16_t Entry, uint8_t xdata * array_in)
  179          { 
-C51 COMPILER V6.02  DIRECTORY_FUNCTIONS_STRUCT                                             11/11/2019 16:48:57 PAGE 4   
+C51 COMPILER V6.02  DIRECTORY_FUNCTIONS_STRUCT                                             11/11/2019 17:52:21 PAGE 4   
 
  180             uint32_t Sector, max_sectors, return_clus;
  181             uint16_t i, entries;
@@ -254,7 +254,7 @@ stmt level    source
  239                               temp8=0; 
  240          			     }
  241          			     i=0;
-C51 COMPILER V6.02  DIRECTORY_FUNCTIONS_STRUCT                                             11/11/2019 16:48:57 PAGE 5   
+C51 COMPILER V6.02  DIRECTORY_FUNCTIONS_STRUCT                                             11/11/2019 17:52:21 PAGE 5   
 
  242          			  }
  243          			  else
@@ -273,42 +273,102 @@ stmt level    source
  256             return return_clus;
  257           }
  258          */
- 259          
- 260          uint8_t Mount_Drive(uint8_t xdata * array_name)
+ 259          /*
+ 260          typedef struct
  261          {
- 262   1      	uint8_t i;
- 263   1      	uint8_t temp;
- 264   1      	uint8_t error_flag;
- 265   1      	
- 266   1      	// Read in BPB or MBR
- 267   1      	error_flag = Read_Sector(0, 512, array_name);
- 268   1      	// Check for BPB or MBR
- 269   1      	temp = read8(0,array_name);	
- 270   1      	printf("Debug:: Offset 0 of Sector 0 is %x\r\n",temp);
- 271   1      	if(temp!=0xEB||temp!=0xE9)
- 272   1      	{
- 273   2      		temp = read32(0x01C4,array_name);
- 274   2      		printf("Debug:: Offset 0x01c6 of Sector 0 is %x\r\n",temp);
- 275   2      		error_flag = Read_Sector(temp,512,array_name);
- 276   2      		temp = read8(0,array_name);
- 277   2      		printf("Debug:: Offset 0 of Relative Sectors is %x\r\n",temp);
- 278   2      		if(temp!=0xEB||temp!=0xE9)
- 279   2      			printf("Error BPB not Found!");
- 280   2      	}
- 281   1      
- 282   1      	return error_flag;
- 283   1      }
-*** WARNING C280 IN LINE 262 OF .\DIRECTORY_FUNCTIONS_STRUCT.C: 'i': unreferenced local variable
- 284          
- 285          
+ 262            uint8_t SecPerClus;
+ 263            uint8_t FATtype;
+ 264            uint8_t BytesPerSecShift;
+ 265            uint8_t FATshift;
+ 266            uint16_t BytesPerSec;
+ 267            uint32_t FirstRootDirSec;
+ 268            uint32_t FirstDataSec;
+ 269            uint32_t StartofFAT;
+ 270            uint32_t RootDirSecs;
+ 271          } FS_values_t;
+ 272          */
+ 273          uint8_t Mount_Drive(uint8_t xdata * array_name)
+ 274          {
+ 275   1      	uint8_t i;
+ 276   1      	uint8_t temp_8;
+ 277   1      	uint32_t temp_32;
+ 278   1      	uint8_t error_flag;
+ 279   1      	uint16_t RsvdSectorCount;
+ 280   1      	uint8_t NumFATS;
+ 281   1      	uint16_t RootEntryCnt;
+ 282   1      	uint16_t TotalSectors16;
+ 283   1      	uint16_t FATsz16;
+ 284   1      	uint32_t TotalSectors32;
+ 285   1      	uint32_t FATsz32;
+ 286   1      	uint32_t RootCluster;
+ 287   1      	uint8_t RelativeSectors;
+ 288   1      	
+ 289   1      	// Read in BPB or MBR
+ 290   1      	error_flag = Read_Sector(0, 512, array_name);
+ 291   1      	// Check for BPB or MBR
+ 292   1      	temp_8 = read8(0,array_name);	
+ 293   1      	printf("Debug:: Offset 0 of Sector 0 is %x\r\n",temp_8);
+ 294   1      	if((temp_8!=0xEB)&&(temp_8!=0xE9))
+ 295   1      	{
+ 296   2      		temp_32 = read32(0x01C6,array_name);
+ 297   2      		printf("Debug:: Offset 0x01c6 of Sector 0 is %lx \r\n",temp_32);
+ 298   2      		error_flag = Read_Sector(temp_32,512,array_name);
+ 299   2      		RelativeSectors = read8(0,array_name);
+ 300   2      		printf("Debug:: Offset 0 of Relative Sectors is %x\r\n",RelativeSectors);
+ 301   2      		if((temp_8!=0xEB)&&(temp_8!=0xE9))
+ 302   2      		{
+ 303   3      			printf("Error BPB not Found!\r\n");
+C51 COMPILER V6.02  DIRECTORY_FUNCTIONS_STRUCT                                             11/11/2019 17:52:21 PAGE 6   
+
+ 304   3      		}
+ 305   2      		else
+ 306   2      		{
+ 307   3      			printf("BPB Found!\r\n");
+ 308   3      		}
+ 309   2      	}
+ 310   1      	// Determine FAT type
+ 311   1      	Drive_values.BytesPerSec = read16(0x0B,array_name);
+ 312   1      	printf("BytesPerSec:: %x\r\n",Drive_values.BytesPerSec);
+ 313   1      	Drive_values.SecPerClus = read8(0x0D,array_name);
+ 314   1      	printf("SecPerClus:: %bx\r\n",Drive_values.SecPerClus);
+ 315   1      	RsvdSectorCount = read16(0x0E,array_name);
+ 316   1      	printf("RsvdSectorCount:: %x\r\n",RsvdSectorCount);
+ 317   1      	NumFATS = read8(0x10,array_name);
+ 318   1      	printf("NumFATS:: %bx\r\n",NumFATS);
+ 319   1      	RootEntryCnt = read16(0x11,array_name);
+ 320   1      	printf("RootEntryCnt:: %x\r\n",RootEntryCnt);
+ 321   1      	TotalSectors16 = read16(0x13,array_name);
+ 322   1      	printf("TotalSectors16:: %x\r\n",TotalSectors16);
+ 323   1      	FATsz16 = read16(0x16,array_name);
+ 324   1      	printf("FATsz16:: %x\r\n",FATsz16);
+ 325   1      	TotalSectors32 = read32(0x20,array_name);
+ 326   1      	printf("TotalSectors32:: %lx\r\n",TotalSectors32);
+ 327   1      	FATsz32 = read32(0x24,array_name);
+ 328   1      	printf("FATsz32:: %lx\r\n",FATsz32);
+ 329   1      	RootCluster = read32(0x2C, array_name);
+ 330   1      	printf("RootCluster:: %lx\r\n",RootCluster);
+ 331   1      	Drive_values.StartofFAT = RsvdSectorCount + RelativeSectors;
+ 332   1      	printf("StartofFAT:: %lx\r\n",Drive_values.StartofFAT);
+ 333   1      	Drive_values.RootDirSecs = ((RootEntryCnt*32) + (Drive_values.BytesPerSec-1))/Drive_values.BytesPerSec;
+ 334   1      	printf("RootDirSecs:: %lx\r\n",Drive_values.RootDirSecs);
+ 335   1      	Drive_values.FirstDataSec = RsvdSectorCount + (NumFATS*FATsz32) + Drive_values.RootDirSecs;
+ 336   1      	printf("FirstDataSec:: %lx\r\n",Drive_values.FirstDataSec);
+ 337   1      	Drive_values.FirstRootDirSec = ((RootCluster-2)*Drive_values.SecPerClus)+Drive_values.FirstDataSec;
+ 338   1      	printf("FirstRootDirSec:: %lx\r\n",Drive_values.FirstRootDirSec);
+ 339   1      
+ 340   1      	return error_flag;
+ 341   1      }
+*** WARNING C280 IN LINE 275 OF .\DIRECTORY_FUNCTIONS_STRUCT.C: 'i': unreferenced local variable
+ 342          
+ 343          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    307    ----
-   CONSTANT SIZE    =    145    ----
+   CODE SIZE        =   1013    ----
+   CONSTANT SIZE    =    439    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =   ----      21
+   DATA SIZE        =   ----      43
    IDATA SIZE       =     22    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

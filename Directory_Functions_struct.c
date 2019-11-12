@@ -45,31 +45,31 @@ uint8_t read8(uint16_t offset, uint8_t * array_name)
 
 uint16_t read16(uint16_t offset, uint8_t * array_name)
 {
-	uint8_t temp_array[2];
-	uint16_t return_value;
-	uint8_t size = sizeof(uint16_t);
-	uint8_t i;
+	uint32_t return_value;
+	uint8_t temp, index;
+	return_value=0;
 
-	for(i = 0; i < size; i++)
+	for(index=0;index<2;index++)
 	{
-		temp_array[size-1-i] = array_name[i + offset];
+		temp=*(array_name+offset+(1-index));
+		return_value=return_value<<8;
+		return_value|=temp;
 	}
-	memcpy( &temp_array, &return_value, sizeof(uint16_t));
 	return return_value;
 }
 
 uint32_t read32(uint16_t offset, uint8_t * array_name)
 {
-	uint8_t temp_array[4];
 	uint32_t return_value;
-	uint8_t size = sizeof(uint32_t);
-	uint8_t i;
+	uint8_t temp, index;
+	return_value=0;
 
-	for(i = 0; i < size; i++)
+	for(index=0;index<4;index++)
 	{
-		temp_array[size-1-i] = array_name[i + offset];
+		temp=*(array_name+offset+(3-index));
+		return_value=return_value<<8;
+		return_value|=temp;
 	}
-	memcpy( &temp_array, &return_value, sizeof(uint16_t));
 	return return_value;
 }
 
@@ -256,28 +256,87 @@ uint32_t Read_Dir_Entry(uint32_t Sector_num, uint16_t Entry, uint8_t xdata * arr
    return return_clus;
  }
 */
-
+/*
+typedef struct
+{
+  uint8_t SecPerClus;
+  uint8_t FATtype;
+  uint8_t BytesPerSecShift;
+  uint8_t FATshift;
+  uint16_t BytesPerSec;
+  uint32_t FirstRootDirSec;
+  uint32_t FirstDataSec;
+  uint32_t StartofFAT;
+  uint32_t RootDirSecs;
+} FS_values_t;
+*/
 uint8_t Mount_Drive(uint8_t xdata * array_name)
 {
 	uint8_t i;
-	uint8_t temp;
+	uint8_t temp_8;
+	uint32_t temp_32;
 	uint8_t error_flag;
+	uint16_t RsvdSectorCount;
+	uint8_t NumFATS;
+	uint16_t RootEntryCnt;
+	uint16_t TotalSectors16;
+	uint16_t FATsz16;
+	uint32_t TotalSectors32;
+	uint32_t FATsz32;
+	uint32_t RootCluster;
+	uint8_t RelativeSectors;
 	
 	// Read in BPB or MBR
 	error_flag = Read_Sector(0, 512, array_name);
 	// Check for BPB or MBR
-	temp = read8(0,array_name);	
-	printf("Debug:: Offset 0 of Sector 0 is %x\r\n",temp);
-	if(temp!=0xEB||temp!=0xE9)
+	temp_8 = read8(0,array_name);	
+	printf("Debug:: Offset 0 of Sector 0 is %x\r\n",temp_8);
+	if((temp_8!=0xEB)&&(temp_8!=0xE9))
 	{
-		temp = read32(0x01C4,array_name);
-		printf("Debug:: Offset 0x01c6 of Sector 0 is %x\r\n",temp);
-		error_flag = Read_Sector(temp,512,array_name);
-		temp = read8(0,array_name);
-		printf("Debug:: Offset 0 of Relative Sectors is %x\r\n",temp);
-		if(temp!=0xEB||temp!=0xE9)
-			printf("Error BPB not Found!");
+		temp_32 = read32(0x01C6,array_name);
+		printf("Debug:: Offset 0x01c6 of Sector 0 is %lx \r\n",temp_32);
+		error_flag = Read_Sector(temp_32,512,array_name);
+		RelativeSectors = read8(0,array_name);
+		printf("Debug:: Offset 0 of Relative Sectors is %x\r\n",RelativeSectors);
+		if((temp_8!=0xEB)&&(temp_8!=0xE9))
+		{
+			printf("Error BPB not Found!\r\n");
+		}
+		else
+		{
+			printf("BPB Found!\r\n");
+		}
 	}
+	// Determine FAT type
+	Drive_values.BytesPerSec = read16(0x0B,array_name);
+	printf("BytesPerSec:: %x\r\n",Drive_values.BytesPerSec);
+	Drive_values.SecPerClus = read8(0x0D,array_name);
+	printf("SecPerClus:: %bx\r\n",Drive_values.SecPerClus);
+	RsvdSectorCount = read16(0x0E,array_name);
+	printf("RsvdSectorCount:: %x\r\n",RsvdSectorCount);
+	NumFATS = read8(0x10,array_name);
+	printf("NumFATS:: %bx\r\n",NumFATS);
+	RootEntryCnt = read16(0x11,array_name);
+	printf("RootEntryCnt:: %x\r\n",RootEntryCnt);
+	TotalSectors16 = read16(0x13,array_name);
+	printf("TotalSectors16:: %x\r\n",TotalSectors16);
+	FATsz16 = read16(0x16,array_name);
+	printf("FATsz16:: %x\r\n",FATsz16);
+	TotalSectors32 = read32(0x20,array_name);
+	printf("TotalSectors32:: %lx\r\n",TotalSectors32);
+	FATsz32 = read32(0x24,array_name);
+	printf("FATsz32:: %lx\r\n",FATsz32);
+	RootCluster = read32(0x2C, array_name);
+	printf("RootCluster:: %lx\r\n",RootCluster);
+	Drive_values.StartofFAT = RsvdSectorCount + RelativeSectors;
+	printf("StartofFAT:: %lx\r\n",Drive_values.StartofFAT);
+	Drive_values.RootDirSecs = ((RootEntryCnt*32) + (Drive_values.BytesPerSec-1))/Drive_values.BytesPerSec;
+	printf("RootDirSecs:: %lx\r\n",Drive_values.RootDirSecs);
+	Drive_values.FirstDataSec = RsvdSectorCount + (NumFATS*FATsz32) + Drive_values.RootDirSecs;
+	printf("FirstDataSec:: %lx\r\n",Drive_values.FirstDataSec);
+	Drive_values.FirstRootDirSec = ((RootCluster-2)*Drive_values.Sec
+	PerClus)+Drive_values.FirstDataSec;
+	printf("FirstRootDirSec:: %lx\r\n",Drive_values.FirstRootDirSec);
 
 	return error_flag;
 }
