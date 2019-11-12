@@ -333,6 +333,9 @@ uint8_t Mount_Drive(uint8_t xdata * array_name)
 	printf("FirstDataSec:: %lx\r\n",Drive_values.FirstDataSec);
 	Drive_values.FirstRootDirSec = ((RootCluster-2)*Drive_values.SecPerClus)+Drive_values.FirstDataSec;
 	printf("FirstRootDirSec:: %lx\r\n",Drive_values.FirstRootDirSec);
+
+	// TODO: Determine FAT type
+	// if FAT16 is detected return error_flag
 	return error_flag;
 }
 
