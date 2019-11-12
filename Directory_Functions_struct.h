@@ -48,9 +48,9 @@ uint32_t read32(uint16_t offset, uint8_t * array_name);
 
 uint8_t Mount_Drive(uint8_t xdata * array_name);
 
-//uint32_t First_Sector (uint32_t Cluster_num);
+uint32_t First_Sector (uint32_t Cluster_num);
 
-//uint32_t Find_Next_Clus(uint32_t Cluster_num, uint8_t xdata * array_name);
+uint32_t Find_Next_Clus(uint32_t Cluster_num, uint8_t xdata * array_name);
 
 //uint8_t Open_File(uint32_t Cluster, uint8_t xdata * array_in);
 

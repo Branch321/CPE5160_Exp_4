@@ -25,16 +25,6 @@ FS_values_t * Export_Drive_values(void)
    return &Drive_values;
 }
 
-
-/***********************************************************************
-DESC: Prints all short file name entries for a given directory 
-INPUT: Starting Sector of the directory and the pointer to a 
-block of memory in xdata that can be used to read blocks from the SD card
-RETURNS: uint16_t number of entries found in the directory
-CAUTION: Supports FAT16, SD_shift must be set before using this function
-************************************************************************/
-
-
 uint8_t read8(uint16_t offset, uint8_t * array_name)
 {
 	uint8_t return_value;
@@ -73,6 +63,13 @@ uint32_t read32(uint16_t offset, uint8_t * array_name)
 	return return_value;
 }
 
+/***********************************************************************
+DESC: Prints all short file name entries for a given directory
+INPUT: Starting Sector of the directory and the pointer to a
+block of memory in xdata that can be used to read blocks from the SD card
+RETURNS: uint16_t number of entries found in the directory
+CAUTION: Supports FAT16, SD_shift must be set before using this function
+************************************************************************/
 /*
 uint16_t  Print_Directory(uint32_t Sector_num, uint8_t xdata * array_in)
 { 
@@ -334,11 +331,33 @@ uint8_t Mount_Drive(uint8_t xdata * array_name)
 	printf("RootDirSecs:: %lx\r\n",Drive_values.RootDirSecs);
 	Drive_values.FirstDataSec = RsvdSectorCount + (NumFATS*FATsz32) + Drive_values.RootDirSecs;
 	printf("FirstDataSec:: %lx\r\n",Drive_values.FirstDataSec);
-	Drive_values.FirstRootDirSec = ((RootCluster-2)*Drive_values.Sec
-	PerClus)+Drive_values.FirstDataSec;
+	Drive_values.FirstRootDirSec = ((RootCluster-2)*Drive_values.SecPerClus)+Drive_values.FirstDataSec;
 	printf("FirstRootDirSec:: %lx\r\n",Drive_values.FirstRootDirSec);
-
 	return error_flag;
 }
 
+uint32_t First_Sector (uint32_t Cluster_num);
+{
+    uint32_t FirstSecCluster;
+    if(Cluster_num==0)
+    {
+        FirstSecCluster = Drive_values.FirstRootDirSec;
+    }
+    else
+    {
+        FirstSecCluster = ((Cluster_num-2)*Drive_values.SecPerClus)+Drive_values.FirstDataSec;
+    }
+    return FirstSecCluster;
+}
 
+uint32_t Find_Next_Clus(uint32_t Cluster_num, uint8_t xdata * array_name)
+{
+    uint32_t return_clus;
+    uint32_t FATOffset = Cluster_num*4;
+    uint32_t ThisFATSecNum = Drive_values.StartofFAT + (FATOffset/Drive_values.BytesPerSec);
+
+    Read_Sector(ThisFATSecNum,Drive_values.BytesPerSec, array_name);
+    FATOffset = (FATOffset % Drive_values.BytesPerSec);
+    return_clus = (read32(FATOffset,array_name)&0x0FFFFFFF);
+    return return_clus;
+}
