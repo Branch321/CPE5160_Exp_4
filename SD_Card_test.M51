@@ -1,4 +1,4 @@
-BL51 BANKED LINKER/LOCATER V4.02                                                        11/11/2019  17:52:21  PAGE 1
+BL51 BANKED LINKER/LOCATER V4.02                                                        11/12/2019  13:08:19  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V4.02, INVOKED BY:
@@ -57,16 +57,18 @@ LINK MAP OF MODULE:  SD_Card_test (SD_CARD_TEST)
 
             * * * * * * *   D A T A   M E M O R Y   * * * * * * *
             REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
-            IDATA   0008H     0016H     UNIT         ?ID?DIRECTORY_FUNCTIONS_STRUCT
-            IDATA   001EH     0001H     UNIT         ?ID?SDCARD
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 2
+            DATA    0008H     000AH     UNIT         ?DT?_FIND_NEXT_CLUS?DIRECTORY_FUNCTIONS_STRUCT
+            DATA    0012H     0008H     UNIT         ?DT?_FIRST_SECTOR?DIRECTORY_FUNCTIONS_STRUCT
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 2
 
 
-                    001FH     0001H                  *** GAP ***
+            IDATA   001AH     0001H     UNIT         ?ID?SDCARD
+                    001BH     0005H                  *** GAP ***
             BIT     0020H.0   0001H.1   UNIT         _BIT_GROUP_
                     0021H.1   0000H.7                *** GAP ***
-            DATA    0022H     0036H     UNIT         _DATA_GROUP_
-            IDATA   0058H     0001H     UNIT         ?STACK
+            DATA    0022H     0053H     UNIT         _DATA_GROUP_
+            IDATA   0075H     0016H     UNIT         ?ID?DIRECTORY_FUNCTIONS_STRUCT
+            IDATA   008BH     0001H     UNIT         ?STACK
 
             * * * * * * *  X D A T A   M E M O R Y  * * * * * * *
             XDATA   0000H     0200H     UNIT         ?XD?SD_CARD_TEST
@@ -74,52 +76,55 @@ LINK MAP OF MODULE:  SD_Card_test (SD_CARD_TEST)
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
             CODE    0000H     0003H     ABSOLUTE     
             CODE    0003H     03F2H     UNIT         ?PR?SD_CARD_INIT?SDCARD
-            CODE    03F5H     035CH     UNIT         ?PR?PRINTF?PRINTF
-            CODE    0751H     0302H     UNIT         ?PR?_MOUNT_DRIVE?DIRECTORY_FUNCTIONS_STRUCT
-            CODE    0A53H     02A2H     UNIT         ?C?LIB_CODE
-            CODE    0CF5H     020EH     UNIT         ?CO?SDCARD
-            CODE    0F03H     01B7H     UNIT         ?CO?DIRECTORY_FUNCTIONS_STRUCT
-            CODE    10BAH     0154H     UNIT         ?PR?MAIN?SD_CARD_TEST
-            CODE    120EH     010BH     UNIT         ?PR?_SEND_COMMAND?SDCARD
-            CODE    1319H     00FFH     UNIT         ?PR?_READ_BLOCK?SDCARD
-            CODE    1418H     00DEH     UNIT         ?PR?_ATOL?ATOL
-            CODE    14F6H     00D1H     UNIT         ?PR?LONG_SERIAL_INPUT?LONG_SERIAL_IN
-            CODE    15C7H     00B4H     UNIT         ?PR?_RESPONSE?SDCARD
-            CODE    167BH     008CH     UNIT         ?PR?_SPI_MASTER_INIT?SPI
-            CODE    1707H     0085H     UNIT         ?PR?_LCD_PRINT?LCD_ROUTINES
-            CODE    178CH     0078H     UNIT         ?PR?_PRINT_16BYTES?PRINT_BYTES
-            CODE    1804H     006EH     UNIT         ?PR?_PRINT_ERROR?SDCARD
-            CODE    1872H     006EH     UNIT         ?PR?_READ32?DIRECTORY_FUNCTIONS_STRUCT
-            CODE    18E0H     006AH     UNIT         ?PR?_READ16?DIRECTORY_FUNCTIONS_STRUCT
-            CODE    194AH     005FH     UNIT         ?PR?_PRINT_MEMORY?PRINT_BYTES
-            CODE    19A9H     0055H     UNIT         ?PR?_READ_SECTOR?READ_SECTOR
-            CODE    19FEH     0054H     UNIT         ?CO?SD_CARD_TEST
-            CODE    1A52H     0045H     UNIT         ?CO?PRINT_BYTES
-            CODE    1A97H     0045H     UNIT         ?PR?_SPI_TRANSFER?SPI
-            CODE    1ADCH     0038H     UNIT         ?PR?LCD_INIT?LCD_ROUTINES
-            CODE    1B14H     0035H     UNIT         ?PR?_UART_INIT?UART
-            CODE    1B49H     002AH     UNIT         ?PR?_LCD_WRITE?LCD_HARDWARE_FUNCTIONS
-            CODE    1B73H     0027H     UNIT         ?PR?PUTCHAR?PUTCHAR
-            CODE    1B9AH     0026H     UNIT         ?PR?_TIMER0_DELAY_1MS?TIMER0_HARDWARE_DELAY_1MS
-            CODE    1BC0H     0020H     UNIT         ?PR?_UART_TRANSMIT?UART
-            CODE    1BE0H     0014H     UNIT         ?PR?_READ8?DIRECTORY_FUNCTIONS_STRUCT
-            CODE    1BF4H     0013H     UNIT         ?PR?_ISSPACE?ISSPACE
-            CODE    1C07H     000FH     UNIT         ?PR?_ISDIGIT?ISDIGIT
-            CODE    1C16H     000CH     UNIT         ?C_C51STARTUP
-            CODE    1C22H     0008H     UNIT         ?PR?UART_RECEIVE?UART
-            CODE    1C2AH     0007H     UNIT         ?PR?EXPORT_DRIVE_VALUES?DIRECTORY_FUNCTIONS_STRUCT
-            CODE    1C31H     0005H     UNIT         ?PR?RETURN_SD_CARD_TYPE?SDCARD
-            CODE    1C36H     0005H     UNIT         ?PR?_SPI_SELECT_CLEAR?SPI
-            CODE    1C3BH     0005H     UNIT         ?PR?_P3_CLEAR_BIT?OUTPUTS
-            CODE    1C40H     0005H     UNIT         ?PR?_LEDS_ON?LED_CONTROL
-            CODE    1C45H     0004H     UNIT         ?PR?_SPI_SELECT_SET?SPI
-            CODE    1C49H     0004H     UNIT         ?PR?_P2_SET_BIT?OUTPUTS
-            CODE    1C4DH     0004H     UNIT         ?PR?_P3_SET_BIT?OUTPUTS
-            CODE    1C51H     0004H     UNIT         ?PR?_LEDS_OFF?LED_CONTROL
-            CODE    1C55H     0003H     UNIT         ?PR?_P0_OUTPUT_BITS?OUTPUTS
+            CODE    03F5H     035FH     UNIT         ?PR?_MOUNT_DRIVE?DIRECTORY_FUNCTIONS_STRUCT
+            CODE    0754H     035CH     UNIT         ?PR?PRINTF?PRINTF
+            CODE    0AB0H     02A2H     UNIT         ?C?LIB_CODE
+            CODE    0D52H     020EH     UNIT         ?CO?SDCARD
+            CODE    0F60H     01D0H     UNIT         ?CO?DIRECTORY_FUNCTIONS_STRUCT
+            CODE    1130H     01B0H     UNIT         ?PR?_PRINT_DIRECTORY?DIRECTORY_FUNCTIONS_STRUCT
+            CODE    12E0H     015BH     UNIT         ?PR?MAIN?SD_CARD_TEST
+            CODE    143BH     010BH     UNIT         ?PR?_SEND_COMMAND?SDCARD
+            CODE    1546H     00FFH     UNIT         ?PR?_READ_BLOCK?SDCARD
+            CODE    1645H     00DEH     UNIT         ?PR?_ATOL?ATOL
+            CODE    1723H     00D1H     UNIT         ?PR?LONG_SERIAL_INPUT?LONG_SERIAL_IN
+            CODE    17F4H     00B4H     UNIT         ?PR?_RESPONSE?SDCARD
+            CODE    18A8H     00AEH     UNIT         ?PR?_FIND_NEXT_CLUS?DIRECTORY_FUNCTIONS_STRUCT
+            CODE    1956H     008CH     UNIT         ?PR?_SPI_MASTER_INIT?SPI
+            CODE    19E2H     0085H     UNIT         ?PR?_LCD_PRINT?LCD_ROUTINES
+            CODE    1A67H     0078H     UNIT         ?PR?_PRINT_16BYTES?PRINT_BYTES
+            CODE    1ADFH     0071H     UNIT         ?PR?_FIRST_SECTOR?DIRECTORY_FUNCTIONS_STRUCT
+            CODE    1B50H     006EH     UNIT         ?PR?_PRINT_ERROR?SDCARD
+            CODE    1BBEH     006EH     UNIT         ?PR?_READ32?DIRECTORY_FUNCTIONS_STRUCT
+            CODE    1C2CH     006AH     UNIT         ?PR?_READ16?DIRECTORY_FUNCTIONS_STRUCT
+            CODE    1C96H     005FH     UNIT         ?PR?_PRINT_MEMORY?PRINT_BYTES
+            CODE    1CF5H     0055H     UNIT         ?PR?_READ_SECTOR?READ_SECTOR
+            CODE    1D4AH     0054H     UNIT         ?CO?SD_CARD_TEST
+            CODE    1D9EH     0045H     UNIT         ?CO?PRINT_BYTES
+            CODE    1DE3H     0045H     UNIT         ?PR?_SPI_TRANSFER?SPI
+            CODE    1E28H     0038H     UNIT         ?PR?LCD_INIT?LCD_ROUTINES
+            CODE    1E60H     0035H     UNIT         ?PR?_UART_INIT?UART
+            CODE    1E95H     002AH     UNIT         ?PR?_LCD_WRITE?LCD_HARDWARE_FUNCTIONS
+            CODE    1EBFH     0027H     UNIT         ?PR?PUTCHAR?PUTCHAR
+            CODE    1EE6H     0026H     UNIT         ?PR?_TIMER0_DELAY_1MS?TIMER0_HARDWARE_DELAY_1MS
+            CODE    1F0CH     0020H     UNIT         ?PR?_UART_TRANSMIT?UART
+            CODE    1F2CH     001AH     UNIT         ?PR?_READ8?DIRECTORY_FUNCTIONS_STRUCT
+            CODE    1F46H     0013H     UNIT         ?PR?_ISSPACE?ISSPACE
+            CODE    1F59H     000FH     UNIT         ?PR?_ISDIGIT?ISDIGIT
+            CODE    1F68H     000CH     UNIT         ?C_C51STARTUP
+            CODE    1F74H     0008H     UNIT         ?PR?UART_RECEIVE?UART
+            CODE    1F7CH     0007H     UNIT         ?PR?EXPORT_DRIVE_VALUES?DIRECTORY_FUNCTIONS_STRUCT
+            CODE    1F83H     0005H     UNIT         ?PR?RETURN_SD_CARD_TYPE?SDCARD
+            CODE    1F88H     0005H     UNIT         ?PR?_SPI_SELECT_CLEAR?SPI
+            CODE    1F8DH     0005H     UNIT         ?PR?_P3_CLEAR_BIT?OUTPUTS
+            CODE    1F92H     0005H     UNIT         ?PR?_LEDS_ON?LED_CONTROL
+            CODE    1F97H     0004H     UNIT         ?PR?_SPI_SELECT_SET?SPI
+            CODE    1F9BH     0004H     UNIT         ?PR?_P2_SET_BIT?OUTPUTS
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 3
 
 
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 3
+            CODE    1F9FH     0004H     UNIT         ?PR?_P3_SET_BIT?OUTPUTS
+            CODE    1FA3H     0004H     UNIT         ?PR?_LEDS_OFF?LED_CONTROL
+            CODE    1FA7H     0003H     UNIT         ?PR?_P0_OUTPUT_BITS?OUTPUTS
 
 
 
@@ -132,7 +137,7 @@ SEGMENT                                                       BIT_GROUP         
 ?C_C51STARTUP                                              -----    -----      -----    -----
   +--> ?PR?MAIN?SD_CARD_TEST
 
-?PR?MAIN?SD_CARD_TEST                                      -----    -----      0022H    0008H
+?PR?MAIN?SD_CARD_TEST                                      -----    -----      0022H    000CH
   +--> ?PR?_P2_SET_BIT?OUTPUTS
   +--> ?PR?_LEDS_OFF?LED_CONTROL
   +--> ?PR?_LEDS_ON?LED_CONTROL
@@ -145,29 +150,28 @@ SEGMENT                                                       BIT_GROUP         
   +--> ?PR?_UART_TRANSMIT?UART
   +--> ?PR?SD_CARD_INIT?SDCARD
   +--> ?PR?RETURN_SD_CARD_TYPE?SDCARD
-  +--> ?PR?LONG_SERIAL_INPUT?LONG_SERIAL_IN
   +--> ?PR?_MOUNT_DRIVE?DIRECTORY_FUNCTIONS_STRUCT
-  +--> ?PR?_PRINT_MEMORY?PRINT_BYTES
+  +--> ?PR?LONG_SERIAL_INPUT?LONG_SERIAL_IN
 
 ?PR?LCD_INIT?LCD_ROUTINES                                  -----    -----      -----    -----
   +--> ?PR?_LCD_WRITE?LCD_HARDWARE_FUNCTIONS
   +--> ?PR?_TIMER0_DELAY_1MS?TIMER0_HARDWARE_DELAY_1MS
 
-?PR?_LCD_WRITE?LCD_HARDWARE_FUNCTIONS                      -----    -----      0030H    0001H
+?PR?_LCD_WRITE?LCD_HARDWARE_FUNCTIONS                      -----    -----      0034H    0001H
   +--> ?PR?_P3_CLEAR_BIT?OUTPUTS
   +--> ?PR?_P3_SET_BIT?OUTPUTS
   +--> ?PR?_P0_OUTPUT_BITS?OUTPUTS
 
-?PR?PRINTF?PRINTF                                          0020H.0  0001H.1    0041H    0014H
+?PR?PRINTF?PRINTF                                          0020H.0  0001H.1    005EH    0014H
   +--> ?PR?PUTCHAR?PUTCHAR
 
-?PR?_LCD_PRINT?LCD_ROUTINES                                -----    -----      002AH    0006H
+?PR?_LCD_PRINT?LCD_ROUTINES                                -----    -----      002EH    0006H
   +--> ?PR?_LCD_WRITE?LCD_HARDWARE_FUNCTIONS
   +--> ?PR?_TIMER0_DELAY_1MS?TIMER0_HARDWARE_DELAY_1MS
 
-?PR?_SPI_MASTER_INIT?SPI                                   -----    -----      002AH    0001H
+?PR?_SPI_MASTER_INIT?SPI                                   -----    -----      002EH    0001H
 
-?PR?SD_CARD_INIT?SDCARD                                    -----    -----      002AH    0014H
+?PR?SD_CARD_INIT?SDCARD                                    -----    -----      002EH    0014H
   +--> ?PR?_SPI_SELECT_SET?SPI
   +--> ?CO?SDCARD
   +--> ?PR?PRINTF?PRINTF
@@ -175,71 +179,80 @@ SEGMENT                                                       BIT_GROUP         
   +--> ?PR?_LEDS_ON?LED_CONTROL
   +--> ?PR?_SPI_SELECT_CLEAR?SPI
   +--> ?PR?_SEND_COMMAND?SDCARD
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 4
+
+
   +--> ?PR?_RESPONSE?SDCARD
   +--> ?PR?_LEDS_OFF?LED_CONTROL
   +--> ?PR?PUTCHAR?PUTCHAR
   +--> ?PR?_PRINT_ERROR?SDCARD
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 4
 
+?PR?_SPI_TRANSFER?SPI                                      -----    -----      0073H    0002H
 
-
-?PR?_SPI_TRANSFER?SPI                                      -----    -----      0056H    0002H
-
-?PR?_SEND_COMMAND?SDCARD                                   -----    -----      004CH    0009H
+?PR?_SEND_COMMAND?SDCARD                                   -----    -----      0069H    0009H
   +--> ?PR?_SPI_TRANSFER?SPI
 
-?PR?_RESPONSE?SDCARD                                       -----    -----      003EH    0009H
+?PR?_RESPONSE?SDCARD                                       -----    -----      0042H    0009H
   +--> ?PR?_SPI_TRANSFER?SPI
 
-?PR?_PRINT_ERROR?SDCARD                                    -----    -----      003EH    0001H
+?PR?_PRINT_ERROR?SDCARD                                    -----    -----      0042H    0001H
   +--> ?CO?SDCARD
   +--> ?PR?PRINTF?PRINTF
 
-?PR?LONG_SERIAL_INPUT?LONG_SERIAL_IN                       -----    -----      002AH    0011H
-  +--> ?PR?UART_RECEIVE?UART
-  +--> ?PR?PUTCHAR?PUTCHAR
-  +--> ?PR?_UART_TRANSMIT?UART
-  +--> ?PR?_ATOL?ATOL
-
-?PR?_ATOL?ATOL                                             0020H.0  0000H.1    003BH    0007H
-  +--> ?PR?_ISSPACE?ISSPACE
-  +--> ?PR?_ISDIGIT?ISDIGIT
-
-?PR?_MOUNT_DRIVE?DIRECTORY_FUNCTIONS_STRUCT                -----    -----      002AH    0017H
+?PR?_MOUNT_DRIVE?DIRECTORY_FUNCTIONS_STRUCT                -----    -----      002EH    0016H
   +--> ?PR?_READ_SECTOR?READ_SECTOR
   +--> ?PR?_READ8?DIRECTORY_FUNCTIONS_STRUCT
   +--> ?CO?DIRECTORY_FUNCTIONS_STRUCT
   +--> ?PR?PRINTF?PRINTF
   +--> ?PR?_READ32?DIRECTORY_FUNCTIONS_STRUCT
+  +--> ?PR?_PRINT_MEMORY?PRINT_BYTES
   +--> ?PR?_READ16?DIRECTORY_FUNCTIONS_STRUCT
+  +--> ?PR?_PRINT_DIRECTORY?DIRECTORY_FUNCTIONS_STRUCT
 
-?PR?_READ_SECTOR?READ_SECTOR                               -----    -----      0041H    000BH
+?PR?_READ_SECTOR?READ_SECTOR                               -----    -----      005EH    000BH
   +--> ?PR?RETURN_SD_CARD_TYPE?SDCARD
   +--> ?PR?_SPI_SELECT_CLEAR?SPI
   +--> ?PR?_SEND_COMMAND?SDCARD
   +--> ?PR?_READ_BLOCK?SDCARD
   +--> ?PR?_SPI_SELECT_SET?SPI
 
-?PR?_READ_BLOCK?SDCARD                                     -----    -----      004CH    000AH
+?PR?_READ_BLOCK?SDCARD                                     -----    -----      0069H    000AH
   +--> ?PR?_SPI_TRANSFER?SPI
 
-?PR?_READ32?DIRECTORY_FUNCTIONS_STRUCT                     -----    -----      0041H    000AH
+?PR?_READ32?DIRECTORY_FUNCTIONS_STRUCT                     -----    -----      0044H    000AH
 
-?PR?_READ16?DIRECTORY_FUNCTIONS_STRUCT                     -----    -----      0041H    000AH
-
-?PR?_PRINT_MEMORY?PRINT_BYTES                              -----    -----      002AH    0008H
+?PR?_PRINT_MEMORY?PRINT_BYTES                              -----    -----      0044H    0008H
   +--> ?CO?PRINT_BYTES
   +--> ?PR?PRINTF?PRINTF
   +--> ?PR?_PRINT_16BYTES?PRINT_BYTES
 
-?PR?_PRINT_16BYTES?PRINT_BYTES                             -----    -----      0032H    0005H
+?PR?_PRINT_16BYTES?PRINT_BYTES                             -----    -----      004CH    0005H
   +--> ?CO?PRINT_BYTES
   +--> ?PR?PRINTF?PRINTF
   +--> ?PR?_UART_TRANSMIT?UART
 
+?PR?_READ16?DIRECTORY_FUNCTIONS_STRUCT                     -----    -----      0044H    000AH
+
+?PR?_PRINT_DIRECTORY?DIRECTORY_FUNCTIONS_STRUCT            -----    -----      0044H    001AH
+  +--> ?PR?_READ_SECTOR?READ_SECTOR
+  +--> ?PR?_READ8?DIRECTORY_FUNCTIONS_STRUCT
+  +--> ?CO?DIRECTORY_FUNCTIONS_STRUCT
+  +--> ?PR?PRINTF?PRINTF
+  +--> ?PR?PUTCHAR?PUTCHAR
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 5
 
 
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 5
+
+?PR?LONG_SERIAL_INPUT?LONG_SERIAL_IN                       -----    -----      002EH    0011H
+  +--> ?PR?UART_RECEIVE?UART
+  +--> ?PR?PUTCHAR?PUTCHAR
+  +--> ?PR?_UART_TRANSMIT?UART
+  +--> ?PR?_ATOL?ATOL
+
+?PR?_ATOL?ATOL                                             0020H.0  0000H.1    003FH    0007H
+  +--> ?PR?_ISSPACE?ISSPACE
+  +--> ?PR?_ISDIGIT?ISDIGIT
+
 
 
 SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
@@ -286,28 +299,28 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00B0H.5       PUBLIC        P3_5
   B:00B0H.6       PUBLIC        nWR
   B:00A8H.4       PUBLIC        ES
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 6
+
+
   B:0098H.0       PUBLIC        RI
   B:00D0H.7       PUBLIC        CY
   B:0098H.1       PUBLIC        TI
   D:008FH         PUBLIC        CKCON0
   B:00B8H.1       PUBLIC        PT0L
   B:00B8H.3       PUBLIC        PT1L
-  C:1A44H         PUBLIC        SDHC
+  C:1D90H         PUBLIC        SDHC
   B:00B8H.5       PUBLIC        PT2L
   B:0090H.1       PUBLIC        T2EX
   D:00D8H         PUBLIC        CCON
   B:00B0H.6       PUBLIC        RS
   B:00B8H.0       PUBLIC        PX0L
   B:00D0H.2       PUBLIC        OV
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 6
-
-
   B:0090H.1       PUBLIC        SS
   B:00B8H.2       PUBLIC        PX1L
-  C:10BAH         PUBLIC        main
-  C:1A26H         PUBLIC        SD_start
+  C:12E0H         PUBLIC        main
+  C:1D72H         PUBLIC        SD_start
   B:00C8H.5       PUBLIC        RCLK
-  C:1A36H         PUBLIC        SDSC
+  C:1D82H         PUBLIC        SDSC
   B:00C8H.4       PUBLIC        TCLK
   B:00B8H.6       PUBLIC        PPCL
   B:00A0H.4       PUBLIC        REDLED
@@ -346,6 +359,9 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00A8H.0       PUBLIC        EX0
   B:0088H.0       PUBLIC        IT0
   B:0098H.3       PUBLIC        TB8
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 7
+
+
   B:00A8H.2       PUBLIC        EX1
   B:0088H.2       PUBLIC        IT1
   B:00D0H.0       PUBLIC        P
@@ -359,9 +375,6 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:0090H.6       PUBLIC        per_SCLK
   B:0088H.6       PUBLIC        TR1
   B:00C8H.2       PUBLIC        TR2
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 7
-
-
   B:00A0H.0       PUBLIC        SW1
   B:00A0H.1       PUBLIC        SW2
   B:00A0H.2       PUBLIC        SW3
@@ -387,107 +400,107 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00D8H.1       PUBLIC        CCF1
   -------         PROC          MAIN
   -------         DO            MAIN
-  D:0004H         SYMBOL        block_num
-  D:0022H         SYMBOL        LBA
-  D:0026H         SYMBOL        i
-  D:0028H         SYMBOL        error_flag
-  D:0029H         SYMBOL        SD_stat
+  D:0022H         SYMBOL        block_num
+  D:0026H         SYMBOL        LBA
+  D:002AH         SYMBOL        i
+  D:002CH         SYMBOL        error_flag
+  D:002DH         SYMBOL        SD_stat
   -------         ENDDO         SD_stat
-  C:10BAH         LINE#         27
-  C:10BAH         LINE#         28
-  C:10BAH         LINE#         34
-  C:10BDH         LINE#         35
-  C:10BDH         LINE#         36
-  C:10BDH         LINE#         37
-  C:10C0H         LINE#         38
-  C:10C0H         LINE#         39
-  C:10C0H         LINE#         40
-  C:10C0H         LINE#         41
-  C:10C0H         LINE#         42
-  C:10C0H         LINE#         44
-  C:10C5H         LINE#         45
-  C:10CAH         LINE#         46
-  C:10CFH         LINE#         47
-  C:10D4H         LINE#         48
-  C:10F1H         LINE#         49
-  C:10F6H         LINE#         50
-  C:10FDH         LINE#         51
-  C:1100H         LINE#         54
-  C:1109H         LINE#         55
-  C:1115H         LINE#         56
-  C:1122H         LINE#         57
-  C:1126H         LINE#         58
-  C:1126H         LINE#         59
-  C:112BH         LINE#         60
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 8
+  C:12E0H         LINE#         27
+  C:12E0H         LINE#         28
+  C:12E0H         LINE#         34
+  C:12E3H         LINE#         35
+  C:12E3H         LINE#         36
+  C:12E3H         LINE#         37
+  C:12E6H         LINE#         38
+  C:12E6H         LINE#         39
+  C:12E6H         LINE#         40
+  C:12E6H         LINE#         41
+  C:12E6H         LINE#         42
+  C:12E6H         LINE#         44
+  C:12EBH         LINE#         45
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 8
 
 
-  C:1130H         LINE#         61
-  C:1132H         LINE#         62
-  C:1132H         LINE#         63
-  C:1137H         LINE#         65
-  C:113CH         LINE#         66
-  C:1140H         LINE#         67
-  C:1140H         LINE#         68
-  C:1145H         LINE#         69
-  C:114AH         LINE#         70
-  C:114CH         LINE#         71
-  C:114CH         LINE#         72
-  C:1151H         LINE#         73
-  C:115EH         LINE#         74
-  C:1162H         LINE#         75
-  C:1162H         LINE#         76
-  C:1167H         LINE#         77
-  C:116CH         LINE#         78
-  C:116EH         LINE#         79
-  C:116EH         LINE#         80
-  C:1173H         LINE#         81
-  C:1173H         LINE#         82
-  C:1182H         LINE#         84
-  C:1192H         LINE#         85
-  C:1197H         LINE#         86
-  C:119CH         LINE#         87
-  C:119CH         LINE#         88
-  C:11A9H         LINE#         89
-  C:11ABH         LINE#         90
-  C:11AFH         LINE#         91
-  C:11AFH         LINE#         92
-  C:11BBH         LINE#         93
-  C:11BBH         LINE#         96
-  C:11BBH         LINE#         97
-  C:11BBH         LINE#         98
-  C:11C4H         LINE#         99
-  C:11C7H         LINE#         100
-  C:11D6H         LINE#         101
-  C:11DBH         LINE#         104
-  C:11DFH         LINE#         105
-  C:11DFH         LINE#         106
-  C:11E4H         LINE#         107
-  C:11E6H         LINE#         108
-  C:11E6H         LINE#         111
-  C:11EFH         LINE#         112
-  C:11F4H         LINE#         114
-  C:11F8H         LINE#         115
-  C:11F8H         LINE#         116
-  C:11FDH         LINE#         117
-  C:11FFH         LINE#         118
-  C:11FFH         LINE#         119
-  C:120CH         LINE#         121
+  C:12F0H         LINE#         46
+  C:12F5H         LINE#         47
+  C:12FAH         LINE#         48
+  C:1317H         LINE#         49
+  C:131CH         LINE#         50
+  C:1323H         LINE#         51
+  C:1326H         LINE#         54
+  C:132FH         LINE#         55
+  C:133BH         LINE#         56
+  C:1348H         LINE#         57
+  C:134CH         LINE#         58
+  C:134CH         LINE#         59
+  C:1351H         LINE#         60
+  C:1356H         LINE#         61
+  C:1358H         LINE#         62
+  C:1358H         LINE#         63
+  C:135DH         LINE#         65
+  C:1362H         LINE#         66
+  C:1366H         LINE#         67
+  C:1366H         LINE#         68
+  C:136BH         LINE#         69
+  C:1370H         LINE#         70
+  C:1372H         LINE#         71
+  C:1372H         LINE#         72
+  C:1377H         LINE#         73
+  C:1384H         LINE#         74
+  C:1388H         LINE#         75
+  C:1388H         LINE#         76
+  C:138DH         LINE#         77
+  C:1392H         LINE#         78
+  C:1394H         LINE#         79
+  C:1394H         LINE#         80
+  C:1399H         LINE#         81
+  C:1399H         LINE#         82
+  C:13A8H         LINE#         84
+  C:13B8H         LINE#         85
+  C:13BDH         LINE#         86
+  C:13C2H         LINE#         87
+  C:13C2H         LINE#         88
+  C:13CFH         LINE#         89
+  C:13D1H         LINE#         90
+  C:13D5H         LINE#         91
+  C:13D5H         LINE#         92
+  C:13E1H         LINE#         93
+  C:13E1H         LINE#         95
+  C:13EAH         LINE#         96
+  C:13EAH         LINE#         97
+  C:13EAH         LINE#         98
+  C:13F3H         LINE#         99
+  C:13FEH         LINE#         100
+  C:1419H         LINE#         101
+  C:141EH         LINE#         104
+  C:1422H         LINE#         105
+  C:1422H         LINE#         106
+  C:1427H         LINE#         107
+  C:1429H         LINE#         108
+  C:1429H         LINE#         112
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 9
+
+
+  C:142EH         LINE#         114
+  C:1432H         LINE#         115
+  C:1432H         LINE#         116
+  C:1437H         LINE#         117
+  C:1439H         LINE#         118
+  C:1439H         LINE#         119
+  C:143BH         LINE#         122
   -------         ENDPROC       MAIN
   -------         ENDMOD        SD_CARD_TEST
 
   -------         MODULE        PRINT_BYTES
   C:0000H         SYMBOL        _ICE_DUMMY_
   B:00D8H.2       PUBLIC        CCF2
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 9
-
-
   B:00D8H.3       PUBLIC        CCF3
   D:0080H         PUBLIC        P0
   B:00D8H.4       PUBLIC        CCF4
   D:0090H         PUBLIC        P1
   D:00A0H         PUBLIC        P2
-  C:178CH         PUBLIC        _print_16bytes
+  C:1A67H         PUBLIC        _print_16bytes
   D:00B0H         PUBLIC        P3
   B:00B0H.4       PUBLIC        T0
   B:00D0H.6       PUBLIC        AC
@@ -501,7 +514,7 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:0098H.7       PUBLIC        FE
   B:00B0H.3       PUBLIC        nINT1
   D:00A8H         PUBLIC        IEN0
-  C:194AH         PUBLIC        _print_memory
+  C:1C96H         PUBLIC        _print_memory
   B:00B0H.0       PUBLIC        RxD
   B:00B0H.1       PUBLIC        TxD
   B:0090H.3       PUBLIC        CEX0
@@ -526,6 +539,9 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00B8H.2       PUBLIC        PX1L
   B:00C8H.5       PUBLIC        RCLK
   B:00C8H.4       PUBLIC        TCLK
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 10
+
+
   B:00B8H.6       PUBLIC        PPCL
   D:0098H         PUBLIC        SCON
   B:0080H.0       PUBLIC        AD0
@@ -539,9 +555,6 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:0080H.4       PUBLIC        AD4
   B:0080H.5       PUBLIC        AD5
   B:0080H.6       PUBLIC        AD6
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 10
-
-
   B:0080H.7       PUBLIC        AD7
   B:00A0H.0       PUBLIC        AD8
   B:00A0H.1       PUBLIC        AD9
@@ -586,52 +599,52 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00D8H.0       PUBLIC        CCF0
   B:00D8H.1       PUBLIC        CCF1
   -------         PROC          _PRINT_16BYTES
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 11
+
+
   D:0001H         SYMBOL        array_in_p
   -------         DO            array_in_p
-  D:0032H         SYMBOL        input_p
-  D:0035H         SYMBOL        index
-  D:0036H         SYMBOL        dat
+  D:004CH         SYMBOL        input_p
+  D:004FH         SYMBOL        index
+  D:0050H         SYMBOL        dat
   -------         ENDDO         dat
-  C:178CH         LINE#         16
-  C:178CH         LINE#         17
-  C:178CH         LINE#         20
-  C:1792H         LINE#         21
-  C:17A1H         LINE#         22
-  C:17A4H         LINE#         23
-  C:17A4H         LINE#         24
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 11
-
-
-  C:17B5H         LINE#         25
-  C:17C0H         LINE#         26
-  C:17C9H         LINE#         27
-  C:17CCH         LINE#         28
-  C:17CCH         LINE#         29
-  C:17DDH         LINE#         30
-  C:17ECH         LINE#         31
-  C:17F1H         LINE#         32
-  C:17FAH         LINE#         33
-  C:17FFH         LINE#         34
+  C:1A67H         LINE#         16
+  C:1A67H         LINE#         17
+  C:1A67H         LINE#         20
+  C:1A6DH         LINE#         21
+  C:1A7CH         LINE#         22
+  C:1A7FH         LINE#         23
+  C:1A7FH         LINE#         24
+  C:1A90H         LINE#         25
+  C:1A9BH         LINE#         26
+  C:1AA4H         LINE#         27
+  C:1AA7H         LINE#         28
+  C:1AA7H         LINE#         29
+  C:1AB8H         LINE#         30
+  C:1AC7H         LINE#         31
+  C:1ACCH         LINE#         32
+  C:1AD5H         LINE#         33
+  C:1ADAH         LINE#         34
   -------         ENDPROC       _PRINT_16BYTES
   -------         PROC          _PRINT_MEMORY
-  D:002AH         SYMBOL        array_in_p
-  D:002DH         SYMBOL        number_of_bytes
+  D:0044H         SYMBOL        array_in_p
+  D:0047H         SYMBOL        number_of_bytes
   -------         DO            number_of_bytes
-  D:002FH         SYMBOL        input_p
+  D:0049H         SYMBOL        input_p
   D:0006H         SYMBOL        i
   -------         ENDDO         i
-  C:194AH         LINE#         44
-  C:1954H         LINE#         45
-  C:1954H         LINE#         48
-  C:195AH         LINE#         49
-  C:195EH         LINE#         50
-  C:1963H         LINE#         51
-  C:196FH         LINE#         52
-  C:1978H         LINE#         54
-  C:1978H         LINE#         55
-  C:1981H         LINE#         56
-  C:198CH         LINE#         57
-  C:19A8H         LINE#         58
+  C:1C96H         LINE#         44
+  C:1CA0H         LINE#         45
+  C:1CA0H         LINE#         48
+  C:1CA6H         LINE#         49
+  C:1CAAH         LINE#         50
+  C:1CAFH         LINE#         51
+  C:1CBBH         LINE#         52
+  C:1CC4H         LINE#         54
+  C:1CC4H         LINE#         55
+  C:1CCDH         LINE#         56
+  C:1CD8H         LINE#         57
+  C:1CF4H         LINE#         58
   -------         ENDPROC       _PRINT_MEMORY
   -------         ENDMOD        PRINT_BYTES
 
@@ -646,6 +659,9 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   D:00B0H         PUBLIC        P3
   B:00B0H.4       PUBLIC        T0
   B:00D0H.6       PUBLIC        AC
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 12
+
+
   B:00B0H.5       PUBLIC        T1
   B:00B0H.7       PUBLIC        nRD
   B:0090H.0       PUBLIC        T2
@@ -659,9 +675,6 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00B0H.0       PUBLIC        RxD
   B:0090H.0       PUBLIC        P1_0
   B:00B0H.1       PUBLIC        TxD
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 12
-
-
   B:0090H.3       PUBLIC        CEX0
   B:0090H.1       PUBLIC        P1_1
   B:0090H.4       PUBLIC        CEX1
@@ -680,7 +693,7 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:0098H.0       PUBLIC        RI
   B:00D0H.7       PUBLIC        CY
   B:0098H.1       PUBLIC        TI
-  C:1804H         PUBLIC        _print_error
+  C:1B50H         PUBLIC        _print_error
   B:00B8H.1       PUBLIC        PT0L
   B:00B8H.3       PUBLIC        PT1L
   B:00B8H.5       PUBLIC        PT2L
@@ -706,6 +719,9 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00B0H.1       PUBLIC        per_RxD
   B:00C8H.1       PUBLIC        CnT2
   B:0080H.3       PUBLIC        AD3
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 13
+
+
   B:0090H.5       PUBLIC        MISO
   B:0090H.7       PUBLIC        MOSI
   B:0080H.4       PUBLIC        AD4
@@ -719,9 +735,6 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00A0H.7       PUBLIC        AMBERLED
   B:0088H.3       PUBLIC        IE1
   B:00B0H.7       PUBLIC        E
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 13
-
-
   B:00A0H.5       PUBLIC        GREENLED
   B:00A8H.1       PUBLIC        ET0
   B:00A8H.3       PUBLIC        ET1
@@ -740,7 +753,7 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:0090H.2       PUBLIC        ECI
   B:0098H.6       PUBLIC        SM1
   B:0098H.5       PUBLIC        SM2
-  C:15CEH         PUBLIC        _response
+  C:17FBH         PUBLIC        _response
   B:00D0H.3       PUBLIC        RS0
   B:0088H.4       PUBLIC        TR0
   B:00D0H.4       PUBLIC        RS1
@@ -749,7 +762,7 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00C8H.2       PUBLIC        TR2
   B:00A0H.0       PUBLIC        SW1
   B:00A0H.1       PUBLIC        SW2
-  C:1C31H         PUBLIC        Return_SD_Card_Type
+  C:1F83H         PUBLIC        Return_SD_Card_Type
   B:00A0H.2       PUBLIC        SW3
   B:00A0H.3       PUBLIC        SW4
   B:0090H.6       PUBLIC        SCK
@@ -764,221 +777,221 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00A0H.5       PUBLIC        AD13
   B:00A0H.6       PUBLIC        AD14
   B:00A0H.7       PUBLIC        AD15
-  C:1319H         PUBLIC        _read_block
-  C:1219H         PUBLIC        _SEND_COMMAND
+  C:1546H         PUBLIC        _read_block
+  C:1446H         PUBLIC        _SEND_COMMAND
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 14
+
+
   B:00B8H.4       PUBLIC        PLS
   B:00D0H.5       PUBLIC        F0
   B:00D0H.1       PUBLIC        F1
-  I:001EH         SYMBOL        SD_Card_Type
+  I:001AH         SYMBOL        SD_Card_Type
   D:00D0H         PUBLIC        PSW
   B:00D8H.0       PUBLIC        CCF0
   B:00D8H.1       PUBLIC        CCF1
   -------         PROC          L?0133
   -------         ENDPROC       L?0133
   -------         PROC          _SEND_COMMAND
-  D:004CH         SYMBOL        cmnd
-  D:004DH         SYMBOL        argum
+  D:0069H         SYMBOL        cmnd
+  D:006AH         SYMBOL        argum
   -------         DO            argum
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 14
-
-
-  D:0051H         SYMBOL        SPI_send
-  D:0052H         SYMBOL        return_val
-  D:0053H         SYMBOL        SPI_return
-  D:0054H         SYMBOL        error_flag
+  D:006EH         SYMBOL        SPI_send
+  D:006FH         SYMBOL        return_val
+  D:0070H         SYMBOL        SPI_return
+  D:0071H         SYMBOL        error_flag
   -------         ENDDO         error_flag
-  C:1219H         LINE#         21
-  C:121BH         LINE#         22
-  C:121BH         LINE#         25
-  C:121EH         LINE#         26
-  C:1228H         LINE#         27
-  C:1228H         LINE#         28
-  C:122EH         LINE#         29
-  C:123AH         LINE#         30
-  C:123EH         LINE#         31
-  C:123EH         LINE#         32
-  C:124DH         LINE#         33
-  C:1258H         LINE#         34
-  C:125AH         LINE#         36
-  C:125AH         LINE#         37
-  C:125DH         LINE#         38
-  C:125DH         LINE#         39
-  C:1265H         LINE#         40
-  C:1265H         LINE#         41
-  C:1274H         LINE#         42
-  C:1283H         LINE#         43
-  C:128EH         LINE#         44
-  C:1290H         LINE#         46
-  C:1290H         LINE#         47
-  C:1293H         LINE#         48
-  C:1293H         LINE#         49
-  C:129BH         LINE#         50
-  C:129BH         LINE#         51
-  C:12A8H         LINE#         52
-  C:12B7H         LINE#         53
-  C:12C2H         LINE#         54
-  C:12C4H         LINE#         56
-  C:12C4H         LINE#         57
-  C:12C7H         LINE#         58
-  C:12C7H         LINE#         59
-  C:12CFH         LINE#         60
-  C:12CFH         LINE#         61
-  C:12D5H         LINE#         62
-  C:12E1H         LINE#         63
-  C:12E3H         LINE#         65
-  C:12E3H         LINE#         66
-  C:12E6H         LINE#         67
-  C:12E6H         LINE#         68
-  C:12EEH         LINE#         69
-  C:12EEH         LINE#         70
-  C:12F2H         LINE#         71
-  C:12F2H         LINE#         72
-  C:12F5H         LINE#         73
-  C:12F7H         LINE#         74
-  C:12FCH         LINE#         75
-  C:12FCH         LINE#         76
-  C:12FFH         LINE#         77
-  C:1301H         LINE#         79
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 15
+  C:1446H         LINE#         21
+  C:1448H         LINE#         22
+  C:1448H         LINE#         25
+  C:144BH         LINE#         26
+  C:1455H         LINE#         27
+  C:1455H         LINE#         28
+  C:145BH         LINE#         29
+  C:1467H         LINE#         30
+  C:146BH         LINE#         31
+  C:146BH         LINE#         32
+  C:147AH         LINE#         33
+  C:1485H         LINE#         34
+  C:1487H         LINE#         36
+  C:1487H         LINE#         37
+  C:148AH         LINE#         38
+  C:148AH         LINE#         39
+  C:1492H         LINE#         40
+  C:1492H         LINE#         41
+  C:14A1H         LINE#         42
+  C:14B0H         LINE#         43
+  C:14BBH         LINE#         44
+  C:14BDH         LINE#         46
+  C:14BDH         LINE#         47
+  C:14C0H         LINE#         48
+  C:14C0H         LINE#         49
+  C:14C8H         LINE#         50
+  C:14C8H         LINE#         51
+  C:14D5H         LINE#         52
+  C:14E4H         LINE#         53
+  C:14EFH         LINE#         54
+  C:14F1H         LINE#         56
+  C:14F1H         LINE#         57
+  C:14F4H         LINE#         58
+  C:14F4H         LINE#         59
+  C:14FCH         LINE#         60
+  C:14FCH         LINE#         61
+  C:1502H         LINE#         62
+  C:150EH         LINE#         63
+  C:1510H         LINE#         65
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 15
 
 
-  C:1301H         LINE#         80
-  C:1304H         LINE#         81
-  C:1304H         LINE#         82
-  C:1311H         LINE#         83
-  C:1311H         LINE#         84
-  C:1313H         LINE#         86
-  C:1313H         LINE#         87
-  C:1316H         LINE#         88
-  C:1316H         LINE#         89
-  C:1318H         LINE#         90
+  C:1510H         LINE#         66
+  C:1513H         LINE#         67
+  C:1513H         LINE#         68
+  C:151BH         LINE#         69
+  C:151BH         LINE#         70
+  C:151FH         LINE#         71
+  C:151FH         LINE#         72
+  C:1522H         LINE#         73
+  C:1524H         LINE#         74
+  C:1529H         LINE#         75
+  C:1529H         LINE#         76
+  C:152CH         LINE#         77
+  C:152EH         LINE#         79
+  C:152EH         LINE#         80
+  C:1531H         LINE#         81
+  C:1531H         LINE#         82
+  C:153EH         LINE#         83
+  C:153EH         LINE#         84
+  C:1540H         LINE#         86
+  C:1540H         LINE#         87
+  C:1543H         LINE#         88
+  C:1543H         LINE#         89
+  C:1545H         LINE#         90
   -------         ENDPROC       _SEND_COMMAND
   -------         PROC          L?0132
   -------         ENDPROC       L?0132
   -------         PROC          _RESPONSE
-  D:003EH         SYMBOL        num_bytes
-  D:003FH         SYMBOL        valout_p
+  D:0042H         SYMBOL        num_bytes
+  D:0043H         SYMBOL        valout_p
   -------         DO            valout_p
-  D:0042H         SYMBOL        return_val
-  D:0043H         SYMBOL        error_flag
-  D:0044H         SYMBOL        SPI_return
-  D:0045H         SYMBOL        index
+  D:0046H         SYMBOL        return_val
+  D:0047H         SYMBOL        error_flag
+  D:0048H         SYMBOL        SPI_return
+  D:0049H         SYMBOL        index
   -------         ENDDO         index
-  C:15CEH         LINE#         99
-  C:15D6H         LINE#         100
-  C:15D6H         LINE#         102
-  C:15DBH         LINE#         104
-  C:15DDH         LINE#         106
-  C:15DDH         LINE#         107
-  C:15EAH         LINE#         109
-  C:15F2H         LINE#         110
-  C:1601H         LINE#         111
-  C:1605H         LINE#         112
-  C:1605H         LINE#         113
-  C:1608H         LINE#         114
-  C:160AH         LINE#         115
-  C:1610H         LINE#         116
-  C:1610H         LINE#         117
-  C:1613H         LINE#         118
-  C:1615H         LINE#         120
-  C:1615H         LINE#         121
-  C:1620H         LINE#         122
-  C:1628H         LINE#         123
-  C:1628H         LINE#         124
-  C:162FH         LINE#         125
-  C:162FH         LINE#         126
-  C:1640H         LINE#         127
-  C:1640H         LINE#         128
-  C:164DH         LINE#         129
-  C:165EH         LINE#         130
-  C:1668H         LINE#         131
-  C:1668H         LINE#         132
-  C:1668H         LINE#         134
-  C:1668H         LINE#         135
-  C:166BH         LINE#         136
-  C:166BH         LINE#         137
-  C:166BH         LINE#         138
-  C:1678H         LINE#         139
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 16
+  C:17FBH         LINE#         99
+  C:1803H         LINE#         100
+  C:1803H         LINE#         102
+  C:1808H         LINE#         104
+  C:180AH         LINE#         106
+  C:180AH         LINE#         107
+  C:1817H         LINE#         109
+  C:181FH         LINE#         110
+  C:182EH         LINE#         111
+  C:1832H         LINE#         112
+  C:1832H         LINE#         113
+  C:1835H         LINE#         114
+  C:1837H         LINE#         115
+  C:183DH         LINE#         116
+  C:183DH         LINE#         117
+  C:1840H         LINE#         118
+  C:1842H         LINE#         120
+  C:1842H         LINE#         121
+  C:184DH         LINE#         122
+  C:1855H         LINE#         123
+  C:1855H         LINE#         124
+  C:185CH         LINE#         125
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 16
 
 
-  C:167AH         LINE#         140
+  C:185CH         LINE#         126
+  C:186DH         LINE#         127
+  C:186DH         LINE#         128
+  C:187AH         LINE#         129
+  C:188BH         LINE#         130
+  C:1895H         LINE#         131
+  C:1895H         LINE#         132
+  C:1895H         LINE#         134
+  C:1895H         LINE#         135
+  C:1898H         LINE#         136
+  C:1898H         LINE#         137
+  C:1898H         LINE#         138
+  C:18A5H         LINE#         139
+  C:18A7H         LINE#         140
   -------         ENDPROC       _RESPONSE
   -------         PROC          _READ_BLOCK
-  D:004CH         SYMBOL        num_bytes
-  D:004EH         SYMBOL        array_out_p
+  D:0069H         SYMBOL        num_bytes
+  D:006BH         SYMBOL        array_out_p
   -------         DO            array_out_p
-  D:0051H         SYMBOL        error_flag
-  D:0052H         SYMBOL        return_val
-  D:0053H         SYMBOL        SPI_return
-  D:0054H         SYMBOL        index
+  D:006EH         SYMBOL        error_flag
+  D:006FH         SYMBOL        return_val
+  D:0070H         SYMBOL        SPI_return
+  D:0071H         SYMBOL        index
   -------         ENDDO         index
-  C:1319H         LINE#         151
-  C:1323H         LINE#         152
-  C:1323H         LINE#         155
-  C:1328H         LINE#         156
-  C:132AH         LINE#         158
-  C:132AH         LINE#         159
-  C:1337H         LINE#         160
-  C:133FH         LINE#         161
-  C:134EH         LINE#         162
-  C:1352H         LINE#         163
-  C:1352H         LINE#         164
-  C:1355H         LINE#         165
-  C:1358H         LINE#         166
-  C:135EH         LINE#         167
-  C:135EH         LINE#         168
-  C:1361H         LINE#         169
-  C:1364H         LINE#         171
-  C:1364H         LINE#         172
-  C:136BH         LINE#         173
-  C:136BH         LINE#         174
-  C:136FH         LINE#         176
-  C:136FH         LINE#         177
-  C:137CH         LINE#         178
-  C:1384H         LINE#         179
-  C:1393H         LINE#         180
-  C:1397H         LINE#         181
-  C:1397H         LINE#         182
-  C:139AH         LINE#         183
-  C:139CH         LINE#         184
-  C:13A2H         LINE#         185
-  C:13A2H         LINE#         186
-  C:13A5H         LINE#         187
-  C:13A7H         LINE#         188
-  C:13ADH         LINE#         189
-  C:13ADH         LINE#         190
-  C:13BCH         LINE#         191
-  C:13BCH         LINE#         192
-  C:13C9H         LINE#         193
-  C:13DAH         LINE#         194
-  C:13E4H         LINE#         195
-  C:13F1H         LINE#         196
-  C:13FEH         LINE#         197
-  C:1400H         LINE#         199
-  C:1400H         LINE#         200
-  C:1403H         LINE#         201
-  C:1403H         LINE#         202
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 17
+  C:1546H         LINE#         151
+  C:1550H         LINE#         152
+  C:1550H         LINE#         155
+  C:1555H         LINE#         156
+  C:1557H         LINE#         158
+  C:1557H         LINE#         159
+  C:1564H         LINE#         160
+  C:156CH         LINE#         161
+  C:157BH         LINE#         162
+  C:157FH         LINE#         163
+  C:157FH         LINE#         164
+  C:1582H         LINE#         165
+  C:1585H         LINE#         166
+  C:158BH         LINE#         167
+  C:158BH         LINE#         168
+  C:158EH         LINE#         169
+  C:1591H         LINE#         171
+  C:1591H         LINE#         172
+  C:1598H         LINE#         173
+  C:1598H         LINE#         174
+  C:159CH         LINE#         176
+  C:159CH         LINE#         177
+  C:15A9H         LINE#         178
+  C:15B1H         LINE#         179
+  C:15C0H         LINE#         180
+  C:15C4H         LINE#         181
+  C:15C4H         LINE#         182
+  C:15C7H         LINE#         183
+  C:15C9H         LINE#         184
+  C:15CFH         LINE#         185
+  C:15CFH         LINE#         186
+  C:15D2H         LINE#         187
+  C:15D4H         LINE#         188
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 17
 
 
-  C:1405H         LINE#         204
-  C:1405H         LINE#         205
-  C:1408H         LINE#         206
-  C:1408H         LINE#         207
-  C:1408H         LINE#         208
-  C:1415H         LINE#         209
-  C:1417H         LINE#         210
+  C:15DAH         LINE#         189
+  C:15DAH         LINE#         190
+  C:15E9H         LINE#         191
+  C:15E9H         LINE#         192
+  C:15F6H         LINE#         193
+  C:1607H         LINE#         194
+  C:1611H         LINE#         195
+  C:161EH         LINE#         196
+  C:162BH         LINE#         197
+  C:162DH         LINE#         199
+  C:162DH         LINE#         200
+  C:1630H         LINE#         201
+  C:1630H         LINE#         202
+  C:1632H         LINE#         204
+  C:1632H         LINE#         205
+  C:1635H         LINE#         206
+  C:1635H         LINE#         207
+  C:1635H         LINE#         208
+  C:1642H         LINE#         209
+  C:1644H         LINE#         210
   -------         ENDPROC       _READ_BLOCK
   -------         PROC          SD_CARD_INIT
   -------         DO            SD_CARD_INIT
-  D:002AH         SYMBOL        i
-  D:002BH         SYMBOL        error_status
-  D:002CH         SYMBOL        error_flag
-  D:002DH         SYMBOL        valsout
-  D:0035H         SYMBOL        SPI_return
-  D:0036H         SYMBOL        argument
-  D:003AH         SYMBOL        timeout
+  D:002EH         SYMBOL        i
+  D:002FH         SYMBOL        error_status
+  D:0030H         SYMBOL        error_flag
+  D:0031H         SYMBOL        valsout
+  D:0039H         SYMBOL        SPI_return
+  D:003AH         SYMBOL        argument
+  D:003EH         SYMBOL        timeout
   -------         ENDDO         timeout
   C:0003H         LINE#         218
   C:0003H         LINE#         219
@@ -1006,6 +1019,9 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   C:0074H         LINE#         245
   C:0079H         LINE#         246
   C:007DH         LINE#         247
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 18
+
+
   C:007DH         LINE#         248
   C:007FH         LINE#         249
   C:007FH         LINE#         250
@@ -1019,9 +1035,6 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   C:00B2H         LINE#         258
   C:00BEH         LINE#         259
   C:00C3H         LINE#         260
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 18
-
-
   C:00C8H         LINE#         261
   C:00CCH         LINE#         262
   C:00CCH         LINE#         263
@@ -1066,6 +1079,9 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   C:0177H         LINE#         305
   C:017CH         LINE#         306
   C:0181H         LINE#         307
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 19
+
+
   C:0185H         LINE#         308
   C:0185H         LINE#         309
   C:0191H         LINE#         310
@@ -1079,9 +1095,6 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   C:01C6H         LINE#         318
   C:01CBH         LINE#         319
   C:01D3H         LINE#         320
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 19
-
-
   C:01D3H         LINE#         321
   C:01D6H         LINE#         322
   C:01D6H         LINE#         323
@@ -1126,6 +1139,9 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   C:02B8H         LINE#         369
   C:02B8H         LINE#         370
   C:02BDH         LINE#         371
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 20
+
+
   C:02C2H         LINE#         372
   C:02C2H         LINE#         374
   C:02D7H         LINE#         375
@@ -1139,9 +1155,6 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   C:02F3H         LINE#         383
   C:02FCH         LINE#         384
   C:0301H         LINE#         385
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 20
-
-
   C:0306H         LINE#         386
   C:030DH         LINE#         387
   C:030DH         LINE#         388
@@ -1186,6 +1199,9 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   C:03D0H         LINE#         430
   C:03D5H         LINE#         431
   C:03DAH         LINE#         432
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 21
+
+
   C:03DFH         LINE#         433
   C:03DFH         LINE#         434
   C:03E3H         LINE#         435
@@ -1199,29 +1215,26 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   C:03F2H         LINE#         443
   C:03F2H         LINE#         444
   C:03F4H         LINE#         445
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 21
-
-
   -------         ENDPROC       SD_CARD_INIT
   -------         PROC          RETURN_SD_CARD_TYPE
-  C:1C31H         LINE#         453
-  C:1C31H         LINE#         454
-  C:1C31H         LINE#         455
-  C:1C35H         LINE#         456
+  C:1F83H         LINE#         453
+  C:1F83H         LINE#         454
+  C:1F83H         LINE#         455
+  C:1F87H         LINE#         456
   -------         ENDPROC       RETURN_SD_CARD_TYPE
   -------         PROC          _PRINT_ERROR
-  D:003EH         SYMBOL        error
-  C:1804H         LINE#         465
-  C:1806H         LINE#         466
-  C:1806H         LINE#         467
-  C:1814H         LINE#         468
-  C:1822H         LINE#         469
-  C:1830H         LINE#         470
-  C:183EH         LINE#         471
-  C:184CH         LINE#         472
-  C:185AH         LINE#         473
-  C:1868H         LINE#         474
-  C:1871H         LINE#         475
+  D:0042H         SYMBOL        error
+  C:1B50H         LINE#         465
+  C:1B52H         LINE#         466
+  C:1B52H         LINE#         467
+  C:1B60H         LINE#         468
+  C:1B6EH         LINE#         469
+  C:1B7CH         LINE#         470
+  C:1B8AH         LINE#         471
+  C:1B98H         LINE#         472
+  C:1BA6H         LINE#         473
+  C:1BB4H         LINE#         474
+  C:1BBDH         LINE#         475
   -------         ENDPROC       _PRINT_ERROR
   -------         ENDMOD        SDCARD
 
@@ -1246,6 +1259,9 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00B0H.2       PUBLIC        nINT0
   B:0098H.7       PUBLIC        FE
   B:00B0H.3       PUBLIC        nINT1
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 22
+
+
   D:00C4H         PUBLIC        SPSTA
   D:00A8H         PUBLIC        IEN0
   B:00B0H.0       PUBLIC        RxD
@@ -1256,12 +1272,9 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:0090H.4       PUBLIC        CEX1
   B:0090H.2       PUBLIC        P1_2
   B:00C8H.0       PUBLIC        CP
-  C:167BH         PUBLIC        _SPI_Master_Init
+  C:1956H         PUBLIC        _SPI_Master_Init
   B:0090H.3       PUBLIC        P1_3
   B:00B0H.2       PUBLIC        P3_2
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 22
-
-
   B:00D8H.6       PUBLIC        CR
   B:00B0H.3       PUBLIC        P3_3
   B:00C8H.6       PUBLIC        EXF2
@@ -1273,7 +1286,7 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:0098H.0       PUBLIC        RI
   B:00D0H.7       PUBLIC        CY
   B:0098H.1       PUBLIC        TI
-  C:1C45H         PUBLIC        _SPI_Select_Set
+  C:1F97H         PUBLIC        _SPI_Select_Set
   B:00B8H.1       PUBLIC        PT0L
   B:00B8H.3       PUBLIC        PT1L
   B:00B8H.5       PUBLIC        PT2L
@@ -1306,6 +1319,9 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:0080H.6       PUBLIC        AD6
   B:0080H.7       PUBLIC        AD7
   B:00A0H.0       PUBLIC        AD8
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 23
+
+
   B:00A0H.1       PUBLIC        AD9
   B:0088H.1       PUBLIC        IE0
   B:00A0H.7       PUBLIC        AMBERLED
@@ -1319,9 +1335,6 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:0088H.7       PUBLIC        TF1
   B:00C8H.7       PUBLIC        TF2
   B:0098H.2       PUBLIC        RB8
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 23
-
-
   B:00A8H.0       PUBLIC        EX0
   B:0088H.0       PUBLIC        IT0
   B:0098H.3       PUBLIC        TB8
@@ -1338,7 +1351,7 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:0090H.6       PUBLIC        per_SCLK
   B:0088H.6       PUBLIC        TR1
   B:00C8H.2       PUBLIC        TR2
-  C:1C36H         PUBLIC        _SPI_Select_Clear
+  C:1F88H         PUBLIC        _SPI_Select_Clear
   B:00A0H.0       PUBLIC        SW1
   B:00A0H.1       PUBLIC        SW2
   B:00A0H.2       PUBLIC        SW3
@@ -1358,7 +1371,7 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00B8H.4       PUBLIC        PLS
   B:00D0H.5       PUBLIC        F0
   B:00D0H.1       PUBLIC        F1
-  C:1A97H         PUBLIC        _SPI_Transfer
+  C:1DE3H         PUBLIC        _SPI_Transfer
   D:00D0H         PUBLIC        PSW
   B:00D8H.0       PUBLIC        CCF0
   B:00D8H.1       PUBLIC        CCF1
@@ -1366,100 +1379,100 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   -------         PROC          _SPI_MASTER_INIT
   D:0004H         SYMBOL        clock_rate
   -------         DO            clock_rate
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 24
+
+
   D:0007H         SYMBOL        divider
-  D:002AH         SYMBOL        return_val
+  D:002EH         SYMBOL        return_val
   -------         ENDDO         return_val
-  C:167BH         LINE#         15
-  C:167BH         LINE#         16
-  C:167BH         LINE#         18
-  C:167EH         LINE#         19
-  C:1690H         LINE#         20
-  C:1696H         LINE#         21
-  C:1696H         LINE#         22
-  C:1699H         LINE#         23
-  C:169BH         LINE#         24
-  C:16A7H         LINE#         25
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 24
-
-
-  C:16A7H         LINE#         26
-  C:16AAH         LINE#         27
-  C:16ACH         LINE#         28
-  C:16B8H         LINE#         29
-  C:16B8H         LINE#         30
-  C:16BBH         LINE#         31
-  C:16BDH         LINE#         32
-  C:16C9H         LINE#         33
-  C:16C9H         LINE#         34
-  C:16CCH         LINE#         35
-  C:16CEH         LINE#         36
-  C:16DAH         LINE#         37
-  C:16DAH         LINE#         38
-  C:16DDH         LINE#         39
-  C:16DFH         LINE#         40
-  C:16EBH         LINE#         41
-  C:16EBH         LINE#         42
-  C:16EEH         LINE#         43
-  C:16F0H         LINE#         44
-  C:16FCH         LINE#         45
-  C:16FCH         LINE#         46
-  C:16FFH         LINE#         47
-  C:1701H         LINE#         49
-  C:1701H         LINE#         50
-  C:1704H         LINE#         51
-  C:1704H         LINE#         52
-  C:1706H         LINE#         53
+  C:1956H         LINE#         15
+  C:1956H         LINE#         16
+  C:1956H         LINE#         18
+  C:1959H         LINE#         19
+  C:196BH         LINE#         20
+  C:1971H         LINE#         21
+  C:1971H         LINE#         22
+  C:1974H         LINE#         23
+  C:1976H         LINE#         24
+  C:1982H         LINE#         25
+  C:1982H         LINE#         26
+  C:1985H         LINE#         27
+  C:1987H         LINE#         28
+  C:1993H         LINE#         29
+  C:1993H         LINE#         30
+  C:1996H         LINE#         31
+  C:1998H         LINE#         32
+  C:19A4H         LINE#         33
+  C:19A4H         LINE#         34
+  C:19A7H         LINE#         35
+  C:19A9H         LINE#         36
+  C:19B5H         LINE#         37
+  C:19B5H         LINE#         38
+  C:19B8H         LINE#         39
+  C:19BAH         LINE#         40
+  C:19C6H         LINE#         41
+  C:19C6H         LINE#         42
+  C:19C9H         LINE#         43
+  C:19CBH         LINE#         44
+  C:19D7H         LINE#         45
+  C:19D7H         LINE#         46
+  C:19DAH         LINE#         47
+  C:19DCH         LINE#         49
+  C:19DCH         LINE#         50
+  C:19DFH         LINE#         51
+  C:19DFH         LINE#         52
+  C:19E1H         LINE#         53
   -------         ENDPROC       _SPI_MASTER_INIT
   -------         PROC          _SPI_TRANSFER
   D:0007H         SYMBOL        data_input
   D:0001H         SYMBOL        data_output_p
   -------         DO            data_output_p
-  D:0056H         SYMBOL        test
+  D:0073H         SYMBOL        test
   D:0004H         SYMBOL        timeout
   -------         ENDDO         timeout
-  C:1A97H         LINE#         64
-  C:1A97H         LINE#         65
-  C:1A97H         LINE#         67
-  C:1A9AH         LINE#         68
-  C:1A9CH         LINE#         70
-  C:1A9CH         LINE#         71
-  C:1AA3H         LINE#         72
-  C:1AA8H         LINE#         73
-  C:1AB2H         LINE#         74
-  C:1AB6H         LINE#         75
-  C:1AB6H         LINE#         76
-  C:1ABCH         LINE#         77
-  C:1ABCH         LINE#         78
-  C:1AC1H         LINE#         79
-  C:1AC4H         LINE#         80
-  C:1AC6H         LINE#         82
-  C:1AC6H         LINE#         83
-  C:1ACBH         LINE#         84
-  C:1ACEH         LINE#         85
-  C:1ACEH         LINE#         86
-  C:1AD0H         LINE#         88
-  C:1AD0H         LINE#         89
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 25
+  C:1DE3H         LINE#         64
+  C:1DE3H         LINE#         65
+  C:1DE3H         LINE#         67
+  C:1DE6H         LINE#         68
+  C:1DE8H         LINE#         70
+  C:1DE8H         LINE#         71
+  C:1DEFH         LINE#         72
+  C:1DF4H         LINE#         73
+  C:1DFEH         LINE#         74
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 25
 
 
-  C:1AD5H         LINE#         90
-  C:1AD9H         LINE#         91
-  C:1AD9H         LINE#         92
-  C:1ADBH         LINE#         93
+  C:1E02H         LINE#         75
+  C:1E02H         LINE#         76
+  C:1E08H         LINE#         77
+  C:1E08H         LINE#         78
+  C:1E0DH         LINE#         79
+  C:1E10H         LINE#         80
+  C:1E12H         LINE#         82
+  C:1E12H         LINE#         83
+  C:1E17H         LINE#         84
+  C:1E1AH         LINE#         85
+  C:1E1AH         LINE#         86
+  C:1E1CH         LINE#         88
+  C:1E1CH         LINE#         89
+  C:1E21H         LINE#         90
+  C:1E25H         LINE#         91
+  C:1E25H         LINE#         92
+  C:1E27H         LINE#         93
   -------         ENDPROC       _SPI_TRANSFER
   -------         PROC          _SPI_SELECT_SET
   D:0007H         SYMBOL        Output_Pin
-  C:1C45H         LINE#         103
-  C:1C45H         LINE#         104
-  C:1C45H         LINE#         105
-  C:1C48H         LINE#         106
+  C:1F97H         LINE#         103
+  C:1F97H         LINE#         104
+  C:1F97H         LINE#         105
+  C:1F9AH         LINE#         106
   -------         ENDPROC       _SPI_SELECT_SET
   -------         PROC          _SPI_SELECT_CLEAR
   D:0007H         SYMBOL        Output_Pin
-  C:1C36H         LINE#         109
-  C:1C36H         LINE#         110
-  C:1C36H         LINE#         111
-  C:1C3AH         LINE#         112
+  C:1F88H         LINE#         109
+  C:1F88H         LINE#         110
+  C:1F88H         LINE#         111
+  C:1F8CH         LINE#         112
   -------         ENDPROC       _SPI_SELECT_CLEAR
   -------         ENDMOD        SPI
 
@@ -1486,6 +1499,9 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   D:00A8H         PUBLIC        IEN0
   B:00B0H.0       PUBLIC        RxD
   B:00B0H.1       PUBLIC        TxD
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 26
+
+
   B:0090H.3       PUBLIC        CEX0
   B:0090H.4       PUBLIC        CEX1
   B:00C8H.0       PUBLIC        CP
@@ -1499,9 +1515,6 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:0098H.1       PUBLIC        TI
   B:00B8H.1       PUBLIC        PT0L
   B:00B8H.3       PUBLIC        PT1L
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 26
-
-
   B:00B8H.5       PUBLIC        PT2L
   B:0090H.1       PUBLIC        T2EX
   D:00D8H         PUBLIC        CCON
@@ -1515,7 +1528,7 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   D:0099H         PUBLIC        SBUF
   D:0087H         PUBLIC        PCON
   D:0098H         PUBLIC        SCON
-  C:1B14H         PUBLIC        _uart_init
+  C:1E60H         PUBLIC        _uart_init
   B:0080H.0       PUBLIC        AD0
   D:0088H         PUBLIC        TCON
   B:0080H.1       PUBLIC        AD1
@@ -1546,11 +1559,14 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00A8H.2       PUBLIC        EX1
   B:0088H.2       PUBLIC        IT1
   B:00D0H.0       PUBLIC        P
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 27
+
+
   B:0098H.7       PUBLIC        SM0
   B:0090H.2       PUBLIC        ECI
   B:0098H.6       PUBLIC        SM1
   B:0098H.5       PUBLIC        SM2
-  C:1BC0H         PUBLIC        _UART_Transmit
+  C:1F0CH         PUBLIC        _UART_Transmit
   B:00D0H.3       PUBLIC        RS0
   B:0088H.4       PUBLIC        TR0
   B:00D0H.4       PUBLIC        RS1
@@ -1559,10 +1575,7 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   D:009AH         PUBLIC        BRL
   B:0090H.6       PUBLIC        SCK
   B:00C8H.3       PUBLIC        EXEN2
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 27
-
-
-  C:1C22H         PUBLIC        UART_Receive
+  C:1F74H         PUBLIC        UART_Receive
   B:0098H.4       PUBLIC        REN
   B:00A0H.2       PUBLIC        AD10
   B:00A0H.3       PUBLIC        AD11
@@ -1579,17 +1592,17 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00D8H.1       PUBLIC        CCF1
   -------         PROC          _UART_INIT
   D:0006H         SYMBOL        BAUD_RATE
-  C:1B14H         LINE#         13
-  C:1B14H         LINE#         14
-  C:1B14H         LINE#         18
-  C:1B17H         LINE#         19
-  C:1B1AH         LINE#         22
-  C:1B1CH         LINE#         24
-  C:1B1FH         LINE#         27
-  C:1B22H         LINE#         29
-  C:1B43H         LINE#         30
-  C:1B46H         LINE#         35
-  C:1B48H         LINE#         38
+  C:1E60H         LINE#         13
+  C:1E60H         LINE#         14
+  C:1E60H         LINE#         18
+  C:1E63H         LINE#         19
+  C:1E66H         LINE#         22
+  C:1E68H         LINE#         24
+  C:1E6BH         LINE#         27
+  C:1E6EH         LINE#         29
+  C:1E8FH         LINE#         30
+  C:1E92H         LINE#         35
+  C:1E94H         LINE#         38
   -------         ENDPROC       _UART_INIT
   -------         PROC          _UART_TRANSMIT
   D:0007H         SYMBOL        send_value
@@ -1597,38 +1610,38 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   D:0006H         SYMBOL        return_value
   D:0004H         SYMBOL        timeout
   -------         ENDDO         timeout
-  C:1BC0H         LINE#         48
-  C:1BC0H         LINE#         49
-  C:1BC0H         LINE#         52
-  C:1BC3H         LINE#         54
-  C:1BC3H         LINE#         55
-  C:1BC8H         LINE#         56
-  C:1BCFH         LINE#         57
-  C:1BD3H         LINE#         58
-  C:1BD3H         LINE#         59
-  C:1BD5H         LINE#         60
-  C:1BD7H         LINE#         61
-  C:1BD9H         LINE#         62
-  C:1BDBH         LINE#         64
-  C:1BDBH         LINE#         65
-  C:1BDDH         LINE#         66
-  C:1BDDH         LINE#         67
-  C:1BDFH         LINE#         68
+  C:1F0CH         LINE#         48
+  C:1F0CH         LINE#         49
+  C:1F0CH         LINE#         52
+  C:1F0FH         LINE#         54
+  C:1F0FH         LINE#         55
+  C:1F14H         LINE#         56
+  C:1F1BH         LINE#         57
+  C:1F1FH         LINE#         58
+  C:1F1FH         LINE#         59
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 28
+
+
+  C:1F21H         LINE#         60
+  C:1F23H         LINE#         61
+  C:1F25H         LINE#         62
+  C:1F27H         LINE#         64
+  C:1F27H         LINE#         65
+  C:1F29H         LINE#         66
+  C:1F29H         LINE#         67
+  C:1F2BH         LINE#         68
   -------         ENDPROC       _UART_TRANSMIT
   -------         PROC          UART_RECEIVE
   -------         DO            UART_RECEIVE
   D:0007H         SYMBOL        return_value
   -------         ENDDO         return_value
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 28
-
-
-  C:1C22H         LINE#         83
-  C:1C22H         LINE#         84
-  C:1C22H         LINE#         86
-  C:1C25H         LINE#         87
-  C:1C27H         LINE#         88
-  C:1C29H         LINE#         89
-  C:1C29H         LINE#         90
+  C:1F74H         LINE#         83
+  C:1F74H         LINE#         84
+  C:1F74H         LINE#         86
+  C:1F77H         LINE#         87
+  C:1F79H         LINE#         88
+  C:1F7BH         LINE#         89
+  C:1F7BH         LINE#         90
   -------         ENDPROC       UART_RECEIVE
   -------         ENDMOD        UART
 
@@ -1666,6 +1679,9 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:0098H.0       PUBLIC        RI
   B:00D0H.7       PUBLIC        CY
   B:0098H.1       PUBLIC        TI
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 29
+
+
   B:00B8H.1       PUBLIC        PT0L
   B:00B8H.3       PUBLIC        PT1L
   B:00B8H.5       PUBLIC        PT2L
@@ -1679,9 +1695,6 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00C8H.4       PUBLIC        TCLK
   B:00B8H.6       PUBLIC        PPCL
   D:0098H         PUBLIC        SCON
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 29
-
-
   B:0080H.0       PUBLIC        AD0
   D:0088H         PUBLIC        TCON
   B:0080H.1       PUBLIC        AD1
@@ -1698,9 +1711,9 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00A0H.1       PUBLIC        AD9
   B:0088H.1       PUBLIC        IE0
   B:0088H.3       PUBLIC        IE1
-  C:1707H         PUBLIC        _LCD_print
+  C:19E2H         PUBLIC        _LCD_print
   B:00A8H.1       PUBLIC        ET0
-  C:1ADCH         PUBLIC        LCD_Init
+  C:1E28H         PUBLIC        LCD_Init
   B:00A8H.3       PUBLIC        ET1
   B:0088H.5       PUBLIC        TF0
   B:00A8H.5       PUBLIC        ET2
@@ -1726,6 +1739,9 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00C8H.3       PUBLIC        EXEN2
   B:0098H.4       PUBLIC        REN
   B:00A0H.2       PUBLIC        AD10
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 30
+
+
   B:00A0H.3       PUBLIC        AD11
   D:00C8H         PUBLIC        T2CON
   B:00A0H.4       PUBLIC        AD12
@@ -1739,56 +1755,56 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00D8H.0       PUBLIC        CCF0
   B:00D8H.1       PUBLIC        CCF1
   -------         PROC          LCD_INIT
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 30
-
-
-  C:1ADCH         LINE#         14
-  C:1ADCH         LINE#         15
-  C:1ADCH         LINE#         16
-  C:1AE3H         LINE#         17
-  C:1AEAH         LINE#         18
-  C:1AF1H         LINE#         19
-  C:1AF8H         LINE#         20
-  C:1AFFH         LINE#         21
-  C:1B06H         LINE#         22
-  C:1B0DH         LINE#         23
+  C:1E28H         LINE#         14
+  C:1E28H         LINE#         15
+  C:1E28H         LINE#         16
+  C:1E2FH         LINE#         17
+  C:1E36H         LINE#         18
+  C:1E3DH         LINE#         19
+  C:1E44H         LINE#         20
+  C:1E4BH         LINE#         21
+  C:1E52H         LINE#         22
+  C:1E59H         LINE#         23
   -------         ENDPROC       LCD_INIT
   -------         PROC          _LCD_PRINT
   D:0007H         SYMBOL        address
-  D:002AH         SYMBOL        num_bytes
-  D:002BH         SYMBOL        array_name_p
+  D:002EH         SYMBOL        num_bytes
+  D:002FH         SYMBOL        array_name_p
   -------         DO            array_name_p
-  D:002EH         SYMBOL        index
-  D:002FH         SYMBOL        character
+  D:0032H         SYMBOL        index
+  D:0033H         SYMBOL        character
   -------         ENDDO         character
-  C:1707H         LINE#         28
-  C:170FH         LINE#         29
-  C:170FH         LINE#         31
-  C:1713H         LINE#         32
-  C:1713H         LINE#         33
-  C:171CH         LINE#         34
-  C:1723H         LINE#         35
-  C:1723H         LINE#         36
-  C:1727H         LINE#         37
-  C:1727H         LINE#         38
-  C:1729H         LINE#         39
-  C:1739H         LINE#         40
-  C:173DH         LINE#         41
-  C:173DH         LINE#         42
-  C:1743H         LINE#         43
-  C:174AH         LINE#         44
-  C:174CH         LINE#         45
-  C:175DH         LINE#         46
-  C:175FH         LINE#         47
-  C:175FH         LINE#         49
-  C:175FH         LINE#         50
-  C:1769H         LINE#         51
-  C:1769H         LINE#         52
-  C:177AH         LINE#         53
-  C:1780H         LINE#         54
-  C:1787H         LINE#         55
-  C:178BH         LINE#         56
-  C:178BH         LINE#         57
+  C:19E2H         LINE#         28
+  C:19EAH         LINE#         29
+  C:19EAH         LINE#         31
+  C:19EEH         LINE#         32
+  C:19EEH         LINE#         33
+  C:19F7H         LINE#         34
+  C:19FEH         LINE#         35
+  C:19FEH         LINE#         36
+  C:1A02H         LINE#         37
+  C:1A02H         LINE#         38
+  C:1A04H         LINE#         39
+  C:1A14H         LINE#         40
+  C:1A18H         LINE#         41
+  C:1A18H         LINE#         42
+  C:1A1EH         LINE#         43
+  C:1A25H         LINE#         44
+  C:1A27H         LINE#         45
+  C:1A38H         LINE#         46
+  C:1A3AH         LINE#         47
+  C:1A3AH         LINE#         49
+  C:1A3AH         LINE#         50
+  C:1A44H         LINE#         51
+  C:1A44H         LINE#         52
+  C:1A55H         LINE#         53
+  C:1A5BH         LINE#         54
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 31
+
+
+  C:1A62H         LINE#         55
+  C:1A66H         LINE#         56
+  C:1A66H         LINE#         57
   -------         ENDPROC       _LCD_PRINT
   -------         ENDMOD        LCD_ROUTINES
 
@@ -1799,9 +1815,6 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   D:0080H         PUBLIC        P0
   B:00D8H.4       PUBLIC        CCF4
   D:0090H         PUBLIC        P1
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 31
-
-
   D:00A0H         PUBLIC        P2
   D:00B0H         PUBLIC        P3
   B:00B0H.4       PUBLIC        T0
@@ -1838,7 +1851,7 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00D0H.2       PUBLIC        OV
   B:0090H.1       PUBLIC        SS
   B:00B8H.2       PUBLIC        PX1L
-  C:14F6H         PUBLIC        long_serial_input
+  C:1723H         PUBLIC        long_serial_input
   B:00C8H.5       PUBLIC        RCLK
   B:00C8H.4       PUBLIC        TCLK
   B:00B8H.6       PUBLIC        PPCL
@@ -1846,6 +1859,9 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:0080H.0       PUBLIC        AD0
   D:0088H         PUBLIC        TCON
   B:0080H.1       PUBLIC        AD1
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 32
+
+
   B:0080H.2       PUBLIC        AD2
   B:00C8H.1       PUBLIC        CnT2
   B:0080H.3       PUBLIC        AD3
@@ -1859,9 +1875,6 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00A0H.1       PUBLIC        AD9
   B:0088H.1       PUBLIC        IE0
   B:0088H.3       PUBLIC        IE1
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 32
-
-
   B:00A8H.1       PUBLIC        ET0
   B:00A8H.3       PUBLIC        ET1
   B:0088H.5       PUBLIC        TF0
@@ -1902,56 +1915,56 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00D8H.1       PUBLIC        CCF1
   -------         PROC          LONG_SERIAL_INPUT
   -------         DO            LONG_SERIAL_INPUT
-  D:002AH         SYMBOL        index
-  D:002BH         SYMBOL        input
-  D:002CH         SYMBOL        input_values
-  D:0037H         SYMBOL        output_value
+  D:002EH         SYMBOL        index
+  D:002FH         SYMBOL        input
+  D:0030H         SYMBOL        input_values
+  D:003BH         SYMBOL        output_value
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 33
+
+
   -------         ENDDO         output_value
-  C:14F6H         LINE#         16
-  C:14F6H         LINE#         17
-  C:14F6H         LINE#         20
-  C:14F9H         LINE#         21
-  C:14F9H         LINE#         22
-  C:1500H         LINE#         23
-  C:1507H         LINE#         24
-  C:1511H         LINE#         25
-  C:1514H         LINE#         27
-  C:1514H         LINE#         28
-  C:1519H         LINE#         29
-  C:1527H         LINE#         30
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 33
-
-
-  C:1527H         LINE#         31
-  C:152EH         LINE#         32
-  C:1530H         LINE#         33
-  C:1535H         LINE#         34
-  C:1537H         LINE#         35
-  C:1542H         LINE#         36
-  C:1542H         LINE#         37
-  C:1544H         LINE#         38
-  C:154BH         LINE#         39
-  C:1550H         LINE#         40
-  C:1555H         LINE#         41
-  C:155AH         LINE#         42
-  C:155CH         LINE#         43
-  C:1567H         LINE#         44
-  C:1567H         LINE#         45
-  C:1578H         LINE#         46
-  C:157DH         LINE#         47
-  C:1582H         LINE#         48
-  C:1584H         LINE#         50
-  C:1584H         LINE#         51
-  C:1587H         LINE#         52
-  C:1587H         LINE#         53
-  C:158CH         LINE#         54
-  C:158CH         LINE#         55
-  C:159DH         LINE#         56
-  C:15A2H         LINE#         57
-  C:15A7H         LINE#         58
-  C:15A7H         LINE#         59
-  C:15BEH         LINE#         61
-  C:15C6H         LINE#         62
+  C:1723H         LINE#         16
+  C:1723H         LINE#         17
+  C:1723H         LINE#         20
+  C:1726H         LINE#         21
+  C:1726H         LINE#         22
+  C:172DH         LINE#         23
+  C:1734H         LINE#         24
+  C:173EH         LINE#         25
+  C:1741H         LINE#         27
+  C:1741H         LINE#         28
+  C:1746H         LINE#         29
+  C:1754H         LINE#         30
+  C:1754H         LINE#         31
+  C:175BH         LINE#         32
+  C:175DH         LINE#         33
+  C:1762H         LINE#         34
+  C:1764H         LINE#         35
+  C:176FH         LINE#         36
+  C:176FH         LINE#         37
+  C:1771H         LINE#         38
+  C:1778H         LINE#         39
+  C:177DH         LINE#         40
+  C:1782H         LINE#         41
+  C:1787H         LINE#         42
+  C:1789H         LINE#         43
+  C:1794H         LINE#         44
+  C:1794H         LINE#         45
+  C:17A5H         LINE#         46
+  C:17AAH         LINE#         47
+  C:17AFH         LINE#         48
+  C:17B1H         LINE#         50
+  C:17B1H         LINE#         51
+  C:17B4H         LINE#         52
+  C:17B4H         LINE#         53
+  C:17B9H         LINE#         54
+  C:17B9H         LINE#         55
+  C:17CAH         LINE#         56
+  C:17CFH         LINE#         57
+  C:17D4H         LINE#         58
+  C:17D4H         LINE#         59
+  C:17EBH         LINE#         61
+  C:17F3H         LINE#         62
   -------         ENDPROC       LONG_SERIAL_INPUT
   -------         ENDMOD        LONG_SERIAL_IN
 
@@ -1966,6 +1979,9 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   D:00B0H         PUBLIC        P3
   B:00B0H.4       PUBLIC        T0
   B:00D0H.6       PUBLIC        AC
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 34
+
+
   B:00B0H.5       PUBLIC        T1
   B:00B0H.7       PUBLIC        nRD
   B:0090H.0       PUBLIC        T2
@@ -1979,9 +1995,6 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00B0H.0       PUBLIC        RxD
   B:0090H.0       PUBLIC        P1_0
   B:00B0H.1       PUBLIC        TxD
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 34
-
-
   B:0090H.3       PUBLIC        CEX0
   B:0090H.1       PUBLIC        P1_1
   B:0090H.4       PUBLIC        CEX1
@@ -2001,7 +2014,7 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00D0H.7       PUBLIC        CY
   B:0098H.1       PUBLIC        TI
   B:00B8H.1       PUBLIC        PT0L
-  C:1B49H         PUBLIC        _LCD_Write
+  C:1E95H         PUBLIC        _LCD_Write
   B:00B8H.3       PUBLIC        PT1L
   B:00B8H.5       PUBLIC        PT2L
   B:0090H.1       PUBLIC        T2EX
@@ -2026,6 +2039,9 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00C8H.1       PUBLIC        CnT2
   B:0080H.3       PUBLIC        AD3
   B:0090H.5       PUBLIC        MISO
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 35
+
+
   B:0090H.7       PUBLIC        MOSI
   B:0080H.4       PUBLIC        AD4
   B:00B0H.0       PUBLIC        per_TxD
@@ -2039,9 +2055,6 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:0088H.3       PUBLIC        IE1
   B:00B0H.7       PUBLIC        E
   B:00A0H.5       PUBLIC        GREENLED
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 35
-
-
   B:00A8H.1       PUBLIC        ET0
   B:00A8H.3       PUBLIC        ET1
   B:0088H.5       PUBLIC        TF0
@@ -2086,27 +2099,27 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00D0H.1       PUBLIC        F1
   D:00D0H         PUBLIC        PSW
   B:00D8H.0       PUBLIC        CCF0
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 36
+
+
   B:00D8H.1       PUBLIC        CCF1
   -------         PROC          _LCD_WRITE
   D:0007H         SYMBOL        RegSelect
-  D:0030H         SYMBOL        LCD_Data
-  C:1B49H         LINE#         14
-  C:1B4BH         LINE#         15
-  C:1B4BH         LINE#         16
-  C:1B4EH         LINE#         17
-  C:1B4EH         LINE#         18
-  C:1B53H         LINE#         19
-  C:1B55H         LINE#         21
-  C:1B55H         LINE#         22
-  C:1B5AH         LINE#         23
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 36
-
-
-  C:1B5AH         LINE#         24
-  C:1B5FH         LINE#         25
-  C:1B64H         LINE#         26
-  C:1B69H         LINE#         27
-  C:1B6EH         LINE#         28
+  D:0034H         SYMBOL        LCD_Data
+  C:1E95H         LINE#         14
+  C:1E97H         LINE#         15
+  C:1E97H         LINE#         16
+  C:1E9AH         LINE#         17
+  C:1E9AH         LINE#         18
+  C:1E9FH         LINE#         19
+  C:1EA1H         LINE#         21
+  C:1EA1H         LINE#         22
+  C:1EA6H         LINE#         23
+  C:1EA6H         LINE#         24
+  C:1EABH         LINE#         25
+  C:1EB0H         LINE#         26
+  C:1EB5H         LINE#         27
+  C:1EBAH         LINE#         28
   -------         ENDPROC       _LCD_WRITE
   -------         ENDMOD        LCD_HARDWARE_FUNCTIONS
 
@@ -2146,6 +2159,9 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00C8H.6       PUBLIC        EXF2
   D:00B8H         PUBLIC        IPL0
   B:00B0H.4       PUBLIC        P3_4
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 37
+
+
   B:00B0H.5       PUBLIC        P3_5
   B:00B0H.6       PUBLIC        nWR
   B:00A8H.4       PUBLIC        ES
@@ -2159,9 +2175,6 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   D:00D8H         PUBLIC        CCON
   B:00B0H.6       PUBLIC        RS
   B:00B8H.0       PUBLIC        PX0L
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 37
-
-
   B:00D0H.2       PUBLIC        OV
   B:0090H.1       PUBLIC        SS
   B:00B8H.2       PUBLIC        PX1L
@@ -2206,6 +2219,9 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:0088H.0       PUBLIC        IT0
   B:0098H.3       PUBLIC        TB8
   B:00A8H.2       PUBLIC        EX1
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 38
+
+
   B:0088H.2       PUBLIC        IT1
   B:00D0H.0       PUBLIC        P
   B:0098H.7       PUBLIC        SM0
@@ -2218,10 +2234,7 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00D0H.4       PUBLIC        RS1
   B:0090H.6       PUBLIC        per_SCLK
   B:0088H.6       PUBLIC        TR1
-  C:1B9AH         PUBLIC        _Timer0_DELAY_1ms
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 38
-
-
+  C:1EE6H         PUBLIC        _Timer0_DELAY_1ms
   B:00C8H.2       PUBLIC        TR2
   B:00A0H.0       PUBLIC        SW1
   B:00A0H.1       PUBLIC        SW2
@@ -2247,25 +2260,28 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00D8H.1       PUBLIC        CCF1
   -------         PROC          _TIMER0_DELAY_1MS
   D:0006H         SYMBOL        duration
-  C:1B9AH         LINE#         7
-  C:1B9AH         LINE#         8
-  C:1B9AH         LINE#         10
-  C:1B9DH         LINE#         11
-  C:1BA0H         LINE#         14
-  C:1BA2H         LINE#         17
-  C:1BA2H         LINE#         19
-  C:1BA5H         LINE#         20
-  C:1BA8H         LINE#         22
-  C:1BAAH         LINE#         23
-  C:1BACH         LINE#         25
-  C:1BAFH         LINE#         27
-  C:1BB1H         LINE#         28
-  C:1BB6H         LINE#         29
-  C:1BBFH         LINE#         30
+  C:1EE6H         LINE#         7
+  C:1EE6H         LINE#         8
+  C:1EE6H         LINE#         10
+  C:1EE9H         LINE#         11
+  C:1EECH         LINE#         14
+  C:1EEEH         LINE#         17
+  C:1EEEH         LINE#         19
+  C:1EF1H         LINE#         20
+  C:1EF4H         LINE#         22
+  C:1EF6H         LINE#         23
+  C:1EF8H         LINE#         25
+  C:1EFBH         LINE#         27
+  C:1EFDH         LINE#         28
+  C:1F02H         LINE#         29
+  C:1F0BH         LINE#         30
   -------         ENDPROC       _TIMER0_DELAY_1MS
   -------         ENDMOD        TIMER0_HARDWARE_DELAY_1MS
 
   -------         MODULE        OUTPUTS
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 39
+
+
   C:0000H         SYMBOL        _ICE_DUMMY_
   B:00D8H.2       PUBLIC        CCF2
   B:00D8H.3       PUBLIC        CCF3
@@ -2279,13 +2295,10 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00B0H.5       PUBLIC        T1
   B:00B0H.7       PUBLIC        nRD
   B:0090H.0       PUBLIC        T2
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 39
-
-
   B:00A8H.7       PUBLIC        EA
   B:00A8H.6       PUBLIC        EC
   B:00D8H.7       PUBLIC        CF
-  C:1C55H         PUBLIC        _P0_output_bits
+  C:1FA7H         PUBLIC        _P0_output_bits
   B:00B0H.2       PUBLIC        nINT0
   B:0098H.7       PUBLIC        FE
   B:00B0H.3       PUBLIC        nINT1
@@ -2324,8 +2337,11 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00C8H.5       PUBLIC        RCLK
   B:00C8H.4       PUBLIC        TCLK
   B:00B8H.6       PUBLIC        PPCL
-  C:1C49H         PUBLIC        _P2_set_bit
-  C:1C4DH         PUBLIC        _P3_set_bit
+  C:1F9BH         PUBLIC        _P2_set_bit
+  C:1F9FH         PUBLIC        _P3_set_bit
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 40
+
+
   B:00A0H.4       PUBLIC        REDLED
   D:0098H         PUBLIC        SCON
   B:00A0H.6       PUBLIC        YELLOWLED
@@ -2339,9 +2355,6 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:0080H.3       PUBLIC        AD3
   B:0090H.5       PUBLIC        MISO
   B:0090H.7       PUBLIC        MOSI
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 40
-
-
   B:0080H.4       PUBLIC        AD4
   B:00B0H.0       PUBLIC        per_TxD
   B:0080H.5       PUBLIC        AD5
@@ -2386,6 +2399,9 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:0090H.5       PUBLIC        per_MISO
   B:00C8H.3       PUBLIC        EXEN2
   B:0098H.4       PUBLIC        REN
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 41
+
+
   B:00A0H.2       PUBLIC        AD10
   B:00A0H.3       PUBLIC        AD11
   D:00C8H         PUBLIC        T2CON
@@ -2393,43 +2409,40 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00A0H.5       PUBLIC        AD13
   B:00A0H.6       PUBLIC        AD14
   B:00A0H.7       PUBLIC        AD15
-  C:1C3BH         PUBLIC        _P3_clear_bit
+  C:1F8DH         PUBLIC        _P3_clear_bit
   B:00B8H.4       PUBLIC        PLS
   B:00D0H.5       PUBLIC        F0
   B:00D0H.1       PUBLIC        F1
   D:00D0H         PUBLIC        PSW
   B:00D8H.0       PUBLIC        CCF0
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 41
-
-
   B:00D8H.1       PUBLIC        CCF1
   -------         PROC          _P0_OUTPUT_BITS
   D:0007H         SYMBOL        Port_Data
-  C:1C55H         LINE#         14
-  C:1C55H         LINE#         15
-  C:1C55H         LINE#         16
-  C:1C57H         LINE#         17
+  C:1FA7H         LINE#         14
+  C:1FA7H         LINE#         15
+  C:1FA7H         LINE#         16
+  C:1FA9H         LINE#         17
   -------         ENDPROC       _P0_OUTPUT_BITS
   -------         PROC          _P3_CLEAR_BIT
   D:0007H         SYMBOL        Bit_Data
-  C:1C3BH         LINE#         60
-  C:1C3BH         LINE#         61
-  C:1C3BH         LINE#         62
-  C:1C3FH         LINE#         63
+  C:1F8DH         LINE#         60
+  C:1F8DH         LINE#         61
+  C:1F8DH         LINE#         62
+  C:1F91H         LINE#         63
   -------         ENDPROC       _P3_CLEAR_BIT
   -------         PROC          _P2_SET_BIT
   D:0007H         SYMBOL        Bit_Data
-  C:1C49H         LINE#         81
-  C:1C49H         LINE#         82
-  C:1C49H         LINE#         83
-  C:1C4CH         LINE#         84
+  C:1F9BH         LINE#         81
+  C:1F9BH         LINE#         82
+  C:1F9BH         LINE#         83
+  C:1F9EH         LINE#         84
   -------         ENDPROC       _P2_SET_BIT
   -------         PROC          _P3_SET_BIT
   D:0007H         SYMBOL        Bit_Data
-  C:1C4DH         LINE#         86
-  C:1C4DH         LINE#         87
-  C:1C4DH         LINE#         88
-  C:1C50H         LINE#         89
+  C:1F9FH         LINE#         86
+  C:1F9FH         LINE#         87
+  C:1F9FH         LINE#         88
+  C:1FA2H         LINE#         89
   -------         ENDPROC       _P3_SET_BIT
   -------         ENDMOD        OUTPUTS
 
@@ -2446,9 +2459,12 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00D0H.6       PUBLIC        AC
   B:00B0H.5       PUBLIC        T1
   B:00B0H.7       PUBLIC        nRD
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 42
+
+
   B:0090H.0       PUBLIC        T2
   B:00A8H.7       PUBLIC        EA
-  C:1C40H         PUBLIC        _LEDS_ON
+  C:1F92H         PUBLIC        _LEDS_ON
   B:00A8H.6       PUBLIC        EC
   B:00D8H.7       PUBLIC        CF
   B:00B0H.2       PUBLIC        nINT0
@@ -2459,9 +2475,6 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:0090H.0       PUBLIC        P1_0
   B:00B0H.1       PUBLIC        TxD
   B:0090H.3       PUBLIC        CEX0
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 42
-
-
   B:0090H.1       PUBLIC        P1_1
   B:0090H.4       PUBLIC        CEX1
   B:0090H.2       PUBLIC        P1_2
@@ -2506,6 +2519,9 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:0090H.5       PUBLIC        MISO
   B:0090H.7       PUBLIC        MOSI
   B:0080H.4       PUBLIC        AD4
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 43
+
+
   B:00B0H.0       PUBLIC        per_TxD
   B:0080H.5       PUBLIC        AD5
   B:0080H.6       PUBLIC        AD6
@@ -2516,12 +2532,9 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00A0H.7       PUBLIC        AMBERLED
   B:0088H.3       PUBLIC        IE1
   B:00B0H.7       PUBLIC        E
-  C:1C51H         PUBLIC        _LEDS_OFF
+  C:1FA3H         PUBLIC        _LEDS_OFF
   B:00A0H.5       PUBLIC        GREENLED
   B:00A8H.1       PUBLIC        ET0
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 43
-
-
   B:00A8H.3       PUBLIC        ET1
   B:0088H.5       PUBLIC        TF0
   B:00A8H.5       PUBLIC        ET2
@@ -2566,22 +2579,22 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   D:00D0H         PUBLIC        PSW
   B:00D8H.0       PUBLIC        CCF0
   B:00D8H.1       PUBLIC        CCF1
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 44
+
+
   -------         PROC          _LEDS_ON
   D:0007H         SYMBOL        LED_mask
-  C:1C40H         LINE#         13
-  C:1C40H         LINE#         14
-  C:1C40H         LINE#         15
-  C:1C44H         LINE#         16
+  C:1F92H         LINE#         13
+  C:1F92H         LINE#         14
+  C:1F92H         LINE#         15
+  C:1F96H         LINE#         16
   -------         ENDPROC       _LEDS_ON
   -------         PROC          _LEDS_OFF
   D:0007H         SYMBOL        LED_mask
-  C:1C51H         LINE#         26
-  C:1C51H         LINE#         27
-  C:1C51H         LINE#         28
-  C:1C54H         LINE#         29
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 44
-
-
+  C:1FA3H         LINE#         26
+  C:1FA3H         LINE#         27
+  C:1FA3H         LINE#         28
+  C:1FA6H         LINE#         29
   -------         ENDPROC       _LEDS_OFF
   -------         ENDMOD        LED_CONTROL
 
@@ -2626,12 +2639,15 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   D:00D8H         PUBLIC        CCON
   B:00B8H.0       PUBLIC        PX0L
   B:00D0H.2       PUBLIC        OV
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 45
+
+
   B:0090H.1       PUBLIC        SS
   B:00B8H.2       PUBLIC        PX1L
   B:00C8H.5       PUBLIC        RCLK
   B:00C8H.4       PUBLIC        TCLK
   B:00B8H.6       PUBLIC        PPCL
-  C:19A9H         PUBLIC        _Read_Sector
+  C:1CF5H         PUBLIC        _Read_Sector
   D:0098H         PUBLIC        SCON
   B:0080H.0       PUBLIC        AD0
   D:0088H         PUBLIC        TCON
@@ -2639,9 +2655,6 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:0080H.2       PUBLIC        AD2
   B:00C8H.1       PUBLIC        CnT2
   B:0080H.3       PUBLIC        AD3
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 45
-
-
   B:0090H.5       PUBLIC        MISO
   B:0090H.7       PUBLIC        MOSI
   B:0080H.4       PUBLIC        AD4
@@ -2686,38 +2699,38 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00A0H.7       PUBLIC        AD15
   B:00B8H.4       PUBLIC        PLS
   B:00D0H.5       PUBLIC        F0
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 46
+
+
   B:00D0H.1       PUBLIC        F1
   D:00D0H         PUBLIC        PSW
   B:00D8H.0       PUBLIC        CCF0
   B:00D8H.1       PUBLIC        CCF1
   -------         PROC          _READ_SECTOR
-  D:0041H         SYMBOL        sector_number
-  D:0045H         SYMBOL        sector_size
-  D:0047H         SYMBOL        array_for_data
+  D:005EH         SYMBOL        sector_number
+  D:0062H         SYMBOL        sector_size
+  D:0064H         SYMBOL        array_for_data
   -------         DO            array_for_data
-  D:004AH         SYMBOL        SDtype
-  D:004BH         SYMBOL        error_flag
+  D:0067H         SYMBOL        SDtype
+  D:0068H         SYMBOL        error_flag
   -------         ENDDO         error_flag
-  C:19A9H         LINE#         9
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 46
-
-
-  C:19B1H         LINE#         10
-  C:19B1H         LINE#         11
-  C:19B4H         LINE#         13
-  C:19B9H         LINE#         15
-  C:19BEH         LINE#         16
-  C:19DCH         LINE#         17
-  C:19E0H         LINE#         18
-  C:19E0H         LINE#         19
-  C:19EFH         LINE#         20
-  C:19EFH         LINE#         21
-  C:19F4H         LINE#         22
-  C:19F8H         LINE#         23
-  C:19F8H         LINE#         24
-  C:19FBH         LINE#         25
-  C:19FBH         LINE#         26
-  C:19FDH         LINE#         27
+  C:1CF5H         LINE#         9
+  C:1CFDH         LINE#         10
+  C:1CFDH         LINE#         11
+  C:1D00H         LINE#         13
+  C:1D05H         LINE#         15
+  C:1D0AH         LINE#         16
+  C:1D28H         LINE#         17
+  C:1D2CH         LINE#         18
+  C:1D2CH         LINE#         19
+  C:1D3BH         LINE#         20
+  C:1D3BH         LINE#         21
+  C:1D40H         LINE#         22
+  C:1D44H         LINE#         23
+  C:1D44H         LINE#         24
+  C:1D47H         LINE#         25
+  C:1D47H         LINE#         26
+  C:1D49H         LINE#         27
   -------         ENDPROC       _READ_SECTOR
   -------         ENDMOD        READ_SECTOR
 
@@ -2740,11 +2753,15 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00D8H.7       PUBLIC        CF
   B:00B0H.2       PUBLIC        nINT0
   B:0098H.7       PUBLIC        FE
+  C:1130H         PUBLIC        _Print_Directory
   B:00B0H.3       PUBLIC        nINT1
   D:00A8H         PUBLIC        IEN0
   B:00B0H.0       PUBLIC        RxD
   B:0090H.0       PUBLIC        P1_0
   B:00B0H.1       PUBLIC        TxD
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 47
+
+
   B:0090H.3       PUBLIC        CEX0
   B:0090H.1       PUBLIC        P1_1
   B:0090H.4       PUBLIC        CEX1
@@ -2759,9 +2776,6 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00B0H.4       PUBLIC        P3_4
   B:00B0H.5       PUBLIC        P3_5
   B:00B0H.6       PUBLIC        nWR
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 47
-
-
   B:00A8H.4       PUBLIC        ES
   B:0098H.0       PUBLIC        RI
   B:00D0H.7       PUBLIC        CY
@@ -2785,7 +2799,7 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:0090H.4       PUBLIC        nCS0
   B:0080H.0       PUBLIC        AD0
   D:0088H         PUBLIC        TCON
-  C:1BEBH         PUBLIC        _read8
+  C:1F3DH         PUBLIC        _read8
   B:0080H.1       PUBLIC        AD1
   B:0080H.2       PUBLIC        AD2
   B:00B0H.1       PUBLIC        per_RxD
@@ -2801,9 +2815,13 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00A0H.0       PUBLIC        AD8
   B:00A0H.1       PUBLIC        AD9
   B:0088H.1       PUBLIC        IE0
+  C:1ADFH         PUBLIC        _First_Sector
   B:00A0H.7       PUBLIC        AMBERLED
   B:0088H.3       PUBLIC        IE1
   B:00B0H.7       PUBLIC        E
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 48
+
+
   B:00A0H.5       PUBLIC        GREENLED
   B:00A8H.1       PUBLIC        ET0
   B:00A8H.3       PUBLIC        ET1
@@ -2819,30 +2837,28 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:0088H.2       PUBLIC        IT1
   B:00D0H.0       PUBLIC        P
   B:0098H.7       PUBLIC        SM0
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 48
-
-
   B:0090H.2       PUBLIC        ECI
   B:0098H.6       PUBLIC        SM1
   B:0098H.5       PUBLIC        SM2
-  C:0751H         PUBLIC        _Mount_Drive
+  C:03F5H         PUBLIC        _Mount_Drive
   B:00D0H.3       PUBLIC        RS0
   B:0088H.4       PUBLIC        TR0
   B:00D0H.4       PUBLIC        RS1
   B:0090H.6       PUBLIC        per_SCLK
   B:0088H.6       PUBLIC        TR1
-  C:1C2AH         PUBLIC        Export_Drive_values
+  C:1F7CH         PUBLIC        Export_Drive_values
   B:00C8H.2       PUBLIC        TR2
   B:00A0H.0       PUBLIC        SW1
   B:00A0H.1       PUBLIC        SW2
   B:00A0H.2       PUBLIC        SW3
+  C:18A8H         PUBLIC        _Find_Next_Clus
   B:00A0H.3       PUBLIC        SW4
   B:0090H.6       PUBLIC        SCK
   B:0090H.7       PUBLIC        per_MOSI
   B:0090H.5       PUBLIC        per_MISO
-  C:1872H         PUBLIC        _read32
+  C:1BBEH         PUBLIC        _read32
   B:00C8H.3       PUBLIC        EXEN2
-  C:18E0H         PUBLIC        _read16
+  C:1C2CH         PUBLIC        _read16
   B:0098H.4       PUBLIC        REN
   B:00A0H.2       PUBLIC        AD10
   B:00A0H.3       PUBLIC        AD11
@@ -2852,81 +2868,180 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   B:00A0H.6       PUBLIC        AD14
   B:00A0H.7       PUBLIC        AD15
   B:00B8H.4       PUBLIC        PLS
-  I:0008H         PUBLIC        Drive_values
+  I:0075H         PUBLIC        Drive_values
   B:00D0H.5       PUBLIC        F0
   B:00D0H.1       PUBLIC        F1
   D:00D0H         PUBLIC        PSW
   B:00D8H.0       PUBLIC        CCF0
   B:00D8H.1       PUBLIC        CCF1
   -------         PROC          EXPORT_DRIVE_VALUES
-  C:1C2AH         LINE#         23
-  C:1C2AH         LINE#         24
-  C:1C2AH         LINE#         25
-  C:1C30H         LINE#         26
+  C:1F7CH         LINE#         24
+  C:1F7CH         LINE#         25
+  C:1F7CH         LINE#         26
+  C:1F82H         LINE#         27
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 49
+
+
   -------         ENDPROC       EXPORT_DRIVE_VALUES
-  -------         PROC          L?0016
-  -------         ENDPROC       L?0016
+  -------         PROC          L?0046
+  -------         ENDPROC       L?0046
   -------         PROC          _READ8
   D:0006H         SYMBOL        offset
   D:0001H         SYMBOL        array_name
   -------         DO            array_name
   D:0007H         SYMBOL        return_value
   -------         ENDDO         return_value
-  C:1BEBH         LINE#         38
-  C:1BEBH         LINE#         39
-  C:1BEBH         LINE#         41
-  C:1BF3H         LINE#         42
-  C:1BF3H         LINE#         44
+  C:1F3DH         LINE#         29
+  C:1F3DH         LINE#         30
+  C:1F3DH         LINE#         32
+  C:1F45H         LINE#         33
+  C:1F45H         LINE#         35
   -------         ENDPROC       _READ8
   -------         PROC          _READ16
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 49
-
-
-  D:0041H         SYMBOL        offset
-  D:0043H         SYMBOL        array_name
+  D:0044H         SYMBOL        offset
+  D:0046H         SYMBOL        array_name
   -------         DO            array_name
-  D:0046H         SYMBOL        return_value
+  D:0049H         SYMBOL        return_value
   D:0003H         SYMBOL        temp
-  D:004AH         SYMBOL        index
+  D:004DH         SYMBOL        index
   -------         ENDDO         index
-  C:18E0H         LINE#         46
-  C:18EAH         LINE#         47
-  C:18EAH         LINE#         50
-  C:18F3H         LINE#         52
-  C:18F5H         LINE#         53
-  C:18F5H         LINE#         54
-  C:1915H         LINE#         55
-  C:192AH         LINE#         56
-  C:193EH         LINE#         57
-  C:1945H         LINE#         58
-  C:1949H         LINE#         59
+  C:1C2CH         LINE#         37
+  C:1C36H         LINE#         38
+  C:1C36H         LINE#         41
+  C:1C3FH         LINE#         43
+  C:1C41H         LINE#         44
+  C:1C41H         LINE#         45
+  C:1C61H         LINE#         46
+  C:1C76H         LINE#         47
+  C:1C8AH         LINE#         48
+  C:1C91H         LINE#         49
+  C:1C95H         LINE#         50
   -------         ENDPROC       _READ16
   -------         PROC          _READ32
-  D:0041H         SYMBOL        offset
-  D:0043H         SYMBOL        array_name
+  D:0044H         SYMBOL        offset
+  D:0046H         SYMBOL        array_name
   -------         DO            array_name
-  D:0046H         SYMBOL        return_value
+  D:0049H         SYMBOL        return_value
   D:0003H         SYMBOL        temp
-  D:004AH         SYMBOL        index
+  D:004DH         SYMBOL        index
   -------         ENDDO         index
-  C:1872H         LINE#         61
-  C:187CH         LINE#         62
-  C:187CH         LINE#         65
-  C:1885H         LINE#         67
-  C:1887H         LINE#         68
-  C:1887H         LINE#         69
-  C:18A7H         LINE#         70
-  C:18BCH         LINE#         71
-  C:18D0H         LINE#         72
-  C:18D7H         LINE#         73
-  C:18DFH         LINE#         74
+  C:1BBEH         LINE#         52
+  C:1BC8H         LINE#         53
+  C:1BC8H         LINE#         56
+  C:1BD1H         LINE#         58
+  C:1BD3H         LINE#         59
+  C:1BD3H         LINE#         60
+  C:1BF3H         LINE#         61
+  C:1C08H         LINE#         62
+  C:1C1CH         LINE#         63
+  C:1C23H         LINE#         64
+  C:1C2BH         LINE#         65
   -------         ENDPROC       _READ32
+  -------         PROC          _PRINT_DIRECTORY
+  D:0044H         SYMBOL        Sector_num
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 50
+
+
+  D:0048H         SYMBOL        array_in
+  -------         DO            array_in
+  D:004AH         SYMBOL        Sector
+  D:004EH         SYMBOL        max_sectors
+  D:0052H         SYMBOL        i
+  D:0054H         SYMBOL        entries
+  D:0056H         SYMBOL        temp8
+  D:0057H         SYMBOL        j
+  D:0058H         SYMBOL        attr
+  D:0059H         SYMBOL        out_val
+  D:005AH         SYMBOL        error_flag
+  D:005BH         SYMBOL        values
+  -------         ENDDO         values
+  C:1130H         LINE#         75
+  C:1138H         LINE#         76
+  C:1138H         LINE#         83
+  C:1141H         LINE#         84
+  C:1146H         LINE#         85
+  C:114AH         LINE#         86
+  C:1150H         LINE#         87
+  C:1150H         LINE#         88
+  C:115DH         LINE#         89
+  C:115FH         LINE#         91
+  C:115FH         LINE#         92
+  C:116CH         LINE#         93
+  C:116CH         LINE#         94
+  C:1178H         LINE#         95
+  C:1197H         LINE#         97
+  C:119EH         LINE#         98
+  C:119EH         LINE#         100
+  C:119EH         LINE#         101
+  C:11ADH         LINE#         102
+  C:11BDH         LINE#         103
+  C:11BDH         LINE#         104
+  C:11C8H         LINE#         105
+  C:11CEH         LINE#         106
+  C:11CEH         LINE#         107
+  C:11D6H         LINE#         108
+  C:11E4H         LINE#         109
+  C:11E7H         LINE#         110
+  C:11E7H         LINE#         111
+  C:11ECH         LINE#         112
+  C:11EFH         LINE#         113
+  C:11F8H         LINE#         114
+  C:11FDH         LINE#         115
+  C:11FDH         LINE#         116
+  C:1200H         LINE#         117
+  C:1200H         LINE#         118
+  C:1205H         LINE#         119
+  C:1208H         LINE#         120
+  C:1211H         LINE#         121
+  C:121AH         LINE#         122
+  C:121CH         LINE#         124
+  C:121CH         LINE#         125
+  C:1221H         LINE#         126
+  C:1224H         LINE#         127
+  C:1224H         LINE#         128
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 51
+
+
+  C:1229H         LINE#         129
+  C:122CH         LINE#         130
+  C:1235H         LINE#         131
+  C:123AH         LINE#         132
+  C:123FH         LINE#         133
+  C:123FH         LINE#         134
+  C:123FH         LINE#         135
+  C:123FH         LINE#         136
+  C:124AH         LINE#         137
+  C:1255H         LINE#         138
+  C:1255H         LINE#         139
+  C:126AH         LINE#         140
+  C:128DH         LINE#         141
+  C:128DH         LINE#         142
+  C:12ACH         LINE#         144
+  C:12B0H         LINE#         145
+  C:12B0H         LINE#         146
+  C:12B5H         LINE#         147
+  C:12B7H         LINE#         148
+  C:12B7H         LINE#         149
+  C:12BCH         LINE#         150
+  C:12BEH         LINE#         152
+  C:12BEH         LINE#         153
+  C:12C1H         LINE#         154
+  C:12C4H         LINE#         155
+  C:12C4H         LINE#         156
+  C:12C4H         LINE#         158
+  C:12CBH         LINE#         159
+  C:12CDH         LINE#         161
+  C:12CDH         LINE#         162
+  C:12D6H         LINE#         163
+  C:12DBH         LINE#         164
+  C:12DBH         LINE#         165
+  C:12DFH         LINE#         166
+  -------         ENDPROC       _PRINT_DIRECTORY
   -------         PROC          _MOUNT_DRIVE
-  D:002AH         SYMBOL        array_name
+  D:002EH         SYMBOL        array_name
   -------         DO            array_name
-  D:002CH         SYMBOL        i
-  D:002DH         SYMBOL        temp_8
-  D:002EH         SYMBOL        temp_32
+  D:0030H         SYMBOL        i
+  D:0031H         SYMBOL        temp_8
   D:0032H         SYMBOL        error_flag
   D:0033H         SYMBOL        RsvdSectorCount
   D:0035H         SYMBOL        NumFATS
@@ -2938,164 +3053,213 @@ SYMBOL TABLE OF MODULE:  SD_Card_test (SD_CARD_TEST)
   D:003CH         SYMBOL        RootCluster
   D:0040H         SYMBOL        RelativeSectors
   -------         ENDDO         RelativeSectors
-  C:0751H         LINE#         273
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 50
+  C:03F5H         LINE#         274
+  C:03F9H         LINE#         275
+  C:03F9H         LINE#         291
+  C:0417H         LINE#         294
+  C:0425H         LINE#         295
+  C:0431H         LINE#         296
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 52
 
 
-  C:0755H         LINE#         274
-  C:0755H         LINE#         290
-  C:0771H         LINE#         292
-  C:0776H         LINE#         293
-  C:0782H         LINE#         294
-  C:078EH         LINE#         295
-  C:078EH         LINE#         296
-  C:07A3H         LINE#         297
-  C:07B4H         LINE#         298
-  C:07CEH         LINE#         299
-  C:07D3H         LINE#         300
-  C:07DFH         LINE#         301
-  C:07EBH         LINE#         302
-  C:07EBH         LINE#         303
-  C:07F4H         LINE#         304
-  C:07F6H         LINE#         306
-  C:07F6H         LINE#         307
-  C:07FFH         LINE#         308
-  C:07FFH         LINE#         309
-  C:07FFH         LINE#         311
-  C:0813H         LINE#         312
-  C:0824H         LINE#         313
-  C:0835H         LINE#         314
-  C:0841H         LINE#         315
-  C:0852H         LINE#         316
-  C:0861H         LINE#         317
-  C:0870H         LINE#         318
-  C:087CH         LINE#         319
-  C:088DH         LINE#         320
-  C:089CH         LINE#         321
-  C:08A9H         LINE#         322
-  C:08B6H         LINE#         323
-  C:08C3H         LINE#         324
-  C:08D0H         LINE#         325
-  C:08DDH         LINE#         326
-  C:08EEH         LINE#         327
-  C:0903H         LINE#         328
-  C:0914H         LINE#         329
-  C:0929H         LINE#         330
-  C:093AH         LINE#         331
-  C:094DH         LINE#         332
-  C:0963H         LINE#         333
-  C:098FH         LINE#         334
-  C:09A5H         LINE#         335
-  C:09E5H         LINE#         336
-  C:09FBH         LINE#         337
-  C:0A3AH         LINE#         338
-  C:0A50H         LINE#         340
-  C:0A52H         LINE#         341
+  C:0443H         LINE#         297
+  C:0443H         LINE#         298
+  C:044CH         LINE#         299
+  C:0461H         LINE#         300
+  C:0472H         LINE#         301
+  C:048EH         LINE#         302
+  C:049CH         LINE#         303
+  C:04A8H         LINE#         304
+  C:04B4H         LINE#         305
+  C:04B4H         LINE#         306
+  C:04BDH         LINE#         307
+  C:04BFH         LINE#         309
+  C:04BFH         LINE#         310
+  C:04C8H         LINE#         311
+  C:04C8H         LINE#         312
+  C:04C8H         LINE#         314
+  C:04D5H         LINE#         315
+  C:04E9H         LINE#         316
+  C:04FAH         LINE#         318
+  C:050BH         LINE#         319
+  C:0517H         LINE#         320
+  C:0528H         LINE#         321
+  C:0537H         LINE#         322
+  C:0546H         LINE#         323
+  C:0552H         LINE#         324
+  C:0563H         LINE#         325
+  C:0572H         LINE#         326
+  C:057FH         LINE#         327
+  C:058CH         LINE#         328
+  C:0599H         LINE#         329
+  C:05A6H         LINE#         330
+  C:05B3H         LINE#         331
+  C:05C4H         LINE#         332
+  C:05D9H         LINE#         333
+  C:05EAH         LINE#         334
+  C:05FFH         LINE#         335
+  C:0610H         LINE#         336
+  C:0628H         LINE#         337
+  C:063EH         LINE#         338
+  C:066AH         LINE#         339
+  C:0680H         LINE#         340
+  C:06D0H         LINE#         341
+  C:06E6H         LINE#         342
+  C:0725H         LINE#         343
+  C:073BH         LINE#         344
+  C:073FH         LINE#         345
+  C:0743H         LINE#         350
+  C:0751H         LINE#         351
+  C:0753H         LINE#         352
   -------         ENDPROC       _MOUNT_DRIVE
+  -------         PROC          _FIRST_SECTOR
+  D:0012H         SYMBOL        Cluster_num
+  -------         DO            Cluster_num
+  D:0016H         SYMBOL        FirstSecCluster
+  -------         ENDDO         FirstSecCluster
+  C:1ADFH         LINE#         354
+  C:1AE7H         LINE#         355
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 53
+
+
+  C:1AE7H         LINE#         357
+  C:1AFAH         LINE#         358
+  C:1AFAH         LINE#         359
+  C:1B07H         LINE#         360
+  C:1B09H         LINE#         362
+  C:1B09H         LINE#         363
+  C:1B47H         LINE#         364
+  C:1B47H         LINE#         365
+  C:1B4FH         LINE#         366
+  -------         ENDPROC       _FIRST_SECTOR
+  -------         PROC          _FIND_NEXT_CLUS
+  D:0008H         SYMBOL        Cluster_num
+  D:000CH         SYMBOL        array_name
+  -------         DO            array_name
+  D:0004H         SYMBOL        return_clus
+  D:000EH         SYMBOL        FATOffset
+  D:0004H         SYMBOL        ThisFATSecNum
+  -------         ENDDO         ThisFATSecNum
+  C:18A8H         LINE#         368
+  C:18B0H         LINE#         369
+  C:18B0H         LINE#         371
+  C:18C9H         LINE#         372
+  C:18F5H         LINE#         374
+  C:190AH         LINE#         375
+  C:1945H         LINE#         376
+  C:1955H         LINE#         377
+  C:1955H         LINE#         378
+  -------         ENDPROC       _FIND_NEXT_CLUS
   -------         ENDMOD        DIRECTORY_FUNCTIONS_STRUCT
 
   -------         MODULE        ?C?CLDPTR
-  C:0A53H         PUBLIC        ?C?CLDPTR
+  C:0AB0H         PUBLIC        ?C?CLDPTR
   -------         ENDMOD        ?C?CLDPTR
 
   -------         MODULE        ?C?CLDOPTR
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 51
-
-
-  C:0A6CH         PUBLIC        ?C?CLDOPTR
+  C:0AC9H         PUBLIC        ?C?CLDOPTR
   -------         ENDMOD        ?C?CLDOPTR
 
   -------         MODULE        ?C?CSTPTR
-  C:0A99H         PUBLIC        ?C?CSTPTR
+  C:0AF6H         PUBLIC        ?C?CSTPTR
   -------         ENDMOD        ?C?CSTPTR
 
   -------         MODULE        ?C?CSTOPTR
-  C:0AABH         PUBLIC        ?C?CSTOPTR
+  C:0B08H         PUBLIC        ?C?CSTOPTR
   -------         ENDMOD        ?C?CSTOPTR
 
   -------         MODULE        ?C?UIDIV
-  C:0ACDH         PUBLIC        ?C?UIDIV
+  C:0B2AH         PUBLIC        ?C?UIDIV
   -------         ENDMOD        ?C?UIDIV
 
   -------         MODULE        ?C?LMUL
-  C:0B22H         PUBLIC        ?C?LMUL
+  C:0B7FH         PUBLIC        ?C?LMUL
   -------         ENDMOD        ?C?LMUL
 
   -------         MODULE        ?C?ULDIV
-  C:0BADH         PUBLIC        ?C?ULDIV
+  C:0C0AH         PUBLIC        ?C?ULDIV
   -------         ENDMOD        ?C?ULDIV
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 54
+
+
 
   -------         MODULE        ?C?SLCMP
-  C:0C3FH         PUBLIC        ?C?SLCMP
+  C:0C9CH         PUBLIC        ?C?SLCMP
   -------         ENDMOD        ?C?SLCMP
 
   -------         MODULE        ?C?ULCMP
-  C:0C55H         PUBLIC        ?C?ULCMP
+  C:0CB2H         PUBLIC        ?C?ULCMP
   -------         ENDMOD        ?C?ULCMP
 
   -------         MODULE        ?C?ULSHR
-  C:0C66H         PUBLIC        ?C?ULSHR
+  C:0CC3H         PUBLIC        ?C?ULSHR
   -------         ENDMOD        ?C?ULSHR
 
   -------         MODULE        ?C?LSHL
-  C:0C79H         PUBLIC        ?C?LSHL
+  C:0CD6H         PUBLIC        ?C?LSHL
   -------         ENDMOD        ?C?LSHL
 
   -------         MODULE        ?C?LLDIDATA
-  C:0C8CH         PUBLIC        ?C?LLDIDATA
+  C:0CE9H         PUBLIC        ?C?LLDIDATA
   -------         ENDMOD        ?C?LLDIDATA
 
   -------         MODULE        ?C?LLDIDATA0
-  C:0C98H         PUBLIC        ?C?LLDIDATA0
+  C:0CF5H         PUBLIC        ?C?LLDIDATA0
   -------         ENDMOD        ?C?LLDIDATA0
 
   -------         MODULE        ?C?LSTIDATA
-  C:0CA5H         PUBLIC        ?C?LSTIDATA
+  C:0D02H         PUBLIC        ?C?LSTIDATA
   -------         ENDMOD        ?C?LSTIDATA
 
   -------         MODULE        PUTCHAR
-  C:1B73H         PUBLIC        _PUTCHAR
+  C:1EBFH         PUBLIC        _PUTCHAR
   -------         ENDMOD        PUTCHAR
 
   -------         MODULE        PRINTF
-  D:0041H         PUBLIC        ?_PRINTF517?BYTE
-BL51 BANKED LINKER/LOCATER V4.02                                                      11/11/2019  17:52:21  PAGE 52
-
-
-  D:0041H         PUBLIC        ?_PRINTF?BYTE
-  D:0041H         PUBLIC        ?_SPRINTF517?BYTE
-  D:0041H         PUBLIC        ?_SPRINTF?BYTE
-  C:0457H         PUBLIC        _PRINTF
-  C:0457H         PUBLIC        _PRINTF517
-  C:0451H         PUBLIC        _SPRINTF
-  C:0451H         PUBLIC        _SPRINTF517
+  D:005EH         PUBLIC        ?_PRINTF517?BYTE
+  D:005EH         PUBLIC        ?_PRINTF?BYTE
+  D:005EH         PUBLIC        ?_SPRINTF517?BYTE
+  D:005EH         PUBLIC        ?_SPRINTF?BYTE
+  C:07B6H         PUBLIC        _PRINTF
+  C:07B6H         PUBLIC        _PRINTF517
+  C:07B0H         PUBLIC        _SPRINTF
+  C:07B0H         PUBLIC        _SPRINTF517
   -------         ENDMOD        PRINTF
 
   -------         MODULE        ATOL
-  C:1418H         PUBLIC        _ATOL
+  C:1645H         PUBLIC        _ATOL
   -------         ENDMOD        ATOL
 
   -------         MODULE        ?C?LNEG
-  C:0CB1H         PUBLIC        ?C?LNEG
+  C:0D0EH         PUBLIC        ?C?LNEG
   -------         ENDMOD        ?C?LNEG
 
   -------         MODULE        ?C?PLDIIDATA
-  C:0CBFH         PUBLIC        ?C?PLDIIDATA
+  C:0D1CH         PUBLIC        ?C?PLDIIDATA
   -------         ENDMOD        ?C?PLDIIDATA
 
   -------         MODULE        ?C?CCASE
-  C:0CCFH         PUBLIC        ?C?CCASE
+BL51 BANKED LINKER/LOCATER V4.02                                                      11/12/2019  13:08:19  PAGE 55
+
+
+  C:0D2CH         PUBLIC        ?C?CCASE
   -------         ENDMOD        ?C?CCASE
 
   -------         MODULE        ISDIGIT
-  C:1C07H         PUBLIC        _ISDIGIT
+  C:1F59H         PUBLIC        _ISDIGIT
   -------         ENDMOD        ISDIGIT
 
   -------         MODULE        ISSPACE
-  C:1BF4H         PUBLIC        _ISSPACE
+  C:1F46H         PUBLIC        _ISSPACE
   -------         ENDMOD        ISSPACE
 
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?EXPORT_DRIVE_VALUES?DIRECTORY_FUNCTIONS_STRUCT
 
-LINK/LOCATE RUN COMPLETE.  1 WARNING(S),  0 ERROR(S)
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_FIRST_SECTOR?DIRECTORY_FUNCTIONS_STRUCT
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_FIND_NEXT_CLUS?DIRECTORY_FUNCTIONS_STRUCT
+
+LINK/LOCATE RUN COMPLETE.  3 WARNING(S),  0 ERROR(S)

@@ -1,4 +1,4 @@
-C51 COMPILER V6.02  READ_SECTOR                                                            11/11/2019 17:52:20 PAGE 1   
+C51 COMPILER V6.02  READ_SECTOR                                                            11/12/2019 13:08:18 PAGE 1   
 
 
 C51 COMPILER V6.02, COMPILATION OF MODULE READ_SECTOR
@@ -25,7 +25,7 @@ stmt level    source
   16   1      	error_flag=SEND_COMMAND(17,(sector_number<<SDtype));
   17   1      	if(error_flag==no_errors) 
   18   1      	{
-  19   2      		error_flag=read_block(sector_size,array_for_data);
+  19   2      		error_flag=read_block(sector_size, array_for_data);
   20   2      	}
   21   1      	SPI_Select_Set(SD_Card_Select);
   22   1      	if(error_flag!=no_errors)

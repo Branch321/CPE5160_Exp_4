@@ -16,7 +16,7 @@ uint8_t Read_Sector(uint32_t sector_number,uint16_t sector_size, uint8_t * array
 	error_flag=SEND_COMMAND(17,(sector_number<<SDtype));
 	if(error_flag==no_errors) 
 	{
-		error_flag=read_block(sector_size,array_for_data);
+		error_flag=read_block(sector_size, array_for_data);
 	}
 	SPI_Select_Set(SD_Card_Select);
 	if(error_flag!=no_errors)

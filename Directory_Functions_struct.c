@@ -10,6 +10,7 @@
 #include "Directory_Functions_struct.h"
 #include "Read_Sector.h"
 #include <string.h>
+#include "print_bytes.h"
 
 FS_values_t idata Drive_values;
 
@@ -70,7 +71,7 @@ block of memory in xdata that can be used to read blocks from the SD card
 RETURNS: uint16_t number of entries found in the directory
 CAUTION: Supports FAT16, SD_shift must be set before using this function
 ************************************************************************/
-/*
+
 uint16_t  Print_Directory(uint32_t Sector_num, uint8_t xdata * array_in)
 { 
    uint32_t Sector, max_sectors;
@@ -91,7 +92,8 @@ uint16_t  Print_Directory(uint32_t Sector_num, uint8_t xdata * array_in)
       max_sectors=Drive_values.SecPerClus;
    }
    Sector=Sector_num;
-   error_flag=Read_Sector(Sector,Drive_values.BytesPerSec,values);
+   error_flag=Read_Sector(Sector, Drive_values.BytesPerSec, values);
+   //print_memory(values, Drive_values.BytesPerSec);
    if(error_flag==no_errors)
    {
      do
@@ -138,6 +140,7 @@ uint16_t  Print_Directory(uint32_t Sector_num, uint8_t xdata * array_in)
               if((Sector-Sector_num)<max_sectors)
 			  {
                  error_flag=Read_Sector(Sector,Drive_values.BytesPerSec,values);
+				 //print_memory(values, Drive_values.BytesPerSec);
 			     if(error_flag!=no_errors)
 			     {
 			        entries=0;   // no entries found indicates disk read error
@@ -156,11 +159,12 @@ uint16_t  Print_Directory(uint32_t Sector_num, uint8_t xdata * array_in)
 	}
 	else
 	{
+		printf("Error has occured");
 	   entries=0;    // no entries found indicates disk read error
 	}
    return entries;
  }
-*/
+
 
 /***********************************************************************
 DESC: Uses the same method as Print_Directory to locate short file names,
@@ -271,7 +275,7 @@ uint8_t Mount_Drive(uint8_t xdata * array_name)
 {
 	uint8_t i;
 	uint8_t temp_8;
-	uint32_t temp_32;
+	//uint32_t temp_32;
 	uint8_t error_flag;
 	uint16_t RsvdSectorCount;
 	uint8_t NumFATS;
@@ -281,20 +285,22 @@ uint8_t Mount_Drive(uint8_t xdata * array_name)
 	uint32_t TotalSectors32;
 	uint32_t FATsz32;
 	uint32_t RootCluster;
-	uint8_t RelativeSectors;
+	uint32_t RelativeSectors;
 	
 	// Read in BPB or MBR
 	error_flag = Read_Sector(0, 512, array_name);
+	//print_memory(array_name, 512);
 	// Check for BPB or MBR
-	temp_8 = read8(0,array_name);	
+	temp_8 = read8(0,array_name);
 	printf("Debug:: Offset 0 of Sector 0 is %x\r\n",temp_8);
 	if((temp_8!=0xEB)&&(temp_8!=0xE9))
 	{
-		temp_32 = read32(0x01C6,array_name);
-		printf("Debug:: Offset 0x01c6 of Sector 0 is %lx \r\n",temp_32);
-		error_flag = Read_Sector(temp_32,512,array_name);
-		RelativeSectors = read8(0,array_name);
-		printf("Debug:: Offset 0 of Relative Sectors is %x\r\n",RelativeSectors);
+		printf("Found MBR...\r\n");
+		RelativeSectors = read32(0x01C6,array_name);
+		printf("Debug:: Offset 0 of Relative Sectors is %lx\r\n",RelativeSectors);
+		error_flag = Read_Sector(RelativeSectors ,512,array_name);
+		temp_8 = read8(0,array_name);
+		printf("Debug:: temp8 is %x\r\n",temp_8);
 		if((temp_8!=0xEB)&&(temp_8!=0xE9))
 		{
 			printf("Error BPB not Found!\r\n");
@@ -305,8 +311,10 @@ uint8_t Mount_Drive(uint8_t xdata * array_name)
 		}
 	}
 	// Determine FAT type
+	print_memory(array_name, 512);
 	Drive_values.BytesPerSec = read16(0x0B,array_name);
 	printf("BytesPerSec:: %x\r\n",Drive_values.BytesPerSec);
+
 	Drive_values.SecPerClus = read8(0x0D,array_name);
 	printf("SecPerClus:: %bx\r\n",Drive_values.SecPerClus);
 	RsvdSectorCount = read16(0x0E,array_name);
@@ -329,17 +337,21 @@ uint8_t Mount_Drive(uint8_t xdata * array_name)
 	printf("StartofFAT:: %lx\r\n",Drive_values.StartofFAT);
 	Drive_values.RootDirSecs = ((RootEntryCnt*32) + (Drive_values.BytesPerSec-1))/Drive_values.BytesPerSec;
 	printf("RootDirSecs:: %lx\r\n",Drive_values.RootDirSecs);
-	Drive_values.FirstDataSec = RsvdSectorCount + (NumFATS*FATsz32) + Drive_values.RootDirSecs;
+	Drive_values.FirstDataSec = RsvdSectorCount + (NumFATS*FATsz32) + Drive_values.RootDirSecs + RelativeSectors;
 	printf("FirstDataSec:: %lx\r\n",Drive_values.FirstDataSec);
 	Drive_values.FirstRootDirSec = ((RootCluster-2)*Drive_values.SecPerClus)+Drive_values.FirstDataSec;
 	printf("FirstRootDirSec:: %lx\r\n",Drive_values.FirstRootDirSec);
-
+	Drive_values.FATtype = FAT32;
+	Drive_values.FATshift = FAT32_shift;
 	// TODO: Determine FAT type
-	// if FAT16 is detected return error_flag
+	// if FAT16 is detected return error_flag\
+
+	//Print Directory
+	Print_Directory(Drive_values.FirstRootDirSec, array_name);
 	return error_flag;
 }
 
-uint32_t First_Sector (uint32_t Cluster_num);
+uint32_t First_Sector (uint32_t Cluster_num)
 {
     uint32_t FirstSecCluster;
     if(Cluster_num==0)

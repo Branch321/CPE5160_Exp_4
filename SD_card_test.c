@@ -92,12 +92,12 @@ main()
       LCD_Print(line2,0,SDHC);
    }
 // Main Loop
-
+   error_flag = Mount_Drive(buf1);
    while(1)
    {
       printf("Input Block#: ");
       block_num=long_serial_input();
-      LBA=block_num<<SD_stat;
+      LBA=0<<SD_stat;
 	  LEDS_ON(Green_LED);
 	  //SPI_Select_Clear(SD_Card_Select);
       //error_flag=SEND_COMMAND(CMD17,LBA);
@@ -108,7 +108,7 @@ main()
       }
       //error_flag=read_block(512,buf1);
 	  //error_flag = Read_Sector(0,512,buf1);
-	  error_flag = Mount_Drive(buf1);
+	  //error_flag = Mount_Drive(buf1);
 	  LEDS_OFF(Green_LED);
 	  //SPI_Select_Set(SD_Card_Select);
       if(error_flag!=no_errors)
@@ -116,7 +116,8 @@ main()
          LEDS_ON(Red_LED);  // An error causes the program to stop
          while(1);
       }
-      print_memory(buf1,512);
+	  while(1);
+      //print_memory(buf1,512);
 	  //Mount_Drive(buf1);
    }
 } 

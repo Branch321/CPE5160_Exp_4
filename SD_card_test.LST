@@ -1,4 +1,4 @@
-C51 COMPILER V6.02  SD_CARD_TEST                                                           11/11/2019 17:52:17 PAGE 1   
+C51 COMPILER V6.02  SD_CARD_TEST                                                           11/12/2019 13:08:15 PAGE 1   
 
 
 C51 COMPILER V6.02, COMPILATION OF MODULE SD_CARD_TEST
@@ -62,7 +62,7 @@ stmt level    source
   53   1      
   54   1         printf("SD Card Test Program\n\r\n\n");
   55   1         LCD_Print(line1,0,SD_start);   
-C51 COMPILER V6.02  SD_CARD_TEST                                                           11/11/2019 17:52:17 PAGE 2   
+C51 COMPILER V6.02  SD_CARD_TEST                                                           11/12/2019 13:08:15 PAGE 2   
 
   56   1         error_flag=SPI_Master_Init(400000UL);
   57   1         if(error_flag!=no_errors)
@@ -103,12 +103,12 @@ stmt level    source
   92   2            LCD_Print(line2,0,SDHC);
   93   2         }
   94   1      // Main Loop
-  95   1      
+  95   1         error_flag = Mount_Drive(buf1);
   96   1         while(1)
   97   1         {
   98   2            printf("Input Block#: ");
   99   2            block_num=long_serial_input();
- 100   2            LBA=block_num<<SD_stat;
+ 100   2            LBA=0<<SD_stat;
  101   2      	  LEDS_ON(Green_LED);
  102   2      	  //SPI_Select_Clear(SD_Card_Select);
  103   2            //error_flag=SEND_COMMAND(CMD17,LBA);
@@ -119,31 +119,32 @@ stmt level    source
  108   3            }
  109   2            //error_flag=read_block(512,buf1);
  110   2      	  //error_flag = Read_Sector(0,512,buf1);
- 111   2      	  error_flag = Mount_Drive(buf1);
+ 111   2      	  //error_flag = Mount_Drive(buf1);
  112   2      	  LEDS_OFF(Green_LED);
  113   2      	  //SPI_Select_Set(SD_Card_Select);
  114   2            if(error_flag!=no_errors)
  115   2            {
  116   3               LEDS_ON(Red_LED);  // An error causes the program to stop
  117   3               while(1);
-C51 COMPILER V6.02  SD_CARD_TEST                                                           11/11/2019 17:52:17 PAGE 3   
+C51 COMPILER V6.02  SD_CARD_TEST                                                           11/12/2019 13:08:15 PAGE 3   
 
  118   3            }
- 119   2            print_memory(buf1,512);
- 120   2      	  //Mount_Drive(buf1);
- 121   2         }
- 122   1      } 
- 123          
+ 119   2      	  while(1);
+ 120   2            //print_memory(buf1,512);
+ 121   2      	  //Mount_Drive(buf1);
+ 122   2         }
+ 123   1      } 
  124          
  125          
+ 126          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    340    ----
+   CODE SIZE        =    347    ----
    CONSTANT SIZE    =     84    ----
    XDATA SIZE       =    512    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =   ----       8
+   DATA SIZE        =   ----      12
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.
