@@ -1,3 +1,6 @@
+/* Names: Tyler Andrews, Brennan Campbell, and Tyler Tetens
+ * Title: Experiment #4 - Fat File System
+ */
 #include "AT89C51RC2.h"
 #include <stdio.h>
 #include "main.h"
@@ -40,6 +43,8 @@ uint16_t read16(uint16_t offset, uint8_t * array_name)
 	uint8_t temp, index;
 	return_value=0;
 
+	// little endian to big endian
+	// loop for 2 bytes
 	for(index=0;index<2;index++)
 	{
 		temp=*(array_name+offset+(1-index));
@@ -55,6 +60,8 @@ uint32_t read32(uint16_t offset, uint8_t * array_name)
 	uint8_t temp, index;
 	return_value=0;
 
+	// little endian to big endian
+	// loop for 4 bytes
 	for(index=0;index<4;index++)
 	{
 		temp=*(array_name+offset+(3-index));
@@ -93,7 +100,6 @@ uint16_t  Print_Directory(uint32_t Sector_num, uint8_t xdata * array_in)
    }
    Sector=Sector_num;
    error_flag=Read_Sector(Sector, Drive_values.BytesPerSec, values);
-   //print_memory(values, Drive_values.BytesPerSec);
    if(error_flag==no_errors)
    {
      do
@@ -140,7 +146,6 @@ uint16_t  Print_Directory(uint32_t Sector_num, uint8_t xdata * array_in)
               if((Sector-Sector_num)<max_sectors)
 			  {
                  error_flag=Read_Sector(Sector,Drive_values.BytesPerSec,values);
-				 //print_memory(values, Drive_values.BytesPerSec);
 			     if(error_flag!=no_errors)
 			     {
 			        entries=0;   // no entries found indicates disk read error
@@ -257,26 +262,14 @@ uint32_t Read_Dir_Entry(uint32_t Sector_num, uint16_t Entry, uint8_t xdata * arr
    return return_clus;
  }
 */
-/*
-typedef struct
-{
-  uint8_t SecPerClus;
-  uint8_t FATtype;
-  uint8_t BytesPerSecShift;
-  uint8_t FATshift;
-  uint16_t BytesPerSec;
-  uint32_t FirstRootDirSec;
-  uint32_t FirstDataSec;
-  uint32_t StartofFAT;
-  uint32_t RootDirSecs;
-} FS_values_t;
-*/
+
 uint8_t Mount_Drive(uint8_t xdata * array_name)
 {
 	uint8_t i;
 	uint8_t temp_8;
-	//uint32_t temp_32;
 	uint8_t error_flag;
+	// Below are constants from BPB used for calculations
+	// for the values in struct FS_values_t
 	uint16_t RsvdSectorCount;
 	uint8_t NumFATS;
 	uint16_t RootEntryCnt;
@@ -289,7 +282,6 @@ uint8_t Mount_Drive(uint8_t xdata * array_name)
 	
 	// Read in BPB or MBR
 	error_flag = Read_Sector(0, 512, array_name);
-	//print_memory(array_name, 512);
 	// Check for BPB or MBR
 	temp_8 = read8(0,array_name);
 	printf("Debug:: Offset 0 of Sector 0 is %x\r\n",temp_8);
@@ -314,7 +306,6 @@ uint8_t Mount_Drive(uint8_t xdata * array_name)
 	print_memory(array_name, 512);
 	Drive_values.BytesPerSec = read16(0x0B,array_name);
 	printf("BytesPerSec:: %x\r\n",Drive_values.BytesPerSec);
-
 	Drive_values.SecPerClus = read8(0x0D,array_name);
 	printf("SecPerClus:: %bx\r\n",Drive_values.SecPerClus);
 	RsvdSectorCount = read16(0x0E,array_name);

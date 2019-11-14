@@ -1,3 +1,6 @@
+/* Names: Tyler Andrews, Brennan Campbell, and Tyler Tetens
+ * Title: Experiment #4 - Fat File System
+ */
 #ifndef _Directory_Func_H
 #define _Directory_Func_H
 
@@ -40,10 +43,24 @@ FS_values_t * Export_Drive_values(void);
 
 // ------ Function prototypes needed (These can be defined in a seperate file) -------------
 
+/*
+ * Desc: Returns a byte read from array_name with some offset
+ * Pre: data must already be read into xdata before passing
+ */
 uint8_t read8(uint16_t offset, uint8_t * array_name);
 
+/*
+ * Desc: Returns 2 bytes read from array_name with some offset
+ * Note: corrects for little endian
+ * Pre: data must already be read into xdata before passing
+ */
 uint16_t read16(uint16_t offset, uint8_t * array_name);
 
+/*
+ * Desc: Returns 4 bytes read from array_name with some offset
+ * Note: corrects for little endian
+ * Pre: data must already be read into xdata before passing
+ */
 uint32_t read32(uint16_t offset, uint8_t * array_name);
 
 uint8_t Mount_Drive(uint8_t xdata * array_name);

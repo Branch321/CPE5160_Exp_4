@@ -1,3 +1,7 @@
+/* Names: Tyler Andrews, Brennan Campbell, and Tyler Tetens
+ * Title: Experiment #4 - Fat File System
+ */
+
 #ifndef READ_SECTOR_H
 #define READ_SECTOR_H
 
