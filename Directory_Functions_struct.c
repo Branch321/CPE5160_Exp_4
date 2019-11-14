@@ -180,7 +180,6 @@ RETURNS: uint32_t with cluster in lower 28 bits.  Bit 28 set if this is
          a directory entry, clear for a file.  Bit 31 set for error.
 CAUTION: 
 ************************************************************************/
-/*
 uint32_t Read_Dir_Entry(uint32_t Sector_num, uint16_t Entry, uint8_t xdata * array_in)
 { 
    uint32_t Sector, max_sectors, return_clus;
@@ -261,7 +260,6 @@ uint32_t Read_Dir_Entry(uint32_t Sector_num, uint16_t Entry, uint8_t xdata * arr
 	if(return_clus==0) return_clus=no_entry_found;
    return return_clus;
  }
-*/
 
 uint8_t Mount_Drive(uint8_t xdata * array_name)
 {

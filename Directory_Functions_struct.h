@@ -24,7 +24,7 @@ typedef struct
 {
   uint8_t SecPerClus;
   uint8_t FATtype;
-  uint8_t BytesPerSecShift;
+  uint8_t BytesPerSecShift; // Not used?
   uint8_t FATshift;
   uint16_t BytesPerSec;
   uint32_t FirstRootDirSec;
@@ -35,10 +35,13 @@ typedef struct
 
 // ------ Public function prototypes -------------------------------
 
+// Docs in this function are in Directory_Functions_struct.c
 uint16_t Print_Directory(uint32_t Sector_num, uint8_t xdata * array_in);
 
-//uint32_t Read_Dir_Entry(uint32_t Sector_num, uint16_t Entry, uint8_t xdata * array_in);
+// Docs in this function are in Directory_Functions_struct.c
+uint32_t Read_Dir_Entry(uint32_t Sector_num, uint16_t Entry, uint8_t xdata * array_in);
 
+// Docs in this function are in Directory_Functions_struct.c
 FS_values_t * Export_Drive_values(void);
 
 // ------ Function prototypes needed (These can be defined in a seperate file) -------------

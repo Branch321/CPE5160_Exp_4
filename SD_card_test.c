@@ -97,8 +97,10 @@ main()
    {
       printf("Input Block#: ");
       block_num=long_serial_input();
-      LBA=0<<SD_stat;
+      LBA=block_num<<SD_stat;
 	  LEDS_ON(Green_LED);
+	  // TODO: Need to error check if number of entries (LBA or block_num)is higher that directories
+	  error_flag = Read_Dir_Entry(uint32_t Sector_num, uint16_t Entry, uint8_t xdata * array_in)
 	  //SPI_Select_Clear(SD_Card_Select);
       //error_flag=SEND_COMMAND(CMD17,LBA);
       if(error_flag!=no_errors)
