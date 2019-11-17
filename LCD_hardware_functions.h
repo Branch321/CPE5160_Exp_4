@@ -11,6 +11,4 @@
 
 void LCD_Write(uint8_t RegSelect, uint8_t LCD_Data);
 
-
-
 #endif

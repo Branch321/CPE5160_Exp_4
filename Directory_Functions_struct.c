@@ -14,6 +14,7 @@
 #include "Read_Sector.h"
 #include <string.h>
 #include "print_bytes.h"
+#include "Long_Serial_In.h"
 
 FS_values_t idata Drive_values;
 
@@ -180,6 +181,7 @@ RETURNS: uint32_t with cluster in lower 28 bits.  Bit 28 set if this is
          a directory entry, clear for a file.  Bit 31 set for error.
 CAUTION: 
 ************************************************************************/
+
 uint32_t Read_Dir_Entry(uint32_t Sector_num, uint16_t Entry, uint8_t xdata * array_in)
 { 
    uint32_t Sector, max_sectors, return_clus;
@@ -334,9 +336,6 @@ uint8_t Mount_Drive(uint8_t xdata * array_name)
 	Drive_values.FATshift = FAT32_shift;
 	// TODO: Determine FAT type
 	// if FAT16 is detected return error_flag\
-
-	//Print Directory
-	Print_Directory(Drive_values.FirstRootDirSec, array_name);
 	return error_flag;
 }
 
@@ -365,3 +364,35 @@ uint32_t Find_Next_Clus(uint32_t Cluster_num, uint8_t xdata * array_name)
     return_clus = (read32(FATOffset,array_name)&0x0FFFFFFF);
     return return_clus;
 }
+uint8_t Open_File(uint32_t Cluster, uint8_t xdata * array_in)
+{
+	uint32_t sector_num;
+	uint32_t user_input;
+
+	sector_num = First_Sector(Cluster);
+	printf("Cluster # = %lx ,Sector # = %lx\r\n", Cluster, sector_num);
+	Read_Sector(sector_num, Drive_values.BytesPerSec, array_in);
+	print_memory(array_in, Drive_values.BytesPerSec);
+	do
+	{
+		printf("1. Continue to next cluster\r\n2. Back to main menu\r\nInput Entry #: ");
+		user_input = long_serial_input();
+		if(user_input == 1)
+		{
+		    //uint32_t Find_Next_Clus(uint32_t Cluster_num, uint8_t xdata * array_name);
+			Cluster = Find_Next_Clus(Cluster,array_in);
+			sector_num = First_Sector(Cluster);
+			Read_Sector(sector_num,Drive_values.BytesPerSec, array_in);
+			printf("Cluster # = %lx ,Sector # = %lx\r\n", Cluster, sector_num);
+			print_memory(array_in, Drive_values.BytesPerSec);
+		}
+		else
+		{
+			printf("Quitting...\r\n");
+		}
+		// TODO: Need to check for eof
+	}while(user_input == 1);
+	// TODO: Need to return an actual error value
+	return 0x00000;
+}
+

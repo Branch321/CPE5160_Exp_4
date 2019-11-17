@@ -7,7 +7,6 @@
 #include "SPI.h"
 #include "SDcard.h"
 #include "Long_Serial_In.h"
-//#include "memory_test.h"
 #include "LCD_routines.h"
 #include "Timer0_hardware_delay_1ms.h"
 #include "Outputs.h"
@@ -21,8 +20,7 @@ uint8_t code SDSC[]="Std. Capacity";
 uint8_t code SDHC[]="High Capacity";
 
 xdata uint8_t buf1[512];
-//xdata uint8_t buf2[512];
-
+xdata uint8_t buf2[512];
 
 main()
 {
@@ -30,6 +28,9 @@ main()
    uint16_t i;
    uint8_t error_flag;
    uint8_t SD_stat;
+   uint32_t cluster_num;
+   uint32_t current_directory_sector;
+   FS_values_t * Mounted_Drive_values = Export_Drive_values();
   
    AUXR=0x0c;   // make all of XRAM available, ALE always on
    if(OSC_PER_INST==6)  // sets the x2 bit according to the OSC_PER_INST value
@@ -49,7 +50,6 @@ main()
    LEDS_OFF(Red_LED);
    uart_init(9600);
    LCD_Init();
-     
 
    printf("SD Card Test Program\n\r\n\n");
    LCD_Print(line1,0,SD_start);   
@@ -93,34 +93,28 @@ main()
    }
 // Main Loop
    error_flag = Mount_Drive(buf1);
+   current_directory_sector = Mounted_Drive_values->FirstRootDirSec;
    while(1)
    {
-      printf("Input Block#: ");
-      block_num=long_serial_input();
-      LBA=block_num<<SD_stat;
+      Print_Directory(current_directory_sector, buf1);
+      printf("Input Entry #: ");
+      block_num=long_serial_input(); //block_num is entry number for Read_Dir_Entry()
 	  LEDS_ON(Green_LED);
 	  // TODO: Need to error check if number of entries (LBA or block_num)is higher that directories
-	  error_flag = Read_Dir_Entry(uint32_t Sector_num, uint16_t Entry, uint8_t xdata * array_in)
-	  //SPI_Select_Clear(SD_Card_Select);
-      //error_flag=SEND_COMMAND(CMD17,LBA);
-      if(error_flag!=no_errors)
-      {
-         LEDS_ON(Red_LED);  // An error causes the program to stop
-         while(1);
-      }
-      //error_flag=read_block(512,buf1);
-	  //error_flag = Read_Sector(0,512,buf1);
-	  //error_flag = Mount_Drive(buf1);
-	  LEDS_OFF(Green_LED);
-	  //SPI_Select_Set(SD_Card_Select);
-      if(error_flag!=no_errors)
-      {
-         LEDS_ON(Red_LED);  // An error causes the program to stop
-         while(1);
-      }
-	  while(1);
-      //print_memory(buf1,512);
-	  //Mount_Drive(buf1);
+	  cluster_num = Read_Dir_Entry(current_directory_sector, block_num, buf1);
+	  // TODO: Need to do extra error checking
+	  if((cluster_num&directory_bit)!=0) // directory mask
+	  {
+	  	  printf("Entry is a directory...Opening now...\r\n");
+	      cluster_num&=0x0FFFFFFF;
+          current_directory_sector = First_Sector(cluster_num);
+	  }
+	  else // if entry is a file
+	  {
+	  	  printf("Entry is a file...Opening now...\r\n");
+	  	  cluster_num&=0x0FFFFFFF;
+	      Open_File(cluster_num, buf2);
+	  }
    }
 } 
 
