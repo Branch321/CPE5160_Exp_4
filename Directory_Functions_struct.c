@@ -304,6 +304,9 @@ uint8_t Mount_Drive(uint8_t xdata * array_name)
 		}
 	}
 	// Determine FAT type
+	// TODO: FAT16 support will need FATOffset
+	//       FirstRootDirSecNum
+	//       FirstDataSec
 	print_memory(array_name, 512);
 	Drive_values.BytesPerSec = read16(0x0B,array_name);
 	printf("BytesPerSec:: %x\r\n",Drive_values.BytesPerSec);
@@ -362,6 +365,7 @@ uint32_t Find_Next_Clus(uint32_t Cluster_num, uint8_t xdata * array_name)
 	uint32_t sector = ((Cluster_num*4)/Drive_values.BytesPerSec)+Drive_values.StartofFAT;
 	Read_Sector(sector,Drive_values.BytesPerSec,array_name);
 	FAToffset = (uint16_t) ((4*Cluster_num)%Drive_values.BytesPerSec);
+	// TODO: FAT16 , Below is return_clus=(uint32_t)(read_value_16(FAToffset,values));
 	return_clus = (read32(FAToffset,array_name)&0x0FFFFFFF);
 	
     return return_clus;
