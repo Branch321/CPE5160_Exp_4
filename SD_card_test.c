@@ -31,7 +31,7 @@ main()
    uint32_t cluster_num;
    uint32_t current_directory_sector;
    FS_values_t * Mounted_Drive_values = Export_Drive_values();
-  
+   //printf("Is this working?!?!?!");
    AUXR=0x0c;   // make all of XRAM available, ALE always on
    if(OSC_PER_INST==6)  // sets the x2 bit according to the OSC_PER_INST value
    {

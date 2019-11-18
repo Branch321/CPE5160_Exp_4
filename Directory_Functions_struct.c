@@ -18,6 +18,7 @@
 
 FS_values_t idata Drive_values;
 
+
 /***********************************************************************
 DESC: Returns a pointer to the global structure Drive_values to export to other files
 INPUT: void
@@ -356,42 +357,57 @@ uint32_t First_Sector (uint32_t Cluster_num)
 uint32_t Find_Next_Clus(uint32_t Cluster_num, uint8_t xdata * array_name)
 {
     uint32_t return_clus;
-    uint32_t FATOffset = Cluster_num*4;
-    uint32_t ThisFATSecNum = Drive_values.StartofFAT + (FATOffset/Drive_values.BytesPerSec);
-
-    Read_Sector(ThisFATSecNum,Drive_values.BytesPerSec, array_name);
-    FATOffset = (FATOffset % Drive_values.BytesPerSec);
-    return_clus = (read32(FATOffset,array_name)&0x0FFFFFFF);
+	uint16_t FAToffset;
+	uint32_t values;
+	uint32_t sector = ((Cluster_num*4)/Drive_values.BytesPerSec)+Drive_values.StartofFAT;
+	Read_Sector(sector,Drive_values.BytesPerSec,array_name);
+	FAToffset = (uint16_t) ((4*Cluster_num)%Drive_values.BytesPerSec);
+	return_clus = (read32(FAToffset,array_name)&0x0FFFFFFF);
+	
     return return_clus;
 }
+
+//uint8_t xdata sector_buffer[512];
+
 uint8_t Open_File(uint32_t Cluster, uint8_t xdata * array_in)
 {
 	uint32_t sector_num;
+	uint32_t first_sec_num;
 	uint32_t user_input;
+	//uint32_t next_cluster = Cluster;
+	//uint8_t index = 0;
 
-	sector_num = First_Sector(Cluster);
-	printf("Cluster # = %lx ,Sector # = %lx\r\n", Cluster, sector_num);
-	Read_Sector(sector_num, Drive_values.BytesPerSec, array_in);
-	print_memory(array_in, Drive_values.BytesPerSec);
+	//first_sec_num = First_Sector(next_cluster);
+	//printf("Cluster # = %lx ,Sector # = %lx\r\n", next_cluster, first_sec_num);
+	//Read_Sector(first_sec_num, Drive_values.BytesPerSec, array_in);
+	//print_memory(array_in, Drive_values.BytesPerSec);
 	do
 	{
-		printf("1. Continue to next cluster\r\n2. Back to main menu\r\nInput Entry #: ");
-		user_input = long_serial_input();
-		if(user_input == 1)
-		{
-		    //uint32_t Find_Next_Clus(uint32_t Cluster_num, uint8_t xdata * array_name);
+		//printf("1. Continue to next cluster\r\n2. Back to main menu\r\nInput Entry #: ");
+		//user_input = long_serial_input();
+		//if(user_input == 1)
+			
+			first_sec_num = First_Sector(Cluster);
+			sector_num = first_sec_num;
+			//index = 0;
+			while(sector_num!=Drive_values.SecPerClus+first_sec_num)
+			{
+				Read_Sector(sector_num,Drive_values.BytesPerSec, array_in);
+				printf("Cluster # = %lx ,Sector # = %lx\r\n", Cluster, sector_num);
+				//print_memory(array_in, Drive_values.BytesPerSec);
+				//index++;
+				sector_num++;
+			}
 			Cluster = Find_Next_Clus(Cluster,array_in);
-			sector_num = First_Sector(Cluster);
-			Read_Sector(sector_num,Drive_values.BytesPerSec, array_in);
-			printf("Cluster # = %lx ,Sector # = %lx\r\n", Cluster, sector_num);
-			print_memory(array_in, Drive_values.BytesPerSec);
-		}
-		else
-		{
-			printf("Quitting...\r\n");
-		}
+		//}
+		//else
+		//{
+		//	printf("Quitting...\r\n");
+		//}
 		// TODO: Need to check for eof
-	}while(user_input == 1);
+	}while(/*user_input == 1&&*/Cluster!=0x0FFFFFFF);
+	print_memory(array_in, Drive_values.BytesPerSec);
+	printf("Cluster number: %lx \r\n", Cluster);
 	// TODO: Need to return an actual error value
 	return 0x00000;
 }
