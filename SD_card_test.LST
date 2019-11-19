@@ -1,4 +1,4 @@
-C51 COMPILER V6.02  SD_CARD_TEST                                                           11/18/2019 15:02:11 PAGE 1   
+C51 COMPILER V6.02  SD_CARD_TEST                                                           11/18/2019 20:09:33 PAGE 1   
 
 
 C51 COMPILER V6.02, COMPILATION OF MODULE SD_CARD_TEST
@@ -33,112 +33,118 @@ stmt level    source
   24          
   25          main()
   26          {
-  27   1         uint32_t block_num, LBA;
+  27   1         uint32_t block_num;
   28   1         uint16_t i;
   29   1         uint8_t error_flag;
   30   1         uint8_t SD_stat;
   31   1         uint32_t cluster_num;
   32   1         uint32_t current_directory_sector;
-  33   1         FS_values_t * Mounted_Drive_values = Export_Drive_values();
-  34   1         //printf("Is this working?!?!?!");
-  35   1         AUXR=0x0c;   // make all of XRAM available, ALE always on
-  36   1         if(OSC_PER_INST==6)  // sets the x2 bit according to the OSC_PER_INST value
-  37   1         {
-  38   2             CKCON0=0x01;  // set X2 clock mode
-  39   2         }
-  40   1         else if(OSC_PER_INST==12)
-  41   1         {
-  42   2             CKCON0=0x00;  // set standard clock mode
-  43   2         }
-  44   1         
-  45   1         P2_set_bit(0x0F);  // sets lower four bits of port 2 for switch inputs.
-  46   1         LEDS_OFF(Amber_LED|Yellow_LED|Green_LED);
-  47   1         LEDS_ON(Red_LED);
-  48   1         i=0;
-  49   1         while(i<=60000) i++;
-  50   1         LEDS_OFF(Red_LED);
-  51   1         uart_init(9600);
-  52   1         LCD_Init();
-  53   1      
-  54   1         printf("SD Card Test Program\n\r\n\n");
-  55   1         LCD_Print(line1,0,SD_start);   
-C51 COMPILER V6.02  SD_CARD_TEST                                                           11/18/2019 15:02:11 PAGE 2   
+  33   1         uint32_t num_entries;
+  34   1         FS_values_t * Mounted_Drive_values = Export_Drive_values();
+  35   1         //printf("Is this working?!?!?!");
+  36   1         AUXR=0x0c;   // make all of XRAM available, ALE always on
+  37   1         if(OSC_PER_INST==6)  // sets the x2 bit according to the OSC_PER_INST value
+  38   1         {
+  39   2             CKCON0=0x01;  // set X2 clock mode
+  40   2         }
+  41   1         else if(OSC_PER_INST==12)
+  42   1         {
+  43   2             CKCON0=0x00;  // set standard clock mode
+  44   2         }
+  45   1         
+  46   1         P2_set_bit(0x0F);  // sets lower four bits of port 2 for switch inputs.
+  47   1         LEDS_OFF(Amber_LED|Yellow_LED|Green_LED);
+  48   1         LEDS_ON(Red_LED);
+  49   1         i=0;
+  50   1         while(i<=60000) i++;
+  51   1         LEDS_OFF(Red_LED);
+  52   1         uart_init(9600);
+  53   1         LCD_Init();
+  54   1      
+  55   1         printf("SD Card Test Program\n\r\n\n");
+C51 COMPILER V6.02  SD_CARD_TEST                                                           11/18/2019 20:09:33 PAGE 2   
 
-  56   1         error_flag=SPI_Master_Init(400000UL);
-  57   1         if(error_flag!=no_errors)
-  58   1         {
-  59   2            LEDS_ON(Red_LED);  // An error causes the program to stop
-  60   2      	  UART_Transmit('S');
-  61   2            while(1);
-  62   2         }
-  63   1         LEDS_ON(Amber_LED);
-  64   1         // SD Card Initialization
-  65   1         error_flag=SD_card_init();
-  66   1         if(error_flag!=no_errors)
-  67   1         {
-  68   2            LEDS_ON(Red_LED);  // An error causes the program to stop
-  69   2      	  UART_Transmit('C');
-  70   2            while(1);
-  71   2         }
-  72   1         LEDS_OFF(Amber_LED);
-  73   1         error_flag=SPI_Master_Init(400000UL);
-  74   1         if(error_flag!=no_errors)
-  75   1         {
-  76   2            LEDS_ON(Red_LED);  // An error causes the program to stop
-  77   2      	  UART_Transmit('P');
-  78   2            while(1);
-  79   2         }
-  80   1         for(i=0;i<512;i++)
-  81   1         {
-  82   2            buf1[i]=0xff;  // erase valout for debug
-  83   2      //      buf2[i]=0xff;
-  84   2         }
-  85   1         SD_stat=Return_SD_Card_Type();
-  86   1         if(SD_stat==Standard_Capacity)
-  87   1         {
-  88   2            LCD_Print(line2,0,SDSC);
-  89   2         }
-  90   1         else if(SD_stat==High_Capacity)
-  91   1         {
-  92   2            LCD_Print(line2,0,SDHC);
-  93   2         }
-  94   1      // Main Loop
-  95   1         error_flag = Mount_Drive(buf1);
-  96   1         current_directory_sector = Mounted_Drive_values->FirstRootDirSec;
-  97   1         while(1)
-  98   1         {
-  99   2            Print_Directory(current_directory_sector, buf1);
- 100   2            printf("Input Entry #: ");
- 101   2            block_num=long_serial_input(); //block_num is entry number for Read_Dir_Entry()
- 102   2      	  LEDS_ON(Green_LED);
- 103   2      	  // TODO: Need to error check if number of entries (LBA or block_num)is higher that directories
- 104   2      	  cluster_num = Read_Dir_Entry(current_directory_sector, block_num, buf1);
- 105   2      	  // TODO: Need to do extra error checking
- 106   2      	  if((cluster_num&directory_bit)!=0) // directory mask
- 107   2      	  {
- 108   3      	  	  printf("Entry is a directory...Opening now...\r\n");
- 109   3      	      cluster_num&=0x0FFFFFFF;
- 110   3                current_directory_sector = First_Sector(cluster_num);
- 111   3      	  }
- 112   2      	  else // if entry is a file
- 113   2      	  {
- 114   3      	  	  printf("Entry is a file...Opening now...\r\n");
- 115   3      	  	  cluster_num&=0x0FFFFFFF;
- 116   3      	      Open_File(cluster_num, buf2);
- 117   3      	  }
-C51 COMPILER V6.02  SD_CARD_TEST                                                           11/18/2019 15:02:11 PAGE 3   
+  56   1         LCD_Print(line1,0,SD_start);   
+  57   1         error_flag=SPI_Master_Init(400000UL);
+  58   1         if(error_flag!=no_errors)
+  59   1         {
+  60   2            LEDS_ON(Red_LED);  // An error causes the program to stop
+  61   2      	  UART_Transmit('S');
+  62   2            while(1);
+  63   2         }
+  64   1         LEDS_ON(Amber_LED);
+  65   1         // SD Card Initialization
+  66   1         error_flag=SD_card_init();
+  67   1         if(error_flag!=no_errors)
+  68   1         {
+  69   2            LEDS_ON(Red_LED);  // An error causes the program to stop
+  70   2      	  UART_Transmit('C');
+  71   2            while(1);
+  72   2         }
+  73   1         LEDS_OFF(Amber_LED);
+  74   1         error_flag=SPI_Master_Init(400000UL);
+  75   1         if(error_flag!=no_errors)
+  76   1         {
+  77   2            LEDS_ON(Red_LED);  // An error causes the program to stop
+  78   2      	  UART_Transmit('P');
+  79   2            while(1);
+  80   2         }
+  81   1         for(i=0;i<512;i++)
+  82   1         {
+  83   2            buf1[i]=0xff;  // erase valout for debug
+  84   2      //      buf2[i]=0xff;
+  85   2         }
+  86   1         SD_stat=Return_SD_Card_Type();
+  87   1         if(SD_stat==Standard_Capacity)
+  88   1         {
+  89   2            LCD_Print(line2,0,SDSC);
+  90   2         }
+  91   1         else if(SD_stat==High_Capacity)
+  92   1         {
+  93   2            LCD_Print(line2,0,SDHC);
+  94   2         }
+  95   1      // Main Loop
+  96   1         error_flag = Mount_Drive(buf1);
+  97   1         current_directory_sector = Mounted_Drive_values->FirstRootDirSec;
+  98   1         while(1)
+  99   1         {
+ 100   2            num_entries = Print_Directory(current_directory_sector, buf1);
+ 101   2            printf("Input Entry #: ");
+ 102   2            block_num=long_serial_input(); //block_num is entry number for Read_Dir_Entry()
+ 103   2            while ((block_num <= 0) || (block_num > num_entries))
+ 104   2            {
+ 105   3               printf("Invalid selection. Please select a valid entry.");
+ 106   3               block_num = long_serial_input();
+ 107   3            }
+ 108   2      
+ 109   2      	  LEDS_ON(Green_LED);
+ 110   2      	  // TODO: Need to error check if number of entries (LBA or block_num)is higher that directories
+ 111   2      	  cluster_num = Read_Dir_Entry(current_directory_sector, block_num, buf1);
+ 112   2      	  // TODO: Need to do extra error checking and set directory bit to 1 if error
+ 113   2      	  if((cluster_num &directory_bit)!=0) // directory mask
+ 114   2      	  {
+ 115   3      	  	   printf("Entry is a directory...Opening now...\r\n");
+ 116   3      	      cluster_num &= 0x0FFFFFFF;
+ 117   3               current_directory_sector = First_Sector(cluster_num);
+C51 COMPILER V6.02  SD_CARD_TEST                                                           11/18/2019 20:09:33 PAGE 3   
 
- 118   2         }
- 119   1      } 
-*** WARNING C280 IN LINE 27 OF .\SD_CARD_TEST.C: 'LBA': unreferenced local variable
- 120          
- 121          
- 122          
+ 118   3      	  }
+ 119   2      	  else // if entry is a file
+ 120   2      	  {
+ 121   3      	  	   printf("Entry is a file...Opening now...\r\n");
+ 122   3      	  	   cluster_num &= 0x0FFFFFFF;
+ 123   3      	      Open_File(cluster_num, buf2);
+ 124   3      	  }
+ 125   2         }
+ 126   1      } 
+ 127          
+ 128          
+ 129          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    482    ----
-   CONSTANT SIZE    =    160    ----
+   CODE SIZE        =    548    ----
+   CONSTANT SIZE    =    208    ----
    XDATA SIZE       =   1024    ----
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----      23
@@ -147,4 +153,4 @@ MODULE INFORMATION:   STATIC OVERLAYABLE
 END OF MODULE INFORMATION.
 
 
-C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

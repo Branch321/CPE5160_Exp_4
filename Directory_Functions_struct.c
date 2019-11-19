@@ -266,7 +266,7 @@ uint32_t Read_Dir_Entry(uint32_t Sector_num, uint16_t Entry, uint8_t xdata * arr
 
 uint8_t Mount_Drive(uint8_t xdata * array_name)
 {
-	uint8_t i;
+	//uint8_t i;
 	uint8_t temp_8;
 	uint8_t error_flag;
 	// Below are constants from BPB used for calculations
@@ -278,6 +278,10 @@ uint8_t Mount_Drive(uint8_t xdata * array_name)
 	uint16_t FATsz16;
 	uint32_t TotalSectors32;
 	uint32_t FATsz32;
+	uint32_t FATSz;
+	//Ran out of space so now some vars are in xdata
+	uint32_t xdata TotSec;
+	uint32_t xdata DataSec;
 	uint32_t RootCluster;
 	uint32_t RelativeSectors;
 	uint32_t CountofClus;
@@ -304,10 +308,6 @@ uint8_t Mount_Drive(uint8_t xdata * array_name)
 			printf("BPB Found!\r\n");
 		}
 	}
-	// Determine FAT type
-	// TODO: FAT16 support will need FATOffset
-	//       FirstRootDirSecNum
-	//       FirstDataSec
 	print_memory(array_name, 512);
 	Drive_values.BytesPerSec = read16(0x0B,array_name);
 	printf("BytesPerSec:: %x\r\n",Drive_values.BytesPerSec);
@@ -337,24 +337,47 @@ uint8_t Mount_Drive(uint8_t xdata * array_name)
 	printf("FirstDataSec:: %lx\r\n",Drive_values.FirstDataSec);
 	Drive_values.FirstRootDirSec = ((RootCluster-2)*Drive_values.SecPerClus)+Drive_values.FirstDataSec;
 	printf("FirstRootDirSec:: %lx\r\n",Drive_values.FirstRootDirSec);
-	//Drive_values.FATtype = FAT32;
 	Drive_values.FATshift = FAT32_shift;
-	CountofClus = Drive_values.FirstDataSec / Drive_values.SecPerClus;
 
-	// TODO: Determine FAT type
+	//Checks FAT Size to use
+	if(FATsz16 != 0)
+	{
+		FATSz = FATsz16;
+	}
+	else
+	{
+		FATSz = FATsz32;
+	}
+	
+	//Checks which TotalSectors to use
+	if(TotalSectors16 != 0)
+	{
+		TotSec = TotalSectors16;
+	}
+	else
+	{
+		TotSec = TotalSectors32;
+	}
+	
+	//Calculates Number of Data Sectors for CountofClus
+	DataSec = (TotSec - (RsvdSectorCount + ((NumFATS * FATSz) + Drive_values.RootDirSecs)));
+	
+	//Calculates CountofClus to use for determining FATtype
+	CountofClus = DataSec / Drive_values.SecPerClus;
+
+	//Determines FAT type
 	if(CountofClus < 65525)
 	{
 		//FAT16
-		Drive_value.FATtype = FAT16;
+		Drive_values.FATtype = FAT16;
 		error_flag = FAT_Unsupported;
 	}
 	else
 	{
 		//FAT32
-		Drive_value.FATtype = FAT32;
+		Drive_values.FATtype = FAT32;
 	}
-	printf(Drive_values.FATtype);
-	// if FAT16 is detected return error_flag
+	printf("FATtype Detected: %x\r\n", Drive_values.FATtype);
 	return error_flag;
 }
 
@@ -376,11 +399,9 @@ uint32_t Find_Next_Clus(uint32_t Cluster_num, uint8_t xdata * array_name)
 {
     uint32_t return_clus;
 	uint16_t FAToffset;
-	uint32_t values;
 	uint32_t sector = ((Cluster_num*4)/Drive_values.BytesPerSec)+Drive_values.StartofFAT;
 	Read_Sector(sector,Drive_values.BytesPerSec,array_name);
 	FAToffset = (uint16_t) ((4*Cluster_num)%Drive_values.BytesPerSec);
-	// TODO: FAT16 , Below is return_clus=(uint32_t)(read_value_16(FAToffset,values));
 	return_clus = (read32(FAToffset,array_name)&0x0FFFFFFF);
 	
     return return_clus;
@@ -388,6 +409,7 @@ uint32_t Find_Next_Clus(uint32_t Cluster_num, uint8_t xdata * array_name)
 
 uint8_t Open_File(uint32_t Cluster, uint8_t xdata * array_in)
 {
+	uint8_t error_flag = no_errors;
 	uint32_t sector_num;
 	uint32_t first_sec_num;
 	uint32_t user_input;
@@ -395,16 +417,15 @@ uint8_t Open_File(uint32_t Cluster, uint8_t xdata * array_in)
 
 	do
 	{
-		//printf("1. Continue to next cluster\r\n2. Back to main menu\r\nInput Entry #: ");
-		//user_input = long_serial_input();
+		printf("1. Continue to next cluster\r\n2. Back to main menu\r\nInput Entry #: ");
+		user_input = long_serial_input();
 		if(user_input == 1)
-			
+		{
 			first_sec_num = First_Sector(Cluster);
 			sector_num = first_sec_num;
-
 			while(sector_num!=Drive_values.SecPerClus+first_sec_num)
 			{
-				Read_Sector(sector_num,Drive_values.BytesPerSec, array_in);
+				error_flag = Read_Sector(sector_num,Drive_values.BytesPerSec, array_in);
 				printf("Cluster # = %lx ,Sector # = %lx\r\n", Cluster, sector_num);
 				//Checks if its the first sector of the file
 				if (first == 0)
@@ -421,11 +442,8 @@ uint8_t Open_File(uint32_t Cluster, uint8_t xdata * array_in)
 			printf("Quitting...\r\n");
 		}
 	}while( user_input == 1 && Cluster!=0x0FFFFFFF);
-	//reset first flag so that next file can print first
-	first = 0;
-	print_memory(array_in, Drive_values.BytesPerSec);
 	printf("Cluster number: %lx \r\n", Cluster);
 	// TODO: Need to return an actual error value
-	return 0x00000;
+	return error_flag;
 }
 

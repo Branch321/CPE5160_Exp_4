@@ -1,3 +1,7 @@
+/* Names: Tyler Andrews, Brennan Campbell, and Tyler Tetens
+ * Title: Experiment #4 - Fat File System
+ */
+
 #include "AT89C51RC2.h"
 #include "stdio.h"
 #include "main.h"
@@ -24,7 +28,7 @@ xdata uint8_t buf2[512];
 
 main()
 {
-   uint32_t block_num, LBA;
+   uint32_t block_num;
    uint16_t i;
    uint8_t error_flag;
    uint8_t SD_stat;
@@ -100,7 +104,7 @@ main()
       num_entries = Print_Directory(current_directory_sector, buf1);
       printf("Input Entry #: ");
       block_num=long_serial_input(); //block_num is entry number for Read_Dir_Entry()
-      while ((block_num =< 0) | (block_num > num_entries)) ///0?
+      while ((block_num <= 0) || (block_num > num_entries))
       {
          printf("Invalid selection. Please select a valid entry.");
          block_num = long_serial_input();
