@@ -280,6 +280,7 @@ uint8_t Mount_Drive(uint8_t xdata * array_name)
 	uint32_t FATsz32;
 	uint32_t RootCluster;
 	uint32_t RelativeSectors;
+	uint32_t CountofClus;
 	
 	// Read in BPB or MBR
 	error_flag = Read_Sector(0, 512, array_name);
@@ -338,7 +339,20 @@ uint8_t Mount_Drive(uint8_t xdata * array_name)
 	printf("FirstRootDirSec:: %lx\r\n",Drive_values.FirstRootDirSec);
 	Drive_values.FATtype = FAT32;
 	Drive_values.FATshift = FAT32_shift;
+	CountofClus = Drive_values.FirstDataSec / Drive_values.SecPerClus;
+
 	// TODO: Determine FAT type
+	if(CountofClus < 65525)
+	{
+		//FAT16
+		Drive_value.FATtype = FAT16;
+	}
+	else
+	{
+		//FAT32
+		Drive_value.FATtype = FAT32;
+	}
+	
 	// if FAT16 is detected return error_flag\
 	return error_flag;
 }
