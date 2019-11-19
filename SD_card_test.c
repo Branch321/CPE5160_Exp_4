@@ -30,6 +30,7 @@ main()
    uint8_t SD_stat;
    uint32_t cluster_num;
    uint32_t current_directory_sector;
+   uint32_t num_entries;
    FS_values_t * Mounted_Drive_values = Export_Drive_values();
    //printf("Is this working?!?!?!");
    AUXR=0x0c;   // make all of XRAM available, ALE always on
@@ -96,23 +97,28 @@ main()
    current_directory_sector = Mounted_Drive_values->FirstRootDirSec;
    while(1)
    {
-      Print_Directory(current_directory_sector, buf1);
+      num_entries = Print_Directory(current_directory_sector, buf1);
       printf("Input Entry #: ");
       block_num=long_serial_input(); //block_num is entry number for Read_Dir_Entry()
+      if ((block_num < 0) | (block_num > num_entries))
+      {
+         block_num = long_serial_input();
+      }
+
 	  LEDS_ON(Green_LED);
 	  // TODO: Need to error check if number of entries (LBA or block_num)is higher that directories
 	  cluster_num = Read_Dir_Entry(current_directory_sector, block_num, buf1);
 	  // TODO: Need to do extra error checking
-	  if((cluster_num&directory_bit)!=0) // directory mask
+	  if((cluster_num &directory_bit)!=0) // directory mask
 	  {
 	  	  printf("Entry is a directory...Opening now...\r\n");
-	      cluster_num&=0x0FFFFFFF;
+	      cluster_num &= 0x0FFFFFFF;
           current_directory_sector = First_Sector(cluster_num);
 	  }
 	  else // if entry is a file
 	  {
 	  	  printf("Entry is a file...Opening now...\r\n");
-	  	  cluster_num&=0x0FFFFFFF;
+	  	  cluster_num &= 0x0FFFFFFF;
 	      Open_File(cluster_num, buf2);
 	  }
    }

@@ -367,45 +367,43 @@ uint32_t Find_Next_Clus(uint32_t Cluster_num, uint8_t xdata * array_name)
     return return_clus;
 }
 
-//uint8_t xdata sector_buffer[512];
-
 uint8_t Open_File(uint32_t Cluster, uint8_t xdata * array_in)
 {
 	uint32_t sector_num;
 	uint32_t first_sec_num;
 	uint32_t user_input;
-	//uint32_t next_cluster = Cluster;
-	//uint8_t index = 0;
+	uint8_t first = 0;
 
-	//first_sec_num = First_Sector(next_cluster);
-	//printf("Cluster # = %lx ,Sector # = %lx\r\n", next_cluster, first_sec_num);
-	//Read_Sector(first_sec_num, Drive_values.BytesPerSec, array_in);
-	//print_memory(array_in, Drive_values.BytesPerSec);
 	do
 	{
 		//printf("1. Continue to next cluster\r\n2. Back to main menu\r\nInput Entry #: ");
 		//user_input = long_serial_input();
-		//if(user_input == 1)
+		if(user_input == 1)
 			
 			first_sec_num = First_Sector(Cluster);
 			sector_num = first_sec_num;
-			//index = 0;
+
 			while(sector_num!=Drive_values.SecPerClus+first_sec_num)
 			{
 				Read_Sector(sector_num,Drive_values.BytesPerSec, array_in);
 				printf("Cluster # = %lx ,Sector # = %lx\r\n", Cluster, sector_num);
-				//print_memory(array_in, Drive_values.BytesPerSec);
-				//index++;
+				//Checks if its the first sector of the file
+				if (first == 0)
+				{
+					print_memory(array_in, Drive_values.BytesPerSec);
+				}
 				sector_num++;
+				first = 1;
 			}
 			Cluster = Find_Next_Clus(Cluster,array_in);
-		//}
-		//else
-		//{
-		//	printf("Quitting...\r\n");
-		//}
-		// TODO: Need to check for eof
-	}while(/*user_input == 1&&*/Cluster!=0x0FFFFFFF);
+		}
+		else
+		{
+			printf("Quitting...\r\n");
+		}
+	}while( user_input == 1 && Cluster!=0x0FFFFFFF);
+	//reset first flag so that next file can print first
+	first = 0;
 	print_memory(array_in, Drive_values.BytesPerSec);
 	printf("Cluster number: %lx \r\n", Cluster);
 	// TODO: Need to return an actual error value
