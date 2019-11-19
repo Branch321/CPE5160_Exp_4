@@ -18,8 +18,11 @@
 #define no_entry_found (0x80000000)  // msb set to indicate error
 #define directory_bit  (0x10000000)  // lsb of first nibble (bit28)
 
-
 //----------------- Typedefs ----------------------------------------
+
+/*
+ * Desc: This struct holds all constants from BPB on SD card
+ */
 typedef struct
 {
   uint8_t SecPerClus;
@@ -66,16 +69,29 @@ uint16_t read16(uint16_t offset, uint8_t * array_name);
  */
 uint32_t read32(uint16_t offset, uint8_t * array_name);
 
-// TODO: Need docs here
+/*
+ * Desc: Mounts the SD card
+ * Pre: SPI mst be initializing before calling this function
+ * Notes: array_name is used to read in MBR and BPB sectors
+ * Warning: array_name will be modified
+ */
 uint8_t Mount_Drive(uint8_t xdata * array_name);
 
-// TODO: Need docs here
+/*
+ * Desc: Finds and returns the first sector of cluster passed to it
+ */
 uint32_t First_Sector (uint32_t Cluster_num);
 
-// TODO: Need docs here
+/*
+ * Desc: Finds the next cluster of data
+ * Warning: array_name will be modified
+ */
 uint32_t Find_Next_Clus(uint32_t Cluster_num, uint8_t xdata * array_name);
 
-
+/*
+ * Desc: Reads the data of a file and outputs to screen
+ * Warning: array_name will be modified
+ */
 uint8_t Open_File(uint32_t Cluster, uint8_t xdata * array_in);
 
 
