@@ -111,9 +111,7 @@ main()
       }
 
 	  LEDS_ON(Green_LED);
-	  // TODO: Need to error check if number of entries (LBA or block_num)is higher that directories
 	  cluster_num = Read_Dir_Entry(current_directory_sector, block_num, buf1);
-	  // TODO: Need to do extra error checking and set directory bit to 1 if error
 	  if((cluster_num &directory_bit)!=0) // directory mask
 	  {
 	  	   printf("Entry is a directory...Opening now...\r\n");

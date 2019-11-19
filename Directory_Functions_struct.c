@@ -18,7 +18,6 @@
 
 FS_values_t idata Drive_values;
 
-
 /***********************************************************************
 DESC: Returns a pointer to the global structure Drive_values to export to other files
 INPUT: void
@@ -443,7 +442,6 @@ uint8_t Open_File(uint32_t Cluster, uint8_t xdata * array_in)
 		}
 	}while( user_input == 1 && Cluster!=0x0FFFFFFF);
 	printf("Cluster number: %lx \r\n", Cluster);
-	// TODO: Need to return an actual error value
 	return error_flag;
 }
 
