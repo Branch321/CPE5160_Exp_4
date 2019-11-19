@@ -13,6 +13,7 @@
 #define FAT16_shift (1)
 
 #define Disk_Error (0xF0)
+#define FAT_Unsupported (0xF1)
 #define No_Disk_Error (0)
 #define more_entries (0x8000)   
 #define no_entry_found (0x80000000)  // msb set to indicate error

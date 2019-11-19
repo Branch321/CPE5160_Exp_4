@@ -337,7 +337,7 @@ uint8_t Mount_Drive(uint8_t xdata * array_name)
 	printf("FirstDataSec:: %lx\r\n",Drive_values.FirstDataSec);
 	Drive_values.FirstRootDirSec = ((RootCluster-2)*Drive_values.SecPerClus)+Drive_values.FirstDataSec;
 	printf("FirstRootDirSec:: %lx\r\n",Drive_values.FirstRootDirSec);
-	Drive_values.FATtype = FAT32;
+	//Drive_values.FATtype = FAT32;
 	Drive_values.FATshift = FAT32_shift;
 	CountofClus = Drive_values.FirstDataSec / Drive_values.SecPerClus;
 
@@ -346,14 +346,15 @@ uint8_t Mount_Drive(uint8_t xdata * array_name)
 	{
 		//FAT16
 		Drive_value.FATtype = FAT16;
+		error_flag = FAT_Unsupported;
 	}
 	else
 	{
 		//FAT32
 		Drive_value.FATtype = FAT32;
 	}
-	
-	// if FAT16 is detected return error_flag\
+	printf(Drive_values.FATtype);
+	// if FAT16 is detected return error_flag
 	return error_flag;
 }
 

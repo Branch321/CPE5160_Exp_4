@@ -100,25 +100,26 @@ main()
       num_entries = Print_Directory(current_directory_sector, buf1);
       printf("Input Entry #: ");
       block_num=long_serial_input(); //block_num is entry number for Read_Dir_Entry()
-      if ((block_num < 0) | (block_num > num_entries))
+      while ((block_num =< 0) | (block_num > num_entries)) ///0?
       {
+         printf("Invalid selection. Please select a valid entry.");
          block_num = long_serial_input();
       }
 
 	  LEDS_ON(Green_LED);
 	  // TODO: Need to error check if number of entries (LBA or block_num)is higher that directories
 	  cluster_num = Read_Dir_Entry(current_directory_sector, block_num, buf1);
-	  // TODO: Need to do extra error checking
+	  // TODO: Need to do extra error checking and set directory bit to 1 if error
 	  if((cluster_num &directory_bit)!=0) // directory mask
 	  {
-	  	  printf("Entry is a directory...Opening now...\r\n");
+	  	   printf("Entry is a directory...Opening now...\r\n");
 	      cluster_num &= 0x0FFFFFFF;
-          current_directory_sector = First_Sector(cluster_num);
+         current_directory_sector = First_Sector(cluster_num);
 	  }
 	  else // if entry is a file
 	  {
-	  	  printf("Entry is a file...Opening now...\r\n");
-	  	  cluster_num &= 0x0FFFFFFF;
+	  	   printf("Entry is a file...Opening now...\r\n");
+	  	   cluster_num &= 0x0FFFFFFF;
 	      Open_File(cluster_num, buf2);
 	  }
    }
